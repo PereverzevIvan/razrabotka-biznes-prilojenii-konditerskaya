@@ -1,0 +1,15 @@
+microservices:
+  confectionary:
+    url: http://localhost:3001/api
+    name: confectionary
+
+    routes:
+      hello:
+        path: /hello
+        method: GET
+
+      goodbye:
+        path: /goodbye
+        method: GET
+        middleware:
+          - auth
