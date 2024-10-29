@@ -4,7 +4,7 @@ import (
 	"os"
 	"reflect"
 
-	configloader_utils "gitflic.ru/project/pereverzevivan/razrabotka-biznes-prilojenii-konditerskaya/gateway/pkg/config_loader/utils"
+	configloader_utils "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/tree/main/backend/gateway/pkg/config_loader/utils"
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
