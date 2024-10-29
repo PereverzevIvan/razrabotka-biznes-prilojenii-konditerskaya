@@ -3,8 +3,7 @@ package main
 import (
 	"fmt"
 
-	"gitflic.ru/project/pereverzevivan/razrabotka-biznes-prilojenii-konditerskaya/gateway/configs"
-	configloader "gitflic.ru/project/pereverzevivan/razrabotka-biznes-prilojenii-konditerskaya/gateway/pkg/config_loader"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/tree/main/backend/gateway/configs"
 )
 
 // @title Разработка бизнес-приложений - лаба 3
@@ -25,11 +24,11 @@ const (
 func main() {
 	var cfg configs.Config
 
-	configloader.MustLoadFromCmd(
-		CONFIG_PATH_PARAM_NAME,
-		&cfg)
+	// configloader.MustLoadFromCmd(
+	// CONFIG_PATH_PARAM_NAME,
+	// &cfg)
 	// cfg := configloader.MustLoad()
-	fmt.Println(cfg)
+	// fmt.Println(cfg)
 
 	// conn := service.NewStorage(cfg.ConfigDatabase)
 	// fmt.Println(conn)
