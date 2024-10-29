@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/tree/main/backend/gateway/configs"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/configs"
 )
 
 // @title Разработка бизнес-приложений - лаба 3
