@@ -4,8 +4,7 @@ import (
 	"fmt"
 
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/configs"
-	configloader "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
-	configloader_utils "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader/utils"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
 )
 
 // @title Разработка бизнес-приложений - лаба 3
@@ -26,9 +25,7 @@ const (
 func main() {
 	var cfg configs.Config
 
-	configloader.MustLoadFromCmd(
-		configloader_utils.FetchCmdParamValue(CONFIG_PATH_PARAM_NAME),
-		&cfg)
+	config_loader.MustLoadFromCmd(CONFIG_PATH_PARAM_NAME, &cfg)
 	fmt.Println(cfg)
 
 	// conn := service.NewStorage(cfg.ConfigDatabase)

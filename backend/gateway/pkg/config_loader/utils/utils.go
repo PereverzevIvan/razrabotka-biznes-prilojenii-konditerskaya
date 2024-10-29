@@ -1,4 +1,4 @@
-package configloader_utils
+package config_loader_utils
 
 import (
 	"flag"

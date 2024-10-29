@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 
-	configloader "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/hello/configs"
 )
 
@@ -23,9 +22,7 @@ const (
 func main() {
 	var cfg configs.Config
 
-	configloader.MustLoadFromCmd(
-		CONFIG_PATH_PARAM_NAME,
-		&cfg)
+	config_loader.MustLoadFromCmd(CONFIG_PATH_PARAM_NAME, &cfg)
 	// cfg := configloader.MustLoad()
 	fmt.Println(cfg)
 

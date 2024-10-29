@@ -1,10 +1,9 @@
-package configloader
+package config_loader
 
 import (
 	"os"
 	"reflect"
 
-	configloader_utils "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader/utils"
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
