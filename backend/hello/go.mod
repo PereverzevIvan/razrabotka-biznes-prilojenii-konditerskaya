@@ -1,8 +1,6 @@
-module github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway
+module github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/hello
 
 go 1.22.7
-
-replace github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader => ./pkg/config_loader
 
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect

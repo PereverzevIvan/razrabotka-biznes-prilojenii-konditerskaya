@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/tree/main/backend/hello/configs"
+	configloader "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/hello/configs"
 )
 
 // @title Ручка приветствия
@@ -22,11 +23,11 @@ const (
 func main() {
 	var cfg configs.Config
 
-	// configloader.MustLoadFromCmd(
-	// 	CONFIG_PATH_PARAM_NAME,
-	// 	&cfg)
-	// // cfg := configloader.MustLoad()
-	// fmt.Println(cfg)
+	configloader.MustLoadFromCmd(
+		CONFIG_PATH_PARAM_NAME,
+		&cfg)
+	// cfg := configloader.MustLoad()
+	fmt.Println(cfg)
 
 	// conn := service.NewStorage(cfg.ConfigDatabase)
 	// fmt.Println(conn)
