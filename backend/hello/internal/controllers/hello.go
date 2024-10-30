@@ -1,16 +1,30 @@
 package controllers
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+)
 
 type HelloController struct {
 }
 
-func AddHelloControllerRoutes(mux *http.ServeMux) {
+func AddHelloControllerRoutes() {
 	controller := &HelloController{}
 
-	mux.HandleFunc("/hello", controller.Hello)
+	controller.AddHelloRoute()
 }
 
-func (c *HelloController) Hello(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello, World!"))
+func (c *HelloController) AddHelloRoute() {
+	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hello, World!"))
+	})
+}
+
+func (c *HelloController) AddHelloIdRoute() {
+	http.HandleFunc("/hello/:id", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(fmt.Sprintf(
+			"Hello, World-%s!",
+			r.URL.Query().Get("id"),
+		)))
+	})
 }

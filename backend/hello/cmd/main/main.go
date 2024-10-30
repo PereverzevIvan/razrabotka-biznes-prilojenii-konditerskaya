@@ -28,11 +28,21 @@ func main() {
 	config_loader.MustLoadFromCmd(CONFIG_PATH_PARAM_NAME, &cfg)
 	fmt.Println(cfg)
 
-	mux := http.NewServeMux()
+	controllers.Init()
 
-	controllers.Init(mux)
+	http.HandleFunc("/*", func(w http.ResponseWriter, r *http.Request) {
+		var ans_text string = fmt.Sprintf(
+			"requested url %s not found; path is %s",
+			r.URL,
+			r.URL.Path,
+		)
 
-	err := http.ListenAndServe(fmt.Sprintf(":%d", cfg.ConfigServer.Port), mux)
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte(ans_text))
+	})
+
+	err := http.ListenAndServe(fmt.Sprintf(":%d", cfg.ConfigServer.Port), nil)
 	if err != nil {
 		panic(err)
 	}

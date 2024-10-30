@@ -23,9 +23,9 @@ func InitGatewayRoutes(group fiber.Router) {
 	for _, microservice := range routes_config.Microservices {
 		for _, route := range microservice.Routes {
 
-			route_middlewares := parse_route_middlewares(route.Middlewares)
+			route_middlewares := parseRouteMiddlewares(route.Middlewares)
 
-			add_routes_methods(
+			addRoutesMethods(
 				group,
 				microservice.Url,
 				route.Path,
@@ -36,7 +36,7 @@ func InitGatewayRoutes(group fiber.Router) {
 	}
 }
 
-func parse_route_middlewares(middlewares []configs.RouteMiddleware) []fiber.Handler {
+func parseRouteMiddlewares(middlewares []configs.RouteMiddleware) []fiber.Handler {
 	var route_middlewares []fiber.Handler
 	for _, middleware := range middlewares {
 		switch middleware {
@@ -54,17 +54,17 @@ func parse_route_middlewares(middlewares []configs.RouteMiddleware) []fiber.Hand
 
 func generateForwardRequestFunc(microservice_url string) func(ctx fiber.Ctx) error {
 	return func(ctx fiber.Ctx) error {
-		fmt.Println(microservice_url)
-		if err := proxy.DoTimeout(ctx, microservice_url, time.Second*5); err != nil {
+		if err := proxy.DoTimeout(ctx, microservice_url+ctx.OriginalURL(), time.Second*5); err != nil {
 			return err
 		}
+
 		// Remove Server header from response
 		ctx.Response().Header.Del(fiber.HeaderServer)
 		return nil
 	}
 }
 
-func add_routes_methods(
+func addRoutesMethods(
 	group fiber.Router,
 	microservice_url string,
 	path string,
