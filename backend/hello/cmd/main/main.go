@@ -2,10 +2,12 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/hello/configs"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/hello/internal/controllers"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/hello/internal/middlewares"
 )
 
 // @title Ручка приветствия
@@ -25,21 +27,17 @@ func main() {
 	var cfg configs.Config
 
 	config_loader.MustLoadFromCmd(CONFIG_PATH_PARAM_NAME, &cfg)
-	// cfg := configloader.MustLoad()
 	fmt.Println(cfg)
 
-	controllers.Init(cfg.ConfigServer.Port)
-	// conn := service.NewStorage(cfg.ConfigDatabase)
-	// fmt.Println(conn)
+	mux := http.NewServeMux()
 
-	// app := fiber.New()
+	controllers.Init(mux)
 
-	// app.Use(cors.New(cors.Config{
-	// 	AllowOrigins:     []string{"*", "http://localhost:5043", "http://localhost:5173"},
-	// 	AllowCredentials: true, // Разрешение отправки кук
-	// }))
+	wrappedMux := middlewares.IpWhitelistMiddleware(cfg.AllowedOrigins, mux)
 
-	// // controllers.InitControllers(app, conn.Conn, &cfg.ConfigJWT)
+	err := http.ListenAndServe(fmt.Sprintf(":%d", cfg.ConfigServer.Port), wrappedMux)
+	if err != nil {
+		panic(err)
+	}
 
-	// log.Info(app.Listen(fmt.Sprintf(":%d", cfg.ConfigServer.Port)))
 }

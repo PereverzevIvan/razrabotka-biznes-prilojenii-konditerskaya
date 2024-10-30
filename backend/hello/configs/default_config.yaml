@@ -1,2 +1,10 @@
 server:
   port: 3101
+
+allowed_origins:
+  - gateway:
+    host: 127.0.0.1
+    port: 7777
+
+  - localhost:
+    host: ::1
