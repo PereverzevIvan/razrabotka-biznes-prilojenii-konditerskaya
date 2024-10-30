@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/configs"
+	middlewares_gateway "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/middlewares/gateway"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
 )
 
@@ -18,15 +19,18 @@ import (
 // @securityDefinitions.apikey ApiKeyAuth
 // @in cookie
 // @name access-token
-const (
-	CONFIG_PATH_PARAM_NAME = "config_path"
-)
-
 func main() {
-	var cfg configs.Config
+	configs.MustLoadCmdParams()
 
-	config_loader.MustLoadFromCmd(CONFIG_PATH_PARAM_NAME, &cfg)
+	var cfg configs.Config
+	config_loader.MustLoad(configs.ConfigPath, &cfg)
 	fmt.Println(cfg)
+
+	// app := fiber.New()
+
+	middlewares_gateway.InitGatewayRoutes()
+
+	// gateway := app.Group("")
 
 	// conn := service.NewStorage(cfg.ConfigDatabase)
 	// fmt.Println(conn)

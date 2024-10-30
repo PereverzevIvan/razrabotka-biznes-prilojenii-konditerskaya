@@ -9,21 +9,21 @@ import (
 )
 
 // Функция для парсинга конфигурации из файла
-func MustLoad(cfg_path string, cfg interface{}) {
+func MustLoad(path_to_cfg string, cfg interface{}) {
 	if reflect.ValueOf(cfg).Kind() != reflect.Ptr {
 		panic("config must be a pointer")
 	}
 
 	// path := fetchConfigPath(cfg_path) // Считываем путь до конфига из командной строки
-	if cfg_path == "" {
+	if path_to_cfg == "" {
 		panic("config path is empty")
 	}
 
-	if _, err := os.Stat(cfg_path); os.IsNotExist(err) { // Проверяем существование файла по данному пути
+	if _, err := os.Stat(path_to_cfg); os.IsNotExist(err) { // Проверяем существование файла по данному пути
 		panic(err)
 	}
 
-	cleanenv.ReadConfig(cfg_path, cfg) // Парсим информацию из файла в структуру через специальную библиотеку
+	cleanenv.ReadConfig(path_to_cfg, cfg) // Парсим информацию из файла в структуру через специальную библиотеку
 }
 
 // Функция-обёртка для парсинга конфигурации из командной строки
