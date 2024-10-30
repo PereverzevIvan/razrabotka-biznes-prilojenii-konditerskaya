@@ -11,9 +11,9 @@ type MicroserviceConfig struct {
 }
 
 type Route struct {
-	Path        string   `yaml:"path" env-required:"true"`
-	Methods     []string `yaml:"methods"`
-	Middlewares []string `yaml:"middlewares"`
+	Path        string            `yaml:"path" env-required:"true"`
+	Methods     []RouteMethods    `yaml:"methods"`
+	Middlewares []RouteMiddleware `yaml:"middlewares"`
 }
 
 type RouteMethods string

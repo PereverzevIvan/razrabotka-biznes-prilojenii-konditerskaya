@@ -4,8 +4,9 @@ import (
 	"fmt"
 
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/configs"
-	middlewares_gateway "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/middlewares/gateway"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/controllers"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
+	"github.com/gofiber/fiber/v3"
 )
 
 // @title Разработка бизнес-приложений - лаба 3
@@ -14,7 +15,7 @@ import (
 // @description Тема проекта - кондитерская.
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
-// @host localhost:7777
+// @host localhost:3000
 // @BasePath /api
 // @securityDefinitions.apikey ApiKeyAuth
 // @in cookie
@@ -26,11 +27,19 @@ func main() {
 	config_loader.MustLoad(configs.ConfigPath, &cfg)
 	fmt.Println(cfg)
 
-	// app := fiber.New()
+	app := fiber.New()
+	root := app.Group("/")
+	controllers.InitGatewayRoutes(root)
 
-	middlewares_gateway.InitGatewayRoutes()
-
-	// gateway := app.Group("")
+	fmt.Println(
+		app.Listen(fmt.Sprintf(":%d", cfg.ServerConfig.Port)),
+	)
+	/*
+		- Определить путь
+		- Выполнить проверки Middleware
+		- Определить микросервис по пути, и отправить запрос
+		- Отправить ответ
+	*/
 
 	// conn := service.NewStorage(cfg.ConfigDatabase)
 	// fmt.Println(conn)
