@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/hello/configs"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/hello/internal/controllers"
 )
 
 // @title Ручка приветствия
@@ -26,6 +28,7 @@ func main() {
 	// cfg := configloader.MustLoad()
 	fmt.Println(cfg)
 
+	controllers.Init(cfg.ConfigServer.Port)
 	// conn := service.NewStorage(cfg.ConfigDatabase)
 	// fmt.Println(conn)
 

@@ -4,6 +4,7 @@ import (
 	"os"
 	"reflect"
 
+	config_loader_utils "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader/utils"
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
@@ -33,7 +34,7 @@ func MustLoadFromCmd(param_name string, cfg interface{}) {
 		panic("param name is empty")
 	}
 
-	cfg_path := configloader_utils.FetchCmdParamValue(param_name)
+	cfg_path := config_loader_utils.FetchCmdParamValue(param_name)
 	if cfg_path == "" {
 		panic("config path is empty")
 	}
