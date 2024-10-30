@@ -5,6 +5,8 @@ github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gat
 github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader v0.0.0-20241029210444-f6d1fe7eb42b/go.mod h1:0taefA4EkH0RDK51dpw/EBWfm0d+XO8tSNfYLVyqni8=
 github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader v0.0.0-20241029211231-97580ea827ec h1:wCpfheGGupJvEZinARZL13G42QJix2TSoQ+lMkhfSWM=
 github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader v0.0.0-20241029211231-97580ea827ec/go.mod h1:0taefA4EkH0RDK51dpw/EBWfm0d+XO8tSNfYLVyqni8=
+github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader v0.0.0-20241030084739-b6dd5881bb08 h1:aobcp9io0SgLUEHl9gij6rOQPyeZDS3qiRLqN2TKuyg=
+github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader v0.0.0-20241030084739-b6dd5881bb08/go.mod h1:0taefA4EkH0RDK51dpw/EBWfm0d+XO8tSNfYLVyqni8=
 github.com/ilyakaznacheev/cleanenv v1.5.0 h1:0VNZXggJE2OYdXE87bfSSwGxeiGt9moSR2lOrsHHvr4=
 github.com/ilyakaznacheev/cleanenv v1.5.0/go.mod h1:a5aDzaJrLCQZsazHol1w8InnDcOX0OColm64SlIi6gk=
 github.com/joho/godotenv v1.5.1 h1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=
