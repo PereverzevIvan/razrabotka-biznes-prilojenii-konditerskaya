@@ -2,10 +2,12 @@ package controllers
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/configs"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
 	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/proxy"
 )
 
 const (
@@ -50,6 +52,18 @@ func parse_route_middlewares(middlewares []configs.RouteMiddleware) []fiber.Hand
 	return route_middlewares
 }
 
+func generateForwardRequestFunc(microservice_url string) func(ctx fiber.Ctx) error {
+	return func(ctx fiber.Ctx) error {
+		fmt.Println(microservice_url)
+		if err := proxy.DoTimeout(ctx, microservice_url, time.Second*5); err != nil {
+			return err
+		}
+		// Remove Server header from response
+		ctx.Response().Header.Del(fiber.HeaderServer)
+		return nil
+	}
+}
+
 func add_routes_methods(
 	group fiber.Router,
 	microservice_url string,
@@ -61,11 +75,7 @@ func add_routes_methods(
 	for _, method := range methods {
 		switch method {
 		case configs.GET:
-			group.Get(path, func(ctx fiber.Ctx) error {
-				return ctx.
-					Status(fiber.StatusOK).
-					SendString(fmt.Sprintf("OK, sending to %s", microservice_url))
-			}, route_middlewares...)
+			group.Get(path, generateForwardRequestFunc(microservice_url), route_middlewares...)
 		// case configs.POST:
 		// 	group.Post(path, route_middlewares...)
 		// case configs.PUT:

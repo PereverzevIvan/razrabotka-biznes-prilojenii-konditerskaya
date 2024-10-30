@@ -7,7 +7,6 @@ import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/hello/configs"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/hello/internal/controllers"
-	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/hello/internal/middlewares"
 )
 
 // @title Ручка приветствия
@@ -33,9 +32,7 @@ func main() {
 
 	controllers.Init(mux)
 
-	wrappedMux := middlewares.IpWhitelistMiddleware(cfg.AllowedOrigins, mux)
-
-	err := http.ListenAndServe(fmt.Sprintf(":%d", cfg.ConfigServer.Port), wrappedMux)
+	err := http.ListenAndServe(fmt.Sprintf(":%d", cfg.ConfigServer.Port), mux)
 	if err != nil {
 		panic(err)
 	}

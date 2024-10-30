@@ -1,6 +1,6 @@
 microservices:
   - confectionary:
-    url: http://localhost:3001
+    url: http://golang_hello:3101
     name: confectionary
 
     routes:
@@ -8,6 +8,11 @@ microservices:
         path: /hello
         methods:
           - GET
+
+      - hello_id:
+          path: /hello/:id
+          methods:
+            - GET
 
       - goodbye:
         path: /goodbye

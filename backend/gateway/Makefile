@@ -2,6 +2,9 @@
 DEFAULT_CONFIG_PATH = ./configs/default_config.yaml
 ROUTES_PATH = ./configs/routes.yaml
 
+up:
+	docker compose up 
+
 dev:
 	go run ./cmd/main/main.go \
 		--config_path=$(DEFAULT_CONFIG_PATH) \
