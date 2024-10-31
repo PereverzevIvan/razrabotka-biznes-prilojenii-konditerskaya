@@ -3,8 +3,8 @@ server:
 
 database:
   db_type: mysql
-  host: mysql
-  db_port: 3306
+  host: mysql 
+  port: 3306
   db_name: confectionary
   admin_name: admin
   db_password: admin

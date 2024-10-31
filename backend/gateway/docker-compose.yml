@@ -1,7 +1,8 @@
 services:
   golang:
     image: golang:1.22.7
-    container_name: golang_gateway # Название контейнера
+    # build: . o
+    # container_name: golang_gateway # Название контейнера
     ports:
       - "3000:3000"  # Пробрасываем порт наружу
     volumes:
@@ -11,13 +12,14 @@ services:
     restart: on-failure
     networks:
       - gatework
+      - database
     depends_on:
       - mysql
 
   mysql:
     image: mysql:8.0
-    container_name: confectionary_mysql
     restart: always
+    # container_name: confectionary_mysql
     environment:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: confectionary

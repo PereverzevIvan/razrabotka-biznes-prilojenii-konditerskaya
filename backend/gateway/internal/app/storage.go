@@ -27,6 +27,7 @@ func NewStorage(cfg *configs.DBConfig) (*Storage, error) {
 			cfg.Port,
 			cfg.DBName,
 		)
+		fmt.Println(dsn)
 
 		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 		if err != nil {

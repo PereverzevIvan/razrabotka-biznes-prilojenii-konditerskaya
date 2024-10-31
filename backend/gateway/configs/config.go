@@ -19,10 +19,9 @@ type ServerConfig struct {
 }
 
 type DBConfig struct {
-	Port       int    `yaml:"port" env-required:"true"`
 	DBType     string `yaml:"db_type" env-required:"true"`
 	Host       string `yaml:"host" env-required:"true"`
-	DBPort     int    `yaml:"db_port" env-required:"true"`
+	Port       int    `yaml:"port" env-required:"true"`
 	DBName     string `yaml:"db_name" env-required:"true"`
 	AdminName  string `yaml:"admin_name" env-required:"true"`
 	DBPassword string `yaml:"db_password" env-required:"true"`
