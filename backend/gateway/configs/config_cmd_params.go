@@ -1,6 +1,9 @@
 package configs
 
-import "flag"
+import (
+	"flag"
+	"fmt"
+)
 
 const (
 	CONFIG_PATH_PARAM_NAME   = "config_path"
@@ -12,8 +15,27 @@ var (
 	RoutesPath string
 )
 
-func MustLoadCmdParams() {
-	flag.StringVar(&ConfigPath, CONFIG_PATH_PARAM_NAME, "", "")
-	flag.StringVar(&RoutesPath, CONFIG_ROUTES_PARAM_NAME, "", "")
+type cmdParam[T any] struct {
+	Name     string
+	ValuePtr *T
+}
+
+func LoadCmdParams() error {
+	stringParams := []cmdParam[string]{
+		{CONFIG_PATH_PARAM_NAME, &ConfigPath},
+		{CONFIG_ROUTES_PARAM_NAME, &RoutesPath},
+	}
+
+	for _, param := range stringParams {
+		flag.StringVar(param.ValuePtr, param.Name, "", "")
+	}
+
 	flag.Parse()
+
+	for _, param := range stringParams {
+		if *param.ValuePtr == "" {
+			return fmt.Errorf("cmd param %s is empty", param.Name)
+		}
+	}
+	return nil
 }

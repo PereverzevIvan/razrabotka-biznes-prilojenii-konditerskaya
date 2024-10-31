@@ -21,7 +21,7 @@ import (
 // @in cookie
 // @name access-token
 func main() {
-	configs.MustLoadCmdParams()
+	configs.LoadCmdParams()
 
 	var cfg configs.Config
 	config_loader.MustLoad(configs.ConfigPath, &cfg)
@@ -29,7 +29,7 @@ func main() {
 
 	app := fiber.New()
 	root := app.Group("/")
-	controllers.InitGatewayRoutes(root)
+	controllers.AddGatewayRoutes(root)
 
 	fmt.Println(
 		app.Listen(fmt.Sprintf(":%d", cfg.ServerConfig.Port)),

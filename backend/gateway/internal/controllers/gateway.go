@@ -14,7 +14,7 @@ const (
 	ROUTES_PATH_PARAM_NAME = "routes_path"
 )
 
-func InitGatewayRoutes(group fiber.Router) {
+func AddGatewayRoutes(root fiber.Router) {
 	var routes_config configs.RoutesConfig
 	config_loader.MustLoad(configs.RoutesPath, &routes_config)
 
@@ -26,7 +26,7 @@ func InitGatewayRoutes(group fiber.Router) {
 			route_middlewares := parseRouteMiddlewares(route.Middlewares)
 
 			addRoutesMethods(
-				group,
+				root,
 				microservice.Url,
 				route.Path,
 				route.Methods,

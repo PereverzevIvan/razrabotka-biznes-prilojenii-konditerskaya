@@ -1,6 +1,7 @@
 package config_loader
 
 import (
+	"errors"
 	"os"
 	"reflect"
 
@@ -9,21 +10,30 @@ import (
 )
 
 // Функция для парсинга конфигурации из файла
-func MustLoad(path_to_cfg string, cfg interface{}) {
+func Load(path_to_cfg string, cfg interface{}) error {
 	if reflect.ValueOf(cfg).Kind() != reflect.Ptr {
-		panic("config must be a pointer")
+		return errors.New("config must be a pointer")
 	}
 
 	// path := fetchConfigPath(cfg_path) // Считываем путь до конфига из командной строки
 	if path_to_cfg == "" {
-		panic("config path is empty")
+		return errors.New("config path is empty")
 	}
 
 	if _, err := os.Stat(path_to_cfg); os.IsNotExist(err) { // Проверяем существование файла по данному пути
-		panic(err)
+		return err
 	}
 
 	cleanenv.ReadConfig(path_to_cfg, cfg) // Парсим информацию из файла в структуру через специальную библиотеку
+	return nil
+}
+
+// Функция для парсинга конфигурации из файла
+func MustLoad(path_to_cfg string, cfg interface{}) {
+	err := Load(path_to_cfg, cfg)
+	if err != nil {
+		panic(err)
+	}
 }
 
 // Функция-обёртка для парсинга конфигурации из командной строки
