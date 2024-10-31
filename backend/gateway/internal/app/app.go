@@ -15,17 +15,17 @@ type App struct {
 	fiberApp        *fiber.App
 }
 
-func NewApp() error {
-	app := App{}
+func NewApp() (*App, error) {
+	app := &App{}
 
 	app.fiberApp = fiber.New()
 
 	err := app.initDependencies()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return app, nil
 }
 
 func (app *App) Run() error {

@@ -3,9 +3,9 @@ server:
 
 database:
   db_type: mysql
-  host: localhost
+  host: mysql
   db_port: 3306
-  db_name: airplanes
+  db_name: confectionary
   admin_name: admin
   db_password: admin
   ssl: disable

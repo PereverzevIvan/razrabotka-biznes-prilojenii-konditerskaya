@@ -1,12 +1,9 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
-	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/configs"
-	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/controllers"
-	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
-	"github.com/gofiber/fiber/v3"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/app"
 )
 
 // @title Разработка бизнес-приложений - лаба 3
@@ -21,37 +18,15 @@ import (
 // @in cookie
 // @name access-token
 func main() {
-	configs.LoadCmdParams()
+	App, err := app.NewApp()
+	if err != nil {
+		log.Fatalln(err)
+		return
+	}
 
-	var cfg configs.Config
-	config_loader.MustLoad(configs.ConfigPath, &cfg)
-	fmt.Println(cfg)
-
-	app := fiber.New()
-	root := app.Group("/")
-	controllers.AddGatewayRoutes(root)
-
-	fmt.Println(
-		app.Listen(fmt.Sprintf(":%d", cfg.ServerConfig.Port)),
-	)
-	/*
-		- Определить путь
-		- Выполнить проверки Middleware
-		- Определить микросервис по пути, и отправить запрос
-		- Отправить ответ
-	*/
-
-	// conn := service.NewStorage(cfg.ConfigDatabase)
-	// fmt.Println(conn)
-
-	// app := fiber.New()
-
-	// app.Use(cors.New(cors.Config{
-	// 	AllowOrigins:     []string{"*", "http://localhost:5043", "http://localhost:5173"},
-	// 	AllowCredentials: true, // Разрешение отправки кук
-	// }))
-
-	// // controllers.InitControllers(app, conn.Conn, &cfg.ConfigJWT)
-
-	// log.Info(app.Listen(fmt.Sprintf(":%d", cfg.ConfigServer.Port)))
+	err = App.Run()
+	if err != nil {
+		log.Fatalln(err)
+		return
+	}
 }

@@ -30,7 +30,7 @@ func NewStorage(cfg *configs.DBConfig) (*Storage, error) {
 
 		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 		if err != nil {
-			return nil, fmt.Errorf("не удалось подключиться к базе данных")
+			return nil, fmt.Errorf("не удалось подключиться к базе данных, причина: %v", err)
 		}
 	// case "postgres":
 	// 	dsn = fmt.Sprintf(
