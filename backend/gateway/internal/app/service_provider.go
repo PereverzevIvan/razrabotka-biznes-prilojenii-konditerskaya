@@ -22,7 +22,7 @@ func newServiceProvider(db *gorm.DB) *ServiceProvider {
 
 func (s *ServiceProvider) UserService() controllers.IUserService {
 	if s.userService == nil {
-		s.userService = services.NewUserService(s.userRepo)
+		s.userService = services.NewUserService(s.UserService())
 	}
 	return s.userService
 }
