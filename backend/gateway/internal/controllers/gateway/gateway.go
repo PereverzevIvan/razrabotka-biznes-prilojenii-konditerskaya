@@ -1,12 +1,14 @@
-package controllers
+package controllers_gateway
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/configs"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/controllers"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
+
 	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/log"
 	"github.com/gofiber/fiber/v3/middleware/proxy"
 )
 
@@ -14,7 +16,7 @@ const (
 	ROUTES_PATH_PARAM_NAME = "routes_path"
 )
 
-func AddGatewayRoutes(root fiber.Router) {
+func AddGatewayRoutes(root fiber.Router, authMiddleware controllers.IAuthMiddleware) {
 	var routes_config configs.RoutesConfig
 	config_loader.MustLoad(configs.RoutesPath, &routes_config)
 
@@ -23,7 +25,10 @@ func AddGatewayRoutes(root fiber.Router) {
 	for _, microservice := range routes_config.Microservices {
 		for _, route := range microservice.Routes {
 
-			route_middlewares := parseRouteMiddlewares(route.Middlewares)
+			route_middlewares := parseRouteMiddlewares(
+				authMiddleware,
+				route.Middlewares,
+			)
 
 			addRoutesMethods(
 				root,
@@ -36,17 +41,19 @@ func AddGatewayRoutes(root fiber.Router) {
 	}
 }
 
-func parseRouteMiddlewares(middlewares []configs.RouteMiddleware) []fiber.Handler {
+func parseRouteMiddlewares(
+	authMiddleware controllers.IAuthMiddleware,
+	middlewares []configs.RouteMiddleware,
+) []fiber.Handler {
 	var route_middlewares []fiber.Handler
 	for _, middleware := range middlewares {
 		switch middleware {
 		case configs.Auth:
-			route_middlewares = append(route_middlewares, func(ctx fiber.Ctx) error {
-				return fmt.Errorf("auth middleware not implemented")
-				// return ctx.Next()
-			})
+			route_middlewares = append(route_middlewares, authMiddleware.Authorized)
+		case configs.Admin:
+			route_middlewares = append(route_middlewares, authMiddleware.Admin)
 		default:
-			fmt.Printf("Unknown middleware: %s\n", middleware)
+			log.Error("Unknown middleware: %s\n", middleware)
 		}
 	}
 	return route_middlewares
@@ -76,16 +83,16 @@ func addRoutesMethods(
 		switch method {
 		case configs.GET:
 			group.Get(path, generateForwardRequestFunc(microservice_url), route_middlewares...)
-		// case configs.POST:
-		// 	group.Post(path, route_middlewares...)
-		// case configs.PUT:
-		// 	group.Put(path, route_middlewares...)
-		// case configs.PATCH:
-		// 	group.Patch(path, route_middlewares...)
-		// case configs.DELETE:
-		// 	group.Delete(path, route_middlewares...)
+		case configs.POST:
+			group.Post(path, generateForwardRequestFunc(microservice_url), route_middlewares...)
+		case configs.PUT:
+			group.Put(path, generateForwardRequestFunc(microservice_url), route_middlewares...)
+		case configs.PATCH:
+			group.Patch(path, generateForwardRequestFunc(microservice_url), route_middlewares...)
+		case configs.DELETE:
+			group.Delete(path, generateForwardRequestFunc(microservice_url), route_middlewares...)
 		default:
-			fmt.Printf("Unknown method: %s\n", method)
+			log.Error("Unknown method: %s\n", method)
 		}
 	}
 }

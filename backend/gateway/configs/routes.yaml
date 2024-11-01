@@ -10,9 +10,12 @@ microservices:
           - GET
 
       - hello_id:
-          path: /hello/:id
-          methods:
-            - GET
+        path: /hello/:id
+        methods:
+          - GET
+        middlewares:
+          - auth
+          - admin
 
       - goodbye:
         path: /goodbye

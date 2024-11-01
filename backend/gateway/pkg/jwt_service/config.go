@@ -8,7 +8,7 @@ type ConfigJWT struct {
 	RefreshTokenExpiration time.Duration
 }
 
-type iUser interface {
+type IUser interface {
 	GetID() int
 	GetRole() string
 }

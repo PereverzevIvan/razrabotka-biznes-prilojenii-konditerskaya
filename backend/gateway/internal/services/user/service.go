@@ -1,46 +1,19 @@
-package services
+package services_user
 
-import (
-	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/models"
-	"golang.org/x/crypto/bcrypt"
-)
-
-type IUserRepo interface {
-	GetByID(user_id int) (*models.User, error)
-	// GetByEmail(email string) (*models.User, error)
-	// GetAll(params map[string]string) (*[]models.User, error)
-	// IsAdmin(user_id int) (bool, error)
-	// Create(*models.User) error
-	// IsActive(user_id int) (bool, error)
-	// Update(user *models.User) error
-	// UpdateActive(user_id int, is_active bool) error
-	// Update(*models.User) error
-	// Delete(user_id int) error
-}
+import "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/services"
 
 // type RoleRepo interface {
 // 	GetByID(role_id int) (models.Role, error)
 // }
 
 type UserService struct {
-	userRepo IUserRepo
+	userRepo services.IUserRepo
 }
 
-func NewUserService(userRepo IUserRepo) UserService {
-	return UserService{
+func NewUserService(userRepo services.IUserRepo) *UserService {
+	return &UserService{
 		userRepo: userRepo,
 	}
-}
-
-func (s UserService) IsPasswordCorrect(user *models.User, password string) bool {
-	hash_byte := []byte(user.Password)
-
-	err := bcrypt.CompareHashAndPassword(hash_byte, []byte(password))
-	return err == nil
-}
-
-func (s UserService) GetByID(user_id int) (*models.User, error) {
-	return s.userRepo.GetByID(user_id)
 }
 
 // func (s UserService) GetByEmail(email string) (*models.User, error) {

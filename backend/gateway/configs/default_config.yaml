@@ -3,7 +3,7 @@ server:
 
 database:
   db_type: mysql
-  host: mysql 
+  host: mysql
   port: 3306
   db_name: confectionary
   admin_name: admin
@@ -13,4 +13,4 @@ database:
 jwt:
   secret_key: "super-duper-secret-key-4-jwt-auth"
   access_token_duration: "10m"
-  refresh_token_duration: "8h"
+  refresh_token_duration: "8s"

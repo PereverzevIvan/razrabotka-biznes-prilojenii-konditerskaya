@@ -1,36 +1,22 @@
-package mysql_repo
+package repo_mysql_user
 
-import (
-	"sync"
+import "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/models"
 
-	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/models"
-	"gorm.io/gorm"
-)
+func (r *userRepo) GetByID(user_id int) (*models.User, error) {
+	r.m.RLock()
+	defer r.m.RUnlock()
 
-type userRepo struct {
-	Conn *gorm.DB
-	m    *sync.RWMutex
-}
+	var user *models.User
+	err := r.Conn.
+		First(&user, user_id).
+		Error
 
-func NewUserRepo(conn *gorm.DB) *userRepo {
-	return &userRepo{
-		Conn: conn,
+	if err != nil {
+		return nil, err
 	}
+
+	return user, nil
 }
-
-// func (r UserRepo) Create(user *models.User) error {
-// 	err := r.Conn.Create(user).Error
-// 	if IsUniqueConstraintError(err) {
-// 		return models.ErrUnique
-// 	}
-
-// 	// if IsForeignKeyConstraintError(err) &&
-// 	// 	strings.Contains(err.Error(), "`FK_Users_Offices` FOREIGN KEY (`OfficeID`) foreignKey `offices` (`ID`))") {
-// 	// 	return models.ErrFK
-// 	// }
-
-// 	return err
-// }
 
 // func (r UserRepo) Update(user *models.User) error {
 
@@ -56,19 +42,6 @@ func NewUserRepo(conn *gorm.DB) *userRepo {
 
 // 	return err
 // }
-
-func (r *userRepo) GetByID(user_id int) (*models.User, error) {
-	r.m.RLock()
-	defer r.m.RUnlock()
-
-	var user models.User
-	err := r.Conn.First(&user, user_id).Error
-	if err != nil {
-		return nil, err
-	}
-
-	return &user, nil
-}
 
 // func (u UserRepo) GetByEmail(email string) (*models.User, error) {
 // 	var user models.User

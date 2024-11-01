@@ -1,7 +1,7 @@
 services:
   golang:
     image: golang:1.22.7
-    # build: . o
+    build: .
     # container_name: golang_gateway # Название контейнера
     ports:
       - "3000:3000"  # Пробрасываем порт наружу

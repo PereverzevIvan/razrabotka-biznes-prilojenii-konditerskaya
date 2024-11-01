@@ -65,7 +65,7 @@ func (app *App) initConfigs() error {
 		return err
 	}
 
-	fmt.Println(app.config)
+	fmt.Println("server config: ", app.config)
 
 	return nil
 }
@@ -80,6 +80,10 @@ func (app *App) initStorage() error {
 }
 
 func (app *App) initServiceProvider() error {
-	app.serviceProvider = newServiceProvider(app.Storage.Conn)
+	app.serviceProvider = newServiceProvider(
+		app.Storage.Conn,
+		&app.config.JWTConfig,
+	)
+
 	return nil
 }

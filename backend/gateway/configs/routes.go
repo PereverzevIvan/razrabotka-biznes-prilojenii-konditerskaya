@@ -29,5 +29,6 @@ const (
 type RouteMiddleware string
 
 const (
-	Auth RouteMiddleware = "auth"
+	Auth  RouteMiddleware = "auth"
+	Admin RouteMiddleware = "admin"
 )
