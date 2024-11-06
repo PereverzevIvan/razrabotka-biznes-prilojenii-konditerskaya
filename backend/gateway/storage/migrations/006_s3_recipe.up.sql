@@ -7,10 +7,13 @@ create table `recipe_operations`  {
     `product_id` int(11) NOT NULL,
     `tool_id` int(11) DEFAULT NULL,
 
+
     `description` varchar(255) NOT NULL,
     `duration_minutes` int(11) NOT NULL,
+    `order_idx` int(11) NOT NULL,
 
     PRIMARY KEY (`id`),
+    UNIQUE (`product_id`, `order_idx`),
     FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
     FOREIGN KEY (`tool_id`) REFERENCES `tools` (`id`)
 };
