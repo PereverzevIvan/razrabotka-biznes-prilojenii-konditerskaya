@@ -13,13 +13,13 @@ func (controller *AuthController) setAccessRefreshTokens(
 ) error {
 	// Отправляем токены
 	ctx.Cookie(&fiber.Cookie{
-		Name:    "access_token",
+		Name:    "access-token",
 		Value:   access_token,
 		Expires: time.Now().Add(controller.jwtService.AccessTokenExpiration()),
 		// HTTPOnly: true,
 	})
 	ctx.Cookie(&fiber.Cookie{
-		Name:     "refresh_token",
+		Name:     "refresh-token",
 		Value:    refresh_token,
 		Expires:  time.Now().Add(controller.jwtService.RefreshTokenExpiration()),
 		HTTPOnly: true,

@@ -11,7 +11,7 @@ func (middleware *authMiddleware) Admin(ctx fiber.Ctx) error {
 		return ctx.SendStatus(fiber.StatusUnauthorized)
 	}
 
-	if role != models.KRoleAdmin.Name() {
+	if role != models.KRoleClientManager.Name() {
 		return ctx.SendStatus(fiber.StatusUnauthorized)
 	}
 

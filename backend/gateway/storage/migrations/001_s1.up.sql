@@ -1,4 +1,3 @@
-use `confectionary`;
 
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
@@ -10,19 +9,24 @@ CREATE TABLE `roles` (
 );
 
 INSERT INTO `roles` VALUES 
-    (1, 'user'),
-    (2, 'costumer'),
-    (3, 'customer service manager'),
-    (4, 'purchasing manager'),
-    (5, 'master'),
-    (6, 'director');
+    (1, 'Заказчик'),
+    (2, 'Менеджер по работе с клиентами'),
+    (3, 'Монеджер по закупкам'),
+    (4, 'Мастер'),
+    (5, 'Директор');
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `role_id` int(11) NOT NULL,
+    
     `login` varchar(255) NOT NULL UNIQUE,
     `password` varchar(1024) NOT NULL,
+
+    `first_name` varchar(255) NOT NULL,
+    `last_name` varchar(255) NOT NULL,
+    `patronymic` varchar(255) NOT NULL,
+    
     -- `created_at` datetime DEFAULT NULL,
     -- `updated_at` datetime DEFAULT NULL,
     
@@ -56,6 +60,12 @@ create table `tool_types`  {
     UNIQUE (`name`)
 };
 
+insert into `tool_types` (`id`, `name`) values
+    (1, "Формы"),
+    (2, "Ножи"),
+    (3, "Кастрюли"),
+    ;
+
 drop table if exists `tools`;
 create table `tools`  {
     `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -77,7 +87,7 @@ create table `tools`  {
 
 -- Ингредиенты и украшения для тортов
 
-drop table if exists `component_types`;
+drop table if exists `component_categories`;
 create table `ingredient_types`  {
     `id` int(11) NOT NULL AUTO_INCREMENT,
 
@@ -86,9 +96,26 @@ create table `ingredient_types`  {
     PRIMARY KEY (`id`)
 };
 
-INSERT INTO `component_types` VALUES
+INSERT INTO `component_categories` VALUES
     (1, "ingredients"),
-    (2, "decorations");
+    (2, "decorations")
+    ;
+
+drop table if exists `component_types`;
+create table `ingredient_types`  {
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+
+    `component_category_id` int(11) NOT NULL,
+    `name` varchar(255) NOT NULL,
+
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`component_category_id`) REFERENCES `component_categories` (`id`)
+};
+
+-- INSERT INTO `component_types` VALUES
+--     (1, "Свечки"),
+--     (2, "Мед")
+--     ;
 
 
 drop table if exists `components`;
