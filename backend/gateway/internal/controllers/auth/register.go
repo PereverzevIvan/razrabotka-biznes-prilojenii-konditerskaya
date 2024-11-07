@@ -1,6 +1,7 @@
 package controllers_auth
 
 import (
+	controllers_utils "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/controllers/utils"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/models"
 	params_auth "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/models/params/auth"
 	"github.com/gofiber/fiber/v3"
@@ -11,6 +12,11 @@ func (controller *AuthController) Register(ctx fiber.Ctx) error {
 	err := ctx.Bind().Body(&params)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).SendString(err.Error())
+	}
+
+	if validate_errs := params.Validate(); len(validate_errs) != 0 {
+		ctx.SendStatus(fiber.StatusBadRequest)
+		return controllers_utils.SendResponseMessages(ctx, validate_errs)
 	}
 
 	user, err := controller.userService.Create(&params)

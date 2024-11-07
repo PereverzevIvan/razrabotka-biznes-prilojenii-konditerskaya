@@ -13,16 +13,25 @@ type ERole int
 
 const (
 	KRoleNone ERole = iota
-	KRoleUser
-	KRoleAdmin
+	KRoleSupplier
+	KRoleClientManager
+	KRolePurchaseManager
+	KRoleMaster
+	KRoleDirector
 )
 
 func (e ERole) Name() string {
 	switch e {
-	case KRoleUser:
-		return "user"
-	case KRoleAdmin:
-		return "admin"
+	case KRoleSupplier:
+		return "Заказчик"
+	case KRoleClientManager:
+		return "Менеджер по работе с клиентами"
+	case KRolePurchaseManager:
+		return "Менеджер по закупкам"
+	case KRoleMaster:
+		return "Мастер"
+	case KRoleDirector:
+		return "Директор"
 	default:
 		return "none"
 	}
