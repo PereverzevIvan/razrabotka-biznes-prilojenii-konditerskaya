@@ -24,8 +24,6 @@ func AddAuthControllerRoutes(
 	api.Post("/register", controller.Register)
 	api.Post("/login", controller.Login)
 	api.Get("/logout", controller.Logout)
-	api.Get("/refresh", controller.Refresh, authMiddleware.Authorized)
+	api.Get("/refresh", controller.Refresh)
 	api.Get("/user/:id", controller.GetUserById, authMiddleware.Authorized)
-	// api
-	// controller.AddLoginRoute()
 }

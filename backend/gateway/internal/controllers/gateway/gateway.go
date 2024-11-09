@@ -97,11 +97,11 @@ func addRoutesMethods(
 	}
 }
 
-// func IpWhitelistMiddleware(allowedOrigins []configs.AllowedOrigin, next http.Handler) http.Handler {
-// 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+// func IpWhitelistMiddleware(allowedOrigins []configs.AllowedOrigin, next fiber.Handler) fiber.Handler {
+// 	return fiber.HandlerFunc(func(w fiber.ResponseWriter, r *fiber.Request) {
 // 		remoteIP, port, err := net.SplitHostPort(r.RemoteAddr)
 // 		if err != nil {
-// 			http.Error(w, "Invalid request", http.StatusBadRequest)
+// 			fiber.Error(w, "Invalid request", fiber.StatusBadRequest)
 // 			return
 // 		}
 
@@ -112,6 +112,6 @@ func addRoutesMethods(
 // 			}
 // 		}
 
-// 		http.Error(w, "Forbidden", http.StatusForbidden)
+// 		fiber.Error(w, "Forbidden", fiber.StatusForbidden)
 // 	})
 // }

@@ -1,7 +1,7 @@
 microservices:
-  - confectionary:
+  - hello:
     url: http://golang_hello:3101
-    name: confectionary
+    name: hello
 
     routes:
       - hello:
@@ -23,3 +23,9 @@ microservices:
           - GET
         middlewares:
           - auth
+
+  - tools:
+    url: http://golang_tools:3000
+    name: tools
+
+    routes:
