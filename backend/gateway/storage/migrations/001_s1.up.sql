@@ -66,6 +66,21 @@ insert into `tool_types` (`id`, `name`) values
     (3, "Кастрюли"),
     ;
 
+create table `degree_of_wears`  {
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+
+    PRIMARY KEY (`id`),
+    UNIQUE (`name`)
+};
+
+insert into `degree_of_wears` (`id`, `name`) values
+    (1, "Новый"),
+    (2, "Сломанный"),
+    (3, "Изношенный"),
+    (4, "Утилизированный")
+    ;
+
 drop table if exists `tools`;
 create table `tools`  {
     `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -76,12 +91,14 @@ create table `tools`  {
     `name` varchar(255) NOT NULL,
     `description` varchar(255) NOT NULL,
 
-    `degree_of_wear` int(11) NOT NULL,
+    `degree_of_wear_id` int(11) NOT NULL,
 
     `purchase_date` datetime DEFAULT NULL,
 
     PRIMARY KEY (`id`),
-    CHECK (0 <= `degree_of_wear` AND `degree_of_wear` <= 100)
+    FOREIGN KEY (`type_id`) REFERENCES `tool_types` (`id`),
+    FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`),
+    FOREIGN KEY (`degree_of_wear_id`) REFERENCES `deegree_of_wears` (`id`)
 };
 
 
@@ -116,6 +133,17 @@ create table `ingredient_types`  {
 --     (1, "Свечки"),
 --     (2, "Мед")
 --     ;
+
+drop table if exists `component_types`;
+create table `ingredient_types`  {
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+
+    `component_category_id` int(11) NOT NULL,
+    `name` varchar(255) NOT NULL,
+
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`component_category_id`) REFERENCES `component_categories` (`id`)
+};
 
 
 drop table if exists `components`;
