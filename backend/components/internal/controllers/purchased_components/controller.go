@@ -21,5 +21,6 @@ func AddPurchasedComponentControllerRoutes(
 	}
 
 	api.Get(":category_name/purchased/", controller.GetAll)
+	api.Delete(":category_name/purchased/:purchased_component_id", controller.DeleteEmpty)
 	// api.Delete(":category_name/purchased/:component_id", controller.Delete)
 }

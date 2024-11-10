@@ -27,4 +27,5 @@ type IComponentService interface {
 
 type IPurchasedComponentService interface {
 	GetAll(component_category_id int, params *params_purchased_component.GetAllParams) (*results_purchased_component.GetAllResults, error)
+	DeleteEmpty(purchased_component_id int) error
 }
