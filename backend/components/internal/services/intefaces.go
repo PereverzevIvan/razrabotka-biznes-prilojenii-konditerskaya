@@ -23,4 +23,6 @@ type IPurchasedComponentRepo interface {
 	DeleteEmpty(purchased_component_id int) error
 
 	Create(purchased_component *models.PurchasedComponent) error
+
+	Edit(purchased_component *models.PurchasedComponent) error
 }
