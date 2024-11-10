@@ -12,7 +12,7 @@ type IJWTService interface {
 }
 
 type IToolService interface {
-	GetAll(params *params_tool.ToolGetAllParams) ([]models.Tool, error)
+	GetAll(params *params_tool.GetAllParams) ([]models.Tool, error)
 	GetByID(tool_id int) (*models.Tool, error)
 	Add(params *params_tool.ToolAddParams) (*models.Tool, error)
 	Edit(tool_id int, params *params_tool.ToolEditParams) (*models.Tool, error)

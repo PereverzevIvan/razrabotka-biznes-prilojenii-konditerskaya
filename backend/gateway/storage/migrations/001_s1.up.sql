@@ -38,41 +38,44 @@ CREATE TABLE `users` (
 -- Поставщики
 
 drop table if exists `suppliers`;
-create table `suppliers`  {
+create table `suppliers`  (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `name` varchar(255) NOT NULL,
-    `contact_person` varchar(255) NOT NULL,
-    `phone` varchar(255) NOT NULL,
-    `email` varchar(255) NOT NULL,
+    `address` varchar(255) DEFAULT NULL,
+    `delivery_time_minutes` int(11) NOT NULL,
     
-    PRIMARY KEY (`id`),
-    UNIQUE (`name`)
-};
+    PRIMARY KEY (`id`)
+);
+
+INSERT INTO `suppliers` 
+VALUES 
+	(1, "ИП Дмитрий Delivery", "г. Москва ул. Шарикоподшипниковская 42а", 120),
+    (2, "Fast Express", "Московская область, г. Красногорск, ул. Маяковская д.3", 300);
 
 -- Инструменты
 
 drop table if exists `tool_types`;
-create table `tool_types`  {
+create table `tool_types`  (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `name` varchar(255) NOT NULL,
 
     PRIMARY KEY (`id`),
     UNIQUE (`name`)
-};
+);
 
 insert into `tool_types` (`id`, `name`) values
     (1, "Формы"),
     (2, "Ножи"),
-    (3, "Кастрюли"),
+    (3, "Кастрюли")
     ;
 
-create table `degree_of_wears`  {
+create table `degree_of_wears`  (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `name` varchar(255) NOT NULL,
 
     PRIMARY KEY (`id`),
     UNIQUE (`name`)
-};
+);
 
 insert into `degree_of_wears` (`id`, `name`) values
     (1, "Новый"),
@@ -82,7 +85,7 @@ insert into `degree_of_wears` (`id`, `name`) values
     ;
 
 drop table if exists `tools`;
-create table `tools`  {
+create table `tools`  (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     
     `type_id` int(11) NOT NULL,
@@ -99,19 +102,19 @@ create table `tools`  {
     FOREIGN KEY (`type_id`) REFERENCES `tool_types` (`id`),
     FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`),
     FOREIGN KEY (`degree_of_wear_id`) REFERENCES `deegree_of_wears` (`id`)
-};
+);
 
 
 -- Ингредиенты и украшения для тортов
 
 drop table if exists `component_categories`;
-create table `ingredient_types`  {
+create table `component_categories`  (
     `id` int(11) NOT NULL AUTO_INCREMENT,
 
     `name` varchar(255) NOT NULL,
 
     PRIMARY KEY (`id`)
-};
+);
 
 INSERT INTO `component_categories` VALUES
     (1, "ingredients"),
@@ -119,7 +122,7 @@ INSERT INTO `component_categories` VALUES
     ;
 
 drop table if exists `component_types`;
-create table `ingredient_types`  {
+create table `component_types`  (
     `id` int(11) NOT NULL AUTO_INCREMENT,
 
     `component_category_id` int(11) NOT NULL,
@@ -127,30 +130,14 @@ create table `ingredient_types`  {
 
     PRIMARY KEY (`id`),
     FOREIGN KEY (`component_category_id`) REFERENCES `component_categories` (`id`)
-};
-
--- INSERT INTO `component_types` VALUES
---     (1, "Свечки"),
---     (2, "Мед")
---     ;
-
-drop table if exists `component_types`;
-create table `ingredient_types`  {
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-
-    `component_category_id` int(11) NOT NULL,
-    `name` varchar(255) NOT NULL,
-
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`component_category_id`) REFERENCES `component_categories` (`id`)
-};
+);
 
 
 drop table if exists `components`;
-create table `ingredient_types`  {
+create table `components`  (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     
-    `type_id` int(11) NOT NULL,
+    `component_type_id` int(11) NOT NULL,
 
     `name` varchar(255) NOT NULL,
     `article` varchar(255) NOT NULL,
@@ -158,17 +145,17 @@ create table `ingredient_types`  {
 
     PRIMARY KEY (`id`),
     UNIQUE (`article`),
-    FOREIGN KEY (`type_id`) REFERENCES `component_types` (`id`)
-};
+    FOREIGN KEY (`component_type_id`) REFERENCES `component_types` (`id`)
+);
 
 drop table if exists `purchased_components`;
-create table `ingredients`  {
+create table `purchased_components`  (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     
     `component_id` int(11) NOT NULL,
     `supplier_id` int(11) NOT NULL,
 
-    `count` int(11) NOT NULL,
+    `quantity` int(11) NOT NULL,
 
     `purchase_price` decimal(10, 2) NOT NULL,
 
@@ -177,17 +164,17 @@ create table `ingredients`  {
     PRIMARY KEY (`id`),
     FOREIGN KEY (`component_id`) REFERENCES `components` (`id`),
     FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`)
-};
+);
 
 
 -- Доставка
 
-create table `supplier_components` {
+create table `supplier_components` (
     `supplier_id` int(11) NOT NULL,
     `component_id` int(11) NOT NULL,
-    `price` decimal(10, 2) NOT NULL
+    `price` decimal(10, 2) NOT NULL,
 
     PRIMARY KEY (`supplier_id`, `component_id`),
     FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`),
     FOREIGN KEY (`component_id`) REFERENCES `components` (`id`)
-};
+);

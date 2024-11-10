@@ -6,7 +6,7 @@ import (
 )
 
 func (controller *toolController) GetAll(ctx fiber.Ctx) error {
-	params := &params_tool.ToolGetAllParams{}
+	params := &params_tool.GetAllParams{}
 
 	err := ctx.Bind().Query(&params)
 	if err != nil {
