@@ -8,6 +8,9 @@ type PurchasedComponent struct {
 	ComponentID int        `json:"component_id" gorm:"Column:component_id"`
 	Component   *Component `json:"component" gorm:"foreignKey:ComponentID"`
 
+	SupplierID int `json:"supplier_id" gorm:"Column:supplier_id"`
+	// Supplier   *Supplier `json:"supplier" gorm:"foreignKey:SupplierID"`
+
 	Quantity int `json:"quantity" gorm:"Column:quantity"`
 
 	PurchasePrice float64 `json:"purchase_price" gorm:"Column:purchase_price"`
