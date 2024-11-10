@@ -19,4 +19,5 @@ type IPurchasedComponentRepo interface {
 	GetAllTotalRows(component_category_id int, params *params_purchased_component.GetAllParams) (int64, error)
 	GetAllTotalCount(component_category_id int, params *params_purchased_component.GetAllParams) (int64, error)
 	GetAllTotalPrice(component_category_id int, params *params_purchased_component.GetAllParams) (float64, error)
+	DeleteEmpty(purchased_component_id int) error
 }
