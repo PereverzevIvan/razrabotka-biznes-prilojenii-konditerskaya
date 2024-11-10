@@ -1,5 +1,5 @@
 server:
-  port: 300
+  port: 3001
 
 database:
   db_type: mysql

@@ -6,6 +6,6 @@ type GetAllResults struct {
 	TotalRows int64                       `json:"total_rows"`
 	Data      []models.PurchasedComponent `json:"Data"`
 
-	TotalPrice int64 `json:"total_price"`
-	TotalCount int64 `json:"total_count"`
+	TotalPrice float64 `json:"total_price"`
+	TotalCount int64   `json:"total_count"`
 }

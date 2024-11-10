@@ -9,13 +9,13 @@ import (
 type GetAllParams struct {
 	*params.PaginateParams
 
-	ComponentName    *string `query:"component_name"`
-	ComponentArticle *string `query:"component_article"`
+	ComponentName    *string `query:"name"`
+	ComponentArticle *string `query:"article"`
 
 	ShelfLifeFrom *time.Time `query:"shelf_life_from"`
 	ShelfLifeTo   *time.Time `query:"shelf_life_to"`
 
-	sort *EGetAllSort `query:"sort"`
+	Sort *EGetAllSort `query:"sort"`
 }
 
 func (p *GetAllParams) Validate() []string {
@@ -35,11 +35,11 @@ func (p *GetAllParams) Validate() []string {
 }
 
 func (p *GetAllParams) GetSort() EGetAllSort {
-	if p.sort == nil {
+	if p.Sort == nil {
 		return KGetAllSortDefault
 	}
 
-	switch *p.sort {
+	switch *p.Sort {
 	case KGetAllSortByQuantity:
 		return KGetAllSortByQuantity
 	case KGetAllSortByShelfLife:

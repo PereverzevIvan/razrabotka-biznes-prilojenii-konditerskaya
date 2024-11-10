@@ -10,7 +10,7 @@ type PurchasedComponent struct {
 
 	Quantity int `json:"quantity" gorm:"Column:quantity"`
 
-	PurchaseID int `json:"purchase_id" gorm:"Column:purchase_id"`
+	PurchasePrice float64 `json:"purchase_price" gorm:"Column:purchase_price"`
 
 	ShelfLife *time.Time `json:"shelf_life" gorm:"Column:shelf_life"`
 }
