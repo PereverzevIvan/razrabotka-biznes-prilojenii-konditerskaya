@@ -12,7 +12,8 @@ type componentCategoryService struct {
 
 func NewComponentCategoryService(repo services.IComponentCategoryRepo) *componentCategoryService {
 	service := &componentCategoryService{
-		componentCategoryRepo: repo,
+		componentCategoryRepo:     repo,
+		componentCategoryMapCache: make(map[string]models.ComponentCategory),
 	}
 
 	service.GetAll()

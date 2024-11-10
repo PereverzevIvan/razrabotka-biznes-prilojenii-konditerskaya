@@ -13,5 +13,5 @@ type Component struct {
 }
 
 func (Component) TableName() string {
-	return "component"
+	return "components"
 }

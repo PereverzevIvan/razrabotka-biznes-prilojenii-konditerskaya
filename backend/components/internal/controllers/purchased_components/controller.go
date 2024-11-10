@@ -1,4 +1,4 @@
-package controllers_component
+package controllers_purchased_component
 
 import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/controllers"
@@ -10,7 +10,7 @@ type componentController struct {
 	purchasedComponentService controllers.IPurchasedComponentService
 }
 
-func AddComponentControllerRoutes(
+func AddPurchasedComponentControllerRoutes(
 	api fiber.Router,
 	componentCategoryService controllers.IComponentCategoryService,
 	purchasedComponentService controllers.IPurchasedComponentService,

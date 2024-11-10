@@ -1,4 +1,4 @@
-package controllers_component
+package controllers_purchased_component
 
 import (
 	controllers_utils "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/controllers/utils"
@@ -14,7 +14,7 @@ func (controller *componentController) GetAll(ctx fiber.Ctx) error {
 	}
 
 	params := &params_purchased_component.GetAllParams{}
-	err := ctx.Bind().Query(&params)
+	err := ctx.Bind().Query(params)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).SendString(err.Error())
 	}
