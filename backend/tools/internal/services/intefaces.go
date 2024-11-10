@@ -6,7 +6,7 @@ import (
 )
 
 type IToolRepo interface {
-	GetAll(params *params_tool.ToolGetAllParams) ([]models.Tool, error)
+	GetAll(params *params_tool.GetAllParams) ([]models.Tool, error)
 	GetByID(tool_id int) (*models.Tool, error)
 	Add(tool *models.Tool) (*models.Tool, error)
 	Edit(tool_id int, params *params_tool.ToolEditParams) (*models.Tool, error)

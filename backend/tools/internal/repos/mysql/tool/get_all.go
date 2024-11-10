@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func (repo *toolRepo) GetAll(params *params_tool.ToolGetAllParams) ([]models.Tool, error) {
+func (repo *toolRepo) GetAll(params *params_tool.GetAllParams) ([]models.Tool, error) {
 
 	var tools []models.Tool
 
@@ -26,7 +26,7 @@ func (repo *toolRepo) GetAll(params *params_tool.ToolGetAllParams) ([]models.Too
 	return tools, nil
 }
 
-func (repo *toolRepo) scopeGetAllParams(params *params_tool.ToolGetAllParams) func(db *gorm.DB) *gorm.DB {
+func (repo *toolRepo) scopeGetAllParams(params *params_tool.GetAllParams) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
 
 		if params.Name != nil {

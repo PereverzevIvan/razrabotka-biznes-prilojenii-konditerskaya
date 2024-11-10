@@ -1,0 +1,11 @@
+server:
+  port: 300
+
+database:
+  db_type: mysql
+  host: mysql
+  port: 3306
+  db_name: confectionary
+  admin_name: admin
+  db_password: admin
+  ssl: disable

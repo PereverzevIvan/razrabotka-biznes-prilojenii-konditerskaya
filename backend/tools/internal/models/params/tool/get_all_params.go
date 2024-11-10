@@ -4,8 +4,8 @@ import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
 )
 
-type ToolGetAllParams struct {
-	Sort *EToolGetAllSort `json:"sort"`
+type GetAllParams struct {
+	Sort *EGetAllSort `json:"sort"`
 
 	ToolType     *int                  `json:"tool_type"`
 	DegreeOfWear *models.EDegreeOfWear `json:"degree_of_wear"`
@@ -15,12 +15,12 @@ type ToolGetAllParams struct {
 	// PurchaseDateTo   *time.Time            `json:"purchase_date_to"`
 }
 
-type EToolGetAllSort string
+type EGetAllSort string
 
 const (
-	KDefaultSort        EToolGetAllSort = KSortByPurchaseDate
-	KSortByToolType     EToolGetAllSort = "tool_type"
-	KSortByDegreeOfWear EToolGetAllSort = "degree_of_wear_id"
-	KSortByName         EToolGetAllSort = "name"
-	KSortByPurchaseDate EToolGetAllSort = "purchase_date"
+	KDefaultSort        EGetAllSort = KSortByPurchaseDate
+	KSortByToolType     EGetAllSort = "tool_type"
+	KSortByDegreeOfWear EGetAllSort = "degree_of_wear_id"
+	KSortByName         EGetAllSort = "name"
+	KSortByPurchaseDate EGetAllSort = "purchase_date"
 )
