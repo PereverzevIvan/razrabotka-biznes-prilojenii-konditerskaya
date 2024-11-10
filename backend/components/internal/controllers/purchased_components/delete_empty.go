@@ -7,7 +7,7 @@ import (
 	"github.com/gofiber/fiber/v3/log"
 )
 
-func (controller *componentController) DeleteEmpty(ctx fiber.Ctx) error {
+func (controller *purchasedComponentController) DeleteEmpty(ctx fiber.Ctx) error {
 	component_category := controllers_utils.GetComponentCategory(controller.componentCategoryService, ctx)
 	if component_category == nil {
 		return nil

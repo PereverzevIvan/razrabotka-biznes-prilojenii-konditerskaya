@@ -5,7 +5,7 @@ import (
 	"github.com/gofiber/fiber/v3"
 )
 
-type componentController struct {
+type purchasedComponentController struct {
 	componentCategoryService  controllers.IComponentCategoryService
 	purchasedComponentService controllers.IPurchasedComponentService
 }
@@ -15,12 +15,13 @@ func AddPurchasedComponentControllerRoutes(
 	componentCategoryService controllers.IComponentCategoryService,
 	purchasedComponentService controllers.IPurchasedComponentService,
 ) {
-	controller := componentController{
+	controller := purchasedComponentController{
 		componentCategoryService:  componentCategoryService,
 		purchasedComponentService: purchasedComponentService,
 	}
 
-	api.Get(":category_name/purchased/", controller.GetAll)
+	api.Get(":category_name/purchased", controller.GetAll)
+	api.Post(":category_name/purchased", controller.Create)
 	api.Delete(":category_name/purchased/:purchased_component_id", controller.DeleteEmpty)
 	// api.Delete(":category_name/purchased/:component_id", controller.Delete)
 }

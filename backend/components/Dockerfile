@@ -19,4 +19,4 @@ RUN go mod tidy
 # RUN ./cmd/fixture/user_data.out
 
 # Указываем команду, которая будет выполняться при запуске контейнера
-ENTRYPOINT ["go", "run", "./cmd/main/main.go"]
+CMD ["go", "run", "./cmd/main/main.go"]
