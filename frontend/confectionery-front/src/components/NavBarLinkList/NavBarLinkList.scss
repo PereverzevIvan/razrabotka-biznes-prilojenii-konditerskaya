@@ -1,0 +1,15 @@
+@use "../../scss/variables" as v;
+
+.nav-link-list__item {
+  list-style: none;
+
+  &__link {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  &__link:hover {
+    background-color: v.$primary-cl-3;
+    text-decoration: underline;
+  }
+}
