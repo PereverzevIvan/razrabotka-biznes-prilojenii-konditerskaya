@@ -1,2 +1,2 @@
-export { paths } from "./paths.config.tsx";
-export { roles } from "./roles.config.tsx";
+export { PATHS as paths } from "./paths.config.tsx";
+export { ROLES } from "./roles.config.tsx";
