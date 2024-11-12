@@ -1,4 +1,36 @@
 microservices:
+  - components:
+    url: http://golang_components:3000
+    name: components
+
+    routes:
+      - ingredients-types:
+        path: /ingredients/types
+        methods: GET
+      - decorations-types:
+        path: /decorations/types
+        methods: GET
+
+      - ingredients-purchased:
+        path: /ingredients/purchased
+        methods: GET, POST, PATCH
+      - decorations-purchased:
+        path: /decorations/purchased
+        methods: GET, POST, PATCH
+
+      - ingredients-purchased-delete-empty:
+        path: /ingredients/purchased/:purchased_component_id
+        methods: DELETE
+      - decorations-purchased-delete-empty:
+        path: /decorations/purchased/:purchased_component_id
+        methods: DELETE
+
+  - tools:
+    url: http://golang_tools:3000
+    name: tools
+
+    routes:
+
   - hello:
     url: http://golang_hello:3101
     name: hello
@@ -23,9 +55,3 @@ microservices:
           - GET
         middlewares:
           - auth
-
-  - tools:
-    url: http://golang_tools:3000
-    name: tools
-
-    routes:
