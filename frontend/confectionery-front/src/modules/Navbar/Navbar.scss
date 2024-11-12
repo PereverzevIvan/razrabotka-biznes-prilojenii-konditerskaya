@@ -1,0 +1,23 @@
+@use "../../scss/variables" as v;
+
+.nav {
+  &__list {
+    list-style: none;
+    gap: 5px;
+  }
+
+  &__link {
+    color: v.$blue-cl;
+    border-radius: 3px;
+    padding: 3px 5px;
+    text-decoration: underline !important;
+    transition: all 500ms;
+
+    &:hover,
+    &.active {
+      background-color: v.$primary-cl-3;
+      text-decoration: underline;
+      color: white;
+    }
+  }
+}

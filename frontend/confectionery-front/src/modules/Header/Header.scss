@@ -2,18 +2,18 @@
 
 .header {
   background-color: v.$secondary-cl-3;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
   border-bottom: 1px solid lightgray;
+  padding: 10px 0;
+
+  & .link-box {
+    gap: 15px;
+  }
 
   &__container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: end;
 
     .logo {
-      width: 100px;
+      width: 70px;
     }
   }
 }

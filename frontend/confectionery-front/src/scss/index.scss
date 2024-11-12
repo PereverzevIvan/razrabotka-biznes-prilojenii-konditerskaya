@@ -30,12 +30,24 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-  gap: 10px;
 }
 
 .h-flex {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+}
+
+.common-text {
+  font-size: v.$common-text-fz;
+  color: v.$primary-text-cl;
+  &.common-text_big {
+    font-size: v.$common-text-big-fz;
+  }
+}
+
+a {
+  font-size: v.$common-text-small-fz;
+  color: v.$primary-text-cl;
+  text-decoration: none;
 }
