@@ -31,4 +31,6 @@ type IToolFailureReasonService interface {
 type IToolFailureService interface {
 	Create(params *params_tool_failure.CreateParams) (*models.ToolFailure, error)
 	AddFixedAt(params *params_tool_failure.AddFixedAtParams) error
+	GetAll() ([]models.ToolFailure, error)
+	GetAllReasons() ([]models.ToolFailureReason, error)
 }

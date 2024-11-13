@@ -63,12 +63,18 @@ microservices:
       - tool-failures:
         path: /tool-failures
         methods:
+          - GET
           - POST
 
       - tool-failures-add-fixed-at:
         path: /tool-failures/add-fixed-at
         methods:
           - POST
+
+      - tool-failures-reasons:
+        path: /tool-failures/reasons
+        methods:
+          - GET
 
   - hello:
     url: http://golang_hello:3101
