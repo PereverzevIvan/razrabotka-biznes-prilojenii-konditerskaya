@@ -1,4 +1,4 @@
-package repo_mysql_user
+package repos_mysql_user
 
 import (
 	"sync"

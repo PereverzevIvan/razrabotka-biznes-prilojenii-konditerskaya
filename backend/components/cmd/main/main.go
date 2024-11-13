@@ -15,7 +15,7 @@ import (
 // @BasePath /api
 // @securityDefinitions.apikey ApiKeyAuth
 // @in cookie
-// @name access-token
+// @name access_token
 func main() {
 	App, err := app.NewApp()
 	if err != nil {

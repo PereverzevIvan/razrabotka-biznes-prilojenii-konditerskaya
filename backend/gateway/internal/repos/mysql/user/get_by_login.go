@@ -1,14 +1,14 @@
-package repo_mysql_user
+package repos_mysql_user
 
 import "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/models"
 
-func (r *userRepo) GetByEmail(email string) (*models.User, error) {
+func (r *userRepo) GetByLogin(login string) (*models.User, error) {
 	r.m.RLock()
 	defer r.m.RUnlock()
 
 	var user *models.User
 	err := r.Conn.
-		Where("Email = ?", email).
+		Where("login = ?", login).
 		First(&user).
 		Error
 	if err != nil {

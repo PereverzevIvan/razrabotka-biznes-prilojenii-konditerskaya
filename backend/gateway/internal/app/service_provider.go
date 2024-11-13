@@ -4,7 +4,7 @@ import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/configs"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/controllers"
 	middlewares_auth "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/middlewares/auth"
-	repo_mysql_user "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/repositories/repo_mysql/user"
+	repos_mysql_user "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/repos/mysql/user"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/services"
 
 	services_jwt "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/services/jwt"
@@ -53,7 +53,7 @@ func (s *ServiceProvider) UserService() controllers.IUserService {
 
 func (s *ServiceProvider) UserRepo() services.IUserRepo {
 	if s.userRepo == nil {
-		s.userRepo = repo_mysql_user.NewUserRepo(s.db)
+		s.userRepo = repos_mysql_user.NewUserRepo(s.db)
 	}
 	return s.userRepo
 }

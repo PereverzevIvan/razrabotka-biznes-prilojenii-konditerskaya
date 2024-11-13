@@ -39,8 +39,8 @@ class Auth:
         if do_assertion:
             self.__assert_tokens_response(response)
 
-        self.access_token = response.cookies.get("access-token")
-        self.refresh_token = response.cookies.get("refresh-token")
+        self.access_token = response.cookies.get("access_token")
+        self.refresh_token = response.cookies.get("refresh_token")
         self.tokens_cookies = response.cookies
 
         return response
@@ -48,21 +48,21 @@ class Auth:
     def __assert_tokens_response(self, response: requests.Response):
         assert response.status_code == 200
 
-        new_access_token = response.cookies.get("access-token")
-        new_refresh_token = response.cookies.get("refresh-token")
+        new_access_token = response.cookies.get("access_token")
+        new_refresh_token = response.cookies.get("refresh_token")
         # Проверка cookie токенов
         assert new_access_token is not None
         assert new_refresh_token is not None
 
         # Проверка параметров cookie токенов
         access_token_cookie = next(
-            (c for c in response.cookies if c.name == "access-token"), None
+            (c for c in response.cookies if c.name == "access_token"), None
         )
         assert access_token_cookie is not None
         assert not access_token_cookie.has_nonstandard_attr("HttpOnly")
 
         refresh_token_cookie = next(
-            (c for c in response.cookies if c.name == "refresh-token"), None
+            (c for c in response.cookies if c.name == "refresh_token"), None
         )
         assert refresh_token_cookie is not None
         assert refresh_token_cookie.has_nonstandard_attr("HttpOnly")
@@ -72,8 +72,8 @@ class Auth:
         self.__assert_tokens_response(response)
 
         # Сравнение новых и старых токенов
-        new_access_token = response.cookies.get("access-token")
-        new_refresh_token = response.cookies.get("refresh-token")
+        new_access_token = response.cookies.get("access_token")
+        new_refresh_token = response.cookies.get("refresh_token")
 
         assert new_access_token != self.access_token
         assert new_refresh_token != self.refresh_token
@@ -81,5 +81,5 @@ class Auth:
     def __assert_logout_response(self, response: requests.Response):
         assert response.status_code == 200
 
-        assert response.cookies.get("access-token") is None
-        assert response.cookies.get("refresh-token") is None
+        assert response.cookies.get("access_token") is None
+        assert response.cookies.get("refresh_token") is None

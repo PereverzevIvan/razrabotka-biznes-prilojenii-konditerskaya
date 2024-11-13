@@ -25,7 +25,7 @@ CREATE TABLE `users` (
 
     `first_name` varchar(255) NOT NULL,
     `last_name` varchar(255) NOT NULL,
-    `patronymic` varchar(255) NOT NULL,
+    `patronymic` varchar(255) DEFAULT NULL,
     
     -- `created_at` datetime DEFAULT NULL,
     -- `updated_at` datetime DEFAULT NULL,
@@ -101,7 +101,7 @@ create table `tools`  (
     PRIMARY KEY (`id`),
     FOREIGN KEY (`type_id`) REFERENCES `tool_types` (`id`),
     FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`),
-    FOREIGN KEY (`degree_of_wear_id`) REFERENCES `deegree_of_wears` (`id`)
+    FOREIGN KEY (`degree_of_wear_id`) REFERENCES `degree_of_wears` (`id`)
 );
 
 

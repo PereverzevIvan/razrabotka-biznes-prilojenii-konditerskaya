@@ -2,20 +2,20 @@ services:
   golang:
     image: golang:1.22.7
     build: .
-    # container_name: golang_gateway # Название контейнера
-    ports:
-      - "3000:3000"  # Пробрасываем порт наружу
+    container_name: golang_components # Название контейнера
+    # ports:
+    #   - ":3000"  # Пробрасываем порт наружу
     volumes:
       - .:/app  # Примонтируем текущую директорию внутрь контейнера
     working_dir: /app
     command: "make dev"
     restart: on-failure
+    stop_grace_period: 3s
     networks:
-      - gatework
       - gateway_database
 
 networks:
-  gatework:
+  gateway_gatework:
     external: true
   gateway_database:
     external: true

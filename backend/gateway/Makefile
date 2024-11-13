@@ -11,6 +11,9 @@ down:
 restart:
 	docker compose restart
 
+restart-go:
+	docker compose restart golang
+
 dev:
 	go run ./cmd/main/main.go \
 		--config_path=$(DEFAULT_CONFIG_PATH) \

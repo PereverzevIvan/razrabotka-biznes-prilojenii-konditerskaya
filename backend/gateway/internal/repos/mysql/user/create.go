@@ -1,7 +1,7 @@
-package repo_mysql_user
+package repos_mysql_user
 
 import (
-	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/repositories/repo_mysql"
+	repos_mysql "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/repos/mysql"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/models"
 )
 
@@ -13,7 +13,7 @@ func (r *userRepo) Create(user *models.User) error {
 		Create(user).
 		Error
 
-	if repo_mysql.IsUniqueConstraintError(err) {
+	if repos_mysql.IsUniqueConstraintError(err) {
 		return models.ErrUnique
 	}
 

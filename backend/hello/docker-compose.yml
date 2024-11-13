@@ -8,6 +8,7 @@ services:
     volumes:
       - .:/app  # Примонтируем текущую директорию внутрь контейнера
     # restart: on-failure
+    stop_grace_period: 3s
     working_dir: /app
     command: "make dev"
     networks:

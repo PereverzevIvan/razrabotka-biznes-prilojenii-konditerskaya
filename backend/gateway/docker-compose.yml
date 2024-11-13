@@ -10,6 +10,7 @@ services:
     working_dir: /app
     command: "make dev"
     restart: on-failure
+    stop_grace_period: 3s
     networks:
       - gatework
       - database
@@ -51,7 +52,7 @@ services:
 
 networks:
   gatework:
-    external: true
+    driver: bridge
   database:
     driver: bridge
 

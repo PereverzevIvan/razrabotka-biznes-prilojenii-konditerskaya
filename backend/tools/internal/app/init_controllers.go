@@ -2,6 +2,7 @@ package app
 
 import (
 	controllers_tool "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/controllers/tool"
+	controllers_tool_failure "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/controllers/tool_failure"
 	controllers_tool_type "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/controllers/tool_type"
 )
 
@@ -25,6 +26,13 @@ func (app *App) initControllers() error {
 	controllers_tool_type.AddToolTypeControllerRoutes(
 		api,
 		app.serviceProvider.ToolTypeService(),
+	)
+
+	controllers_tool_failure.AddToolFailureControllerRoutes(
+		api,
+		app.serviceProvider.JWTService(),
+		// app.serviceProvider.ToolFailureReasonService(),
+		app.serviceProvider.ToolFailureService(),
 	)
 
 	return nil

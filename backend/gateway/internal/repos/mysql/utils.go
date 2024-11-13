@@ -1,4 +1,4 @@
-package repo_mysql
+package repos_mysql
 
 import (
 	"errors"
