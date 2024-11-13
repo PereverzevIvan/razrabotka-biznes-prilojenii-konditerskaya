@@ -26,4 +26,5 @@ func AddToolFailureControllerRoutes(
 
 	// api.Get("/tool-failures", controller.GetAll)
 	api.Post("/tool-failures", controller.Create)
+	api.Post("/tool-failures/add-fixed-at", controller.AddFixedAt)
 }

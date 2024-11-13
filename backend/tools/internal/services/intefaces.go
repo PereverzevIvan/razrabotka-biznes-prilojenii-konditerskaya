@@ -20,4 +20,5 @@ type IToolTypeRepo interface {
 
 type IToolFailureRepo interface {
 	Create(params *params_tool_failure.CreateParams) (*models.ToolFailure, error)
+	AddFixedAt(params *params_tool_failure.AddFixedAtParams) error
 }
