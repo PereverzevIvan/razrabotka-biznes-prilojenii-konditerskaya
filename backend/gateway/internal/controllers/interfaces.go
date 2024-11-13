@@ -12,7 +12,7 @@ import (
 type IUserService interface {
 	Create(params *params_auth.RegisterParams) (*models.User, error)
 	GetByID(user_id int) (*models.User, error)
-	GetByEmail(email string) (*models.User, error)
+	GetByLogin(email string) (*models.User, error)
 	IsPasswordCorrect(user *models.User, password string) bool
 	// GetUser(userId int) (string, error)
 }
@@ -32,5 +32,5 @@ type IJWTService interface {
 
 type IAuthMiddleware interface {
 	Authorized(ctx fiber.Ctx) error
-	Admin(ctx fiber.Ctx) error
+	// Admin(ctx fiber.Ctx) error
 }

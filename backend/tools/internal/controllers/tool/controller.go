@@ -19,8 +19,8 @@ func AddToolControllerRoutes(
 	}
 
 	api.Get("/tools", controller.GetAll)
+	api.Post("/tools", controller.Add)
 	api.Get("/tools/:id", controller.GetByID)
-	api.Post("/tools/add", controller.Add)
-	api.Delete("/tools/:id", controller.Delete)
 	api.Patch("/tools/:id", controller.Edit)
+	api.Delete("/tools/:id", controller.Delete)
 }

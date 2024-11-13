@@ -20,6 +20,13 @@ func AddGatewayRoutes(root fiber.Router, authMiddleware controllers.IAuthMiddlew
 	var routes_config configs.RoutesConfig
 	config_loader.MustLoad(configs.RoutesPath, &routes_config)
 
+	for _, microservice := range routes_config.Microservices {
+		log.Info("Config microservice: ", microservice.Name, microservice.Url, "\n\n")
+
+		for _, route := range microservice.Routes {
+			log.Info("Config route: ", route, "\n\n")
+		}
+	}
 	// fmt.Printf("Config routes: %+v\n", routes_config)
 
 	for _, microservice := range routes_config.Microservices {
@@ -32,8 +39,8 @@ func AddGatewayRoutes(root fiber.Router, authMiddleware controllers.IAuthMiddlew
 
 			addRoutesMethods(
 				root,
-				microservice.Url,
-				route.Path,
+				&microservice,
+				microservice.BasePath+route.Path,
 				route.Methods,
 				route_middlewares,
 			)
@@ -50,8 +57,8 @@ func parseRouteMiddlewares(
 		switch middleware {
 		case configs.Auth:
 			route_middlewares = append(route_middlewares, authMiddleware.Authorized)
-		case configs.Admin:
-			route_middlewares = append(route_middlewares, authMiddleware.Admin)
+		// case configs.Admin:
+		// 	route_middlewares = append(route_middlewares, authMiddleware.Admin)
 		default:
 			log.Error("Unknown middleware: %s\n", middleware)
 		}
@@ -59,22 +66,32 @@ func parseRouteMiddlewares(
 	return route_middlewares
 }
 
-func generateForwardRequestFunc(microservice_url string) func(ctx fiber.Ctx) error {
+func generateForwardRequestFunc(
+	microservice *configs.MicroserviceConfig,
+) func(ctx fiber.Ctx) error {
+
 	return func(ctx fiber.Ctx) error {
-		if err := proxy.DoTimeout(ctx, microservice_url+ctx.OriginalURL(), time.Second*5); err != nil {
+
+		log.Info("Forwarding request to: ", microservice.Name, ctx.OriginalURL())
+
+		if err := proxy.DoTimeout(
+			ctx,
+			microservice.Url+ctx.OriginalURL(),
+			time.Second*5); err != nil {
 			return err
 		}
 
 		// Remove Server header from response
 		ctx.Response().Header.Del(fiber.HeaderServer)
+
 		return nil
 	}
 }
 
 func addRoutesMethods(
 	group fiber.Router,
-	microservice_url string,
-	path string,
+	microservice *configs.MicroserviceConfig,
+	result_path string,
 	methods []configs.RouteMethods,
 	route_middlewares []fiber.Handler,
 ) {
@@ -82,15 +99,15 @@ func addRoutesMethods(
 	for _, method := range methods {
 		switch method {
 		case configs.GET:
-			group.Get(path, generateForwardRequestFunc(microservice_url), route_middlewares...)
+			group.Get(result_path, generateForwardRequestFunc(microservice), route_middlewares...)
 		case configs.POST:
-			group.Post(path, generateForwardRequestFunc(microservice_url), route_middlewares...)
+			group.Post(result_path, generateForwardRequestFunc(microservice), route_middlewares...)
 		case configs.PUT:
-			group.Put(path, generateForwardRequestFunc(microservice_url), route_middlewares...)
+			group.Put(result_path, generateForwardRequestFunc(microservice), route_middlewares...)
 		case configs.PATCH:
-			group.Patch(path, generateForwardRequestFunc(microservice_url), route_middlewares...)
+			group.Patch(result_path, generateForwardRequestFunc(microservice), route_middlewares...)
 		case configs.DELETE:
-			group.Delete(path, generateForwardRequestFunc(microservice_url), route_middlewares...)
+			group.Delete(result_path, generateForwardRequestFunc(microservice), route_middlewares...)
 		default:
 			log.Error("Unknown method: %s\n", method)
 		}

@@ -4,10 +4,12 @@ import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/configs"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/controllers"
 	repos_mysql_tool "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/repos/mysql/tool"
+	repos_mysql_tool_failure "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/repos/mysql/tool_failure"
 	repos_mysql_tool_type "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/repos/mysql/tool_type"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/services"
 	services_jwt "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/services/jwt"
 	services_tool "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/services/tool"
+	services_tool_failure "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/services/tool_failure"
 	services_tool_type "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/services/tool_type"
 
 	"gorm.io/gorm"
@@ -24,6 +26,9 @@ type ServiceProvider struct {
 
 	toolTypeService controllers.IToolTypeService
 	toolTypeRepo    services.IToolTypeRepo
+
+	toolFailureService controllers.IToolFailureService
+	toolFailureRepo    services.IToolFailureRepo
 	// ...
 }
 
@@ -69,4 +74,18 @@ func (s *ServiceProvider) ToolTypeRepo() services.IToolTypeRepo {
 		s.toolTypeRepo = repos_mysql_tool_type.NewToolTypeRepo(s.db)
 	}
 	return s.toolTypeRepo
+}
+
+func (s *ServiceProvider) ToolFailureService() controllers.IToolFailureService {
+	if s.toolFailureService == nil {
+		s.toolFailureService = services_tool_failure.NewToolFailureService(s.ToolFailureRepo())
+	}
+	return s.toolFailureService
+}
+
+func (s *ServiceProvider) ToolFailureRepo() services.IToolFailureRepo {
+	if s.toolFailureRepo == nil {
+		s.toolFailureRepo = repos_mysql_tool_failure.NewToolFailureRepo(s.db)
+	}
+	return s.toolFailureRepo
 }

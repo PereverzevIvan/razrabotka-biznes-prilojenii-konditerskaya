@@ -14,18 +14,18 @@ func (controller *AuthController) Login(ctx fiber.Ctx) error {
 	}
 
 	// Получаем пользователя и проверяем пароль
-	user, err := controller.userService.GetByEmail(params.Email)
+	user, err := controller.userService.GetByLogin(params.Login)
 	if err != nil {
 		log.Error(err)
 		return ctx.SendStatus(fiber.StatusInternalServerError)
 	}
 	if user == nil {
-		return ctx.Status(fiber.StatusNotFound).SendString("email or password is incorrect")
+		return ctx.Status(fiber.StatusNotFound).SendString("login or password is incorrect")
 	}
 
 	is_password_correct := controller.userService.IsPasswordCorrect(user, params.Password)
 	if !is_password_correct {
-		return ctx.Status(fiber.StatusNotFound).SendString("email or password is incorrect")
+		return ctx.Status(fiber.StatusNotFound).SendString("login or password is incorrect")
 	}
 
 	// Генерируем jwt токены

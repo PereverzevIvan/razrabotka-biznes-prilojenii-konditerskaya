@@ -5,9 +5,10 @@ type RoutesConfig struct {
 }
 
 type MicroserviceConfig struct {
-	Url    string  `yaml:"url" env-required:"true"`
-	Name   string  `yaml:"name" env-required:"true"`
-	Routes []Route `yaml:"routes" env-required:"true"`
+	Url      string  `yaml:"url" env-required:"true"`
+	BasePath string  `yaml:"base_path" env-required:"false"`
+	Name     string  `yaml:"name" env-required:"true"`
+	Routes   []Route `yaml:"routes" env-required:"true"`
 }
 
 type Route struct {
@@ -29,6 +30,6 @@ const (
 type RouteMiddleware string
 
 const (
-	Auth  RouteMiddleware = "auth"
-	Admin RouteMiddleware = "admin"
+	Auth RouteMiddleware = "auth"
+	// Admin RouteMiddleware = "admin"
 )

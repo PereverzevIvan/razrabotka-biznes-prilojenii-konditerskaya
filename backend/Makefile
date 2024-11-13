@@ -1,14 +1,21 @@
+# SERVICES := gateway hello tools components orders
+SERVICES := gateway tools components orders
+
+
 up:
-	cd gateway && make up
-	cd hello && make up
+	@for service in $(SERVICES); do \
+		(cd $$service && make up); \
+	done
 
 restart:
-	cd gateway && make restart
-	cd hello && make restart
+	@for service in $(SERVICES); do \
+		(cd $$service && make restart); \
+	done
 
 down:
-	cd gateway && make down
-	cd hello && make down
+	@for service in $(SERVICES); do \
+		(cd $$service && make down); \
+	done
 
 test:
 	echo "hello"

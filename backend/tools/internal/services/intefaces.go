@@ -3,6 +3,7 @@ package services
 import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
 	params_tool "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models/params/tool"
+	params_tool_failure "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models/params/tool_failure"
 )
 
 type IToolRepo interface {
@@ -15,4 +16,8 @@ type IToolRepo interface {
 
 type IToolTypeRepo interface {
 	GetAll() ([]models.ToolType, error)
+}
+
+type IToolFailureRepo interface {
+	Create(params *params_tool_failure.CreateParams) (*models.ToolFailure, error)
 }

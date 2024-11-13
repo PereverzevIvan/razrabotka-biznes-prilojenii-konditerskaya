@@ -38,13 +38,13 @@ create table `orders`  {
     `product_id` int(11) NOT NULL,
     
     `customer_id` int(11) NOT NULL,
-    `manager_id` int(11) NOT NULL,
+    `manager_id` int(11) DEFAULT NULL,
 
     `status_id` int(11) NOT NULL,
 
     `number` varchar(255) NOT NULL,
     `name` varchar(255) NOT NULL,
-    `cost` decimal(10, 2) NOT NULL,
+    `cost` decimal(10, 2) DEFAULT NULL,
     
     `created_at` datetime DEFAULT NULL,
     `planned_completion_at` datetime DEFAULT NULL,

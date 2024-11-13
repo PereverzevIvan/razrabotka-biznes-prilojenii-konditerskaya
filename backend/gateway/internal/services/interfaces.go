@@ -4,7 +4,7 @@ import "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/bac
 
 type IUserRepo interface {
 	GetByID(user_id int) (*models.User, error)
-	GetByEmail(email string) (*models.User, error)
+	GetByLogin(email string) (*models.User, error)
 	Create(user *models.User) error
 	// GetByEmail(email string) (*models.User, error)
 	// GetAll(params map[string]string) (*[]models.User, error)
