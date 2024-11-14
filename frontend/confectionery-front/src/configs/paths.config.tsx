@@ -11,12 +11,14 @@ type TPath = {
   path: string; // путь
   allowedRoles: string[]; // разрешенные роли (если список пустой, то доступ разрешен всем)
   title: string; // название страницы
-  element: React.ReactNode;
+  element: React.ReactNode | null;
 };
 
 type TRoutePaths = {
   [key: string]: TPath;
 };
+
+export const baseURL = "http://localhost:3000/api";
 
 export const routePaths: TRoutePaths = {
   main: {
@@ -30,6 +32,12 @@ export const routePaths: TRoutePaths = {
     allowedRoles: [],
     title: "Авторизация",
     element: <LoginPage />,
+  },
+  logout: {
+    path: "/logout",
+    allowedRoles: [],
+    title: "Выход из аккаунта",
+    element: null,
   },
   register: {
     path: "/register",
