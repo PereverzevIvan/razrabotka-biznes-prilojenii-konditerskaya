@@ -1,11 +1,22 @@
-import { useNavigate } from "react-router-dom";
-import Button from "../../../components/Button/Button";
-import { routePaths as rp } from "../../../configs";
+import { Button } from "../../../components/Button";
+import { useAuthContext, useToastContext } from "../../../contexts";
 
 export function LogoutButton() {
-  const navigate = useNavigate();
+  const { logout } = useAuthContext();
+  const { addToast } = useToastContext();
+
+  function handleLogout() {
+    logout()
+      .then(() => {
+        addToast("Вы вышли из системы");
+      })
+      .catch((error) => {
+        console.error(`Ошибка выхода из системы ${error}`);
+      });
+  }
+
   return (
-    <Button color="red" onClick={() => navigate(rp.logout.path)}>
+    <Button color="red" onClick={() => handleLogout()}>
       Выйти
     </Button>
   );

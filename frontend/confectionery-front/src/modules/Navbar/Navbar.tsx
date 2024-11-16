@@ -3,13 +3,13 @@ import { useLocation } from "react-router-dom";
 import { links } from "./routes";
 
 /** Компонент для отображения панели управления */
-function Navbar() {
+export function Navbar() {
   const role = "Директор";
   const location = useLocation();
 
   return (
     <>
-      <nav className="nav">
+      <nav className="nav container">
         <ul className="h-flex nav__list">
           {links.map((link, key) => {
             if (link.allowedRoles.length && !link.allowedRoles.includes(role)) {
@@ -32,5 +32,3 @@ function Navbar() {
     </>
   );
 }
-
-export default Navbar;

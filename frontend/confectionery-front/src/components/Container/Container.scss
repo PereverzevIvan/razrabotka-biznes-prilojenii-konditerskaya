@@ -1,4 +1,7 @@
+@use "../../scss/variables" as v;
 .container {
   width: 80%;
   margin: 0 auto;
+  flex-grow: 1;
+  background-color: v.$secondary-cl-3;
 }

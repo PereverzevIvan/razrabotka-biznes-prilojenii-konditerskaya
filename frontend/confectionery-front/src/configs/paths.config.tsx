@@ -1,10 +1,10 @@
-import DecorationsAccountingPage from "../pages/DecorationsAccountingPage/DecorationsAccountingPage";
-import ForbidenPage from "../pages/ForbidenPage/ForbidenPage";
-import IngredientsAccountingPage from "../pages/IngredientsAccountingPage/IngredientsAccountingPage";
-import LoginPage from "../pages/LoginPage/LoginPage";
-import MainPage from "../pages/MainPage/MainPage";
-import RegisterPage from "../pages/RegisterPage/RegisterPage";
-import ToolsAccountingPage from "../pages/ToolsAccountingPage/ToolsAccountingPage";
+import { DecorationsAccountingPage } from "../pages/DecorationsAccountingPage";
+import { ForbidenPage } from "../pages/ForbidenPage";
+import { IngredientsAccountingPage } from "../pages/IngredientsAccountingPage";
+import { LoginPage } from "../pages/LoginPage";
+import { MainPage } from "../pages/MainPage";
+import { RegisterPage } from "../pages/RegisterPage";
+import { ToolsAccountingPage } from "../pages/ToolsAccountingPage";
 import { roles } from "./roles.config";
 
 type TPath = {
@@ -32,12 +32,6 @@ export const routePaths: TRoutePaths = {
     allowedRoles: [],
     title: "Авторизация",
     element: <LoginPage />,
-  },
-  logout: {
-    path: "/logout",
-    allowedRoles: [],
-    title: "Выход из аккаунта",
-    element: null,
   },
   register: {
     path: "/register",

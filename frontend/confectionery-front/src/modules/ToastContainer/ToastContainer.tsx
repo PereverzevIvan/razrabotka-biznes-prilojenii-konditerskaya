@@ -6,7 +6,10 @@ type ToastContainerProps = {
   removeToast: (id: string) => void;
 };
 
-const ToastContainer = ({ toasts, removeToast }: ToastContainerProps) => {
+export const ToastContainer = ({
+  toasts,
+  removeToast,
+}: ToastContainerProps) => {
   return (
     <div className="toast-container">
       {toasts.map((toast) => (
@@ -20,5 +23,3 @@ const ToastContainer = ({ toasts, removeToast }: ToastContainerProps) => {
     </div>
   );
 };
-
-export default ToastContainer;

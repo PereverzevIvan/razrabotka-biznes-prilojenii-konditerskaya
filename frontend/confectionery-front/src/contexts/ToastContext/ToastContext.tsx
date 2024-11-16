@@ -5,13 +5,13 @@ import {
   useCallback,
   ReactNode,
 } from "react";
-import ToastContainer from "../../modules/ToastContainer/ToastContainer";
 import { TToast, TToastContext } from "..";
+import { ToastContainer } from "../../modules/ToastContainer";
 
 // Создаем контекст
 const ToastContext = createContext<TToastContext | null>(null);
 
-export const useToast = () => useContext(ToastContext);
+export const useToastContext = () => useContext(ToastContext) as TToastContext;
 
 // Провайдер для оборачивания всего приложения
 export const ToastContextProvider = ({ children }: { children: ReactNode }) => {

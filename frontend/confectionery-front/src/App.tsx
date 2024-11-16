@@ -1,7 +1,7 @@
-import Container from "./components/Container/Container";
-import Footer from "./modules/Footer/Footer";
-import Header from "./modules/Header/Header";
-import CustomRouter from "./modules/Router/Router";
+import { Container } from "./components/Container/Container";
+import { Footer } from "./modules/Footer";
+import { Header } from "./modules/Header";
+import { CustomRouter } from "./modules/Router";
 import "./scss/index.scss";
 
 function App() {

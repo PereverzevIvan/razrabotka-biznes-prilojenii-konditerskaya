@@ -8,7 +8,7 @@ type TProtectedRouteProps = {
 };
 
 /** Компонент для защиты маршрутов */
-function ProtectedRoute(props: TProtectedRouteProps) {
+export function ProtectedRoute(props: TProtectedRouteProps) {
   const isAuth = true;
   const role = roles.director;
 
@@ -24,5 +24,3 @@ function ProtectedRoute(props: TProtectedRouteProps) {
 
   return props.children;
 }
-
-export default ProtectedRoute;

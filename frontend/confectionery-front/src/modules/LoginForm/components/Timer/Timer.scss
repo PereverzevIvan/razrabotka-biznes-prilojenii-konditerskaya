@@ -1,0 +1,28 @@
+@use "../../../../scss/variables" as v;
+
+.timer {
+  position: relative;
+  width: 100%; /* Ширина таймера */
+  height: 10px; /* Высота контейнера */
+  background-color: lightred; /* Цвет фона */
+  border: 1px solid v.$red-cl; /* Граница */
+  overflow: hidden; /* Скрываем лишнее содержимое */
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.line {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: v.$red-cl; /* Цвет линии таймера */
+}
+
+@keyframes countdown {
+  from {
+    width: 100%; /* Начальная ширина (полная) */
+  }
+  to {
+    width: 0%; /* Конечная ширина (нулевая) */
+  }
+}

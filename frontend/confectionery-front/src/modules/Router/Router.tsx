@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import { routePaths as rp } from "../../configs";
-import ProtectedRoute from "../../components/ProtectedRoute/ProtectedRoute";
+import { ProtectedRoute } from "../../components/ProtectedRoute";
 
 /** Компонент для отображения страниц по определенным в конфиге маршрутам */
-function CustomRouter() {
+export function CustomRouter() {
   return (
     <Routes>
       {Object.values(rp).map((route, index) => (
@@ -20,5 +20,3 @@ function CustomRouter() {
     </Routes>
   );
 }
-
-export default CustomRouter;

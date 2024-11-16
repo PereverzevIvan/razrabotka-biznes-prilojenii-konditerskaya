@@ -8,7 +8,7 @@ type ButtonProps = {
   disabled?: boolean;
 };
 
-function Button({
+export function Button({
   children,
   color = "blue",
   onClick,
@@ -26,5 +26,3 @@ function Button({
     </button>
   );
 }
-
-export default Button;

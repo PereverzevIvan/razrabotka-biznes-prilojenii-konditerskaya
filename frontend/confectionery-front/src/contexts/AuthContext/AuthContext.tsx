@@ -30,6 +30,8 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     sessionStorage.getItem(CStorageItems.isAuth)
   );
 
+  console.log("Auth context is ready", userID, role, isAuth);
+
   const api = axios.create({
     baseURL: baseURL,
     withCredentials: true,
@@ -176,5 +178,5 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
 }
 
 export function useAuthContext() {
-  return useContext(AuthContext);
+  return useContext(AuthContext) as TAuthContext;
 }

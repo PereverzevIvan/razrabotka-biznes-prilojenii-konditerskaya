@@ -1,12 +1,12 @@
-import LoginForm from "./modules/LoginForm/LoginForm";
+import { LoginForm } from "../../modules/LoginForm";
 
-function LoginPage() {
+export function LoginPage() {
   return (
     <>
-      <h1>LoginPage</h1>
-      <LoginForm />
+      <section className="page login-page">
+        <h1 className="title">Login Page</h1>
+        <LoginForm />
+      </section>
     </>
   );
 }
-
-export default LoginPage;

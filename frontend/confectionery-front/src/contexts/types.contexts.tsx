@@ -16,7 +16,7 @@ export type TToastContext = {
 };
 
 export type TCredentialsForLogin = {
-  email: string;
+  login: string;
   password: string;
 };
 

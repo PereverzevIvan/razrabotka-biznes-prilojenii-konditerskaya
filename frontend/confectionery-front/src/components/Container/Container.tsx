@@ -6,9 +6,7 @@ type TProps = {
   addClass?: string;
 };
 
-function Container(props: TProps) {
+export function Container(props: TProps) {
   const classes: string = "container" + (props.addClass ? props.addClass : "");
   return <div className={classes}>{props.children}</div>;
 }
-
-export default Container;
