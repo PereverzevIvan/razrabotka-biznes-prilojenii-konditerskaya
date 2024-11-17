@@ -1,3 +1,7 @@
 export function IngredientsAccountingPage() {
-  return <h1>IngredientsAccountingPage</h1>;
+  return (
+    <section className="page">
+      <h1 className="title">IngredientsAccountingPage</h1>
+    </section>
+  );
 }

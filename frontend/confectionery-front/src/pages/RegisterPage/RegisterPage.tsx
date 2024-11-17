@@ -1,3 +1,7 @@
 export function RegisterPage() {
-  return <h1>RegisterPage</h1>;
+  return (
+    <section className="page">
+      <h1 className="title">RegisterPage</h1>;
+    </section>
+  );
 }

@@ -1,3 +1,7 @@
 export function ForbidenPage() {
-  return <h1>403</h1>;
+  return (
+    <section className="page">
+      <h1 className="title">Forbidden</h1>
+    </section>
+  );
 }

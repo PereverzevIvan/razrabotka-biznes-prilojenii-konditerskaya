@@ -1,3 +1,7 @@
 export function ToolsAccountingPage() {
-  return <h1>ToolsAccountingPage</h1>;
+  return (
+    <section className="page">
+      <h1 className="title">ToolsAccountingPage</h1>
+    </section>
+  );
 }
