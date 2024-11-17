@@ -7,10 +7,11 @@ import (
 )
 
 type RegisterParams struct {
-	Login     string `json:"login"`
-	Password  string `json:"password"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
+	Login      string `json:"login"`
+	Password   string `json:"password"`
+	FirstName  string `json:"first_name"`
+	LastName   string `json:"last_name"`
+	Patronymic string `json:"patronymic"`
 	// Birthday  time.Time `json:"birthday"`
 }
 
@@ -58,12 +59,13 @@ func (params *RegisterParams) validatePassword() []string {
 
 func (params *RegisterParams) ToUser() *models.User {
 	return &models.User{
-		ID:       0,
-		RoleID:   1,
-		Login:    params.Login,
-		Password: params.Password,
-		// FirstName: params.FirstName,
-		// LastName:  params.LastName,
+		ID:         0,
+		RoleID:     int(models.KRoleCustomer),
+		Login:      params.Login,
+		Password:   params.Password,
+		FirstName:  params.FirstName,
+		LastName:   params.LastName,
+		Patronymic: params.Patronymic,
 		// Birthday:  params.Birthday,
 		// Active: true,
 	}

@@ -5,11 +5,13 @@ import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/controllers"
 	repos_mysql_component_category "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/component_category"
 	repos_mysql_component_type "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/component_type"
+	repos_mysql_product "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/product"
 	repos_mysql_purchased_component "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/purchased_component"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/services"
 	services_component_category "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/services/component_category"
 	services_component_type "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/services/component_type"
 	services_jwt "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/services/jwt"
+	services_product "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/services/product"
 	services_purchased_component "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/services/purchased_component"
 
 	"gorm.io/gorm"
@@ -29,6 +31,9 @@ type ServiceProvider struct {
 
 	purchasedComponentService controllers.IPurchasedComponentService
 	purchasedComponentRepo    services.IPurchasedComponentRepo
+
+	productService controllers.IProductService
+	productRepo    services.IProductRepo
 	// ...
 }
 
@@ -88,4 +93,18 @@ func (s *ServiceProvider) PurchasedComponentRepo() services.IPurchasedComponentR
 		s.purchasedComponentRepo = repos_mysql_purchased_component.NewPurchasedComponentService(s.db)
 	}
 	return s.purchasedComponentRepo
+}
+
+func (s *ServiceProvider) ProductService() controllers.IProductService {
+	if s.productService == nil {
+		s.productService = services_product.NewProductService(s.ProductRepo())
+	}
+	return s.productService
+}
+
+func (s *ServiceProvider) ProductRepo() services.IProductRepo {
+	if s.productRepo == nil {
+		s.productRepo = repos_mysql_product.NewProductRepo(s.db)
+	}
+	return s.productRepo
 }

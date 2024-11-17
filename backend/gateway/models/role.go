@@ -13,7 +13,7 @@ type ERole int
 
 const (
 	KRoleNone ERole = iota
-	KRoleSupplier
+	KRoleCustomer
 	KRoleClientManager
 	KRolePurchaseManager
 	KRoleMaster
@@ -22,7 +22,7 @@ const (
 
 func (e ERole) Name() string {
 	switch e {
-	case KRoleSupplier:
+	case KRoleCustomer:
 		return "Заказчик"
 	case KRoleClientManager:
 		return "Менеджер по работе с клиентами"

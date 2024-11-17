@@ -35,6 +35,16 @@ microservices:
         path: /decorations/purchased/:purchased_component_id
         methods: DELETE
 
+      - products:
+        path: /products
+        methods:
+          - GET
+
+      - product-by-id:
+        path: /products/:product_id
+        methods:
+          - GET
+
   - tools:
     url: http://golang_tools:3000
     name: tools

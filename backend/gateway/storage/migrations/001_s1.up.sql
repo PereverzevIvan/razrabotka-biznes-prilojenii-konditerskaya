@@ -35,6 +35,7 @@ CREATE TABLE `users` (
     FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) 
 );
 
+
 -- Поставщики
 
 drop table if exists `suppliers`;
@@ -47,11 +48,6 @@ create table `suppliers`  (
     PRIMARY KEY (`id`)
 );
 
-INSERT INTO `suppliers` 
-VALUES 
-	(1, "ИП Дмитрий Delivery", "г. Москва ул. Шарикоподшипниковская 42а", 120),
-    (2, "Fast Express", "Московская область, г. Красногорск, ул. Маяковская д.3", 300);
-
 -- Инструменты
 
 drop table if exists `tool_types`;
@@ -62,12 +58,6 @@ create table `tool_types`  (
     PRIMARY KEY (`id`),
     UNIQUE (`name`)
 );
-
-insert into `tool_types` (`id`, `name`) values
-    (1, "Формы"),
-    (2, "Ножи"),
-    (3, "Кастрюли")
-    ;
 
 create table `degree_of_wears`  (
     `id` int(11) NOT NULL AUTO_INCREMENT,

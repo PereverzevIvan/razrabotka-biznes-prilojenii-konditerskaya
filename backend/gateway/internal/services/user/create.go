@@ -9,7 +9,7 @@ import (
 func (s *UserService) Create(params *params_auth.RegisterParams) (*models.User, error) {
 	user := params.ToUser()
 
-	user.RoleID = 1
+	user.RoleID = int(models.KRoleCustomer)
 
 	hashed_password_bytes, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {

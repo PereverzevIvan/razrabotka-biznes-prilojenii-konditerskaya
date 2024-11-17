@@ -4,11 +4,15 @@ FROM golang:1.22.6-alpine
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Копируем файлы в контейнер
-COPY . .
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
 
 # Загружаем зависимости
-RUN go mod tidy
+# RUN go mod tidy
+
+# Копируем файлы в контейнер
+COPY . .
 
 # Собираем приложение
 # RUN go build -o ./cmd/main/main.out ./cmd/main/main.go
@@ -19,4 +23,4 @@ RUN go mod tidy
 # RUN ./cmd/fixture/user_data.out
 
 # Указываем команду, которая будет выполняться при запуске контейнера
-ENTRYPOINT ["go", "run", "./cmd/main/main.go"]
+CMD ["go", "run", "./cmd/main/main.go"]

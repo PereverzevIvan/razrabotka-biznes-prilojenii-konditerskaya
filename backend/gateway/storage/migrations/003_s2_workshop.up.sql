@@ -2,7 +2,7 @@
 -- Цеха
 
 drop table if exists `workshops`;
-create table `workshops`  {
+create table `workshops`  (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     
     `name` varchar(255) NOT NULL,    
@@ -12,10 +12,10 @@ create table `workshops`  {
 
     PRIMARY KEY (`id`),
     UNIQUE (`name`)
-};
+);
 
 drop table if exists `workshop_object_types`;
-create table `workshop_object_types`  {
+create table `workshop_object_types`  (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     
     `name` varchar(255) NOT NULL,
@@ -23,7 +23,7 @@ create table `workshop_object_types`  {
     
     PRIMARY KEY (`id`),
     UNIQUE (`name`)
-};
+);
 
 insert into `workshop_object_types` (`id`, `name`, `image`) values
     (1, "Equipment", "equipment.png"),
@@ -34,7 +34,7 @@ insert into `workshop_object_types` (`id`, `name`, `image`) values
     
 
 drop table if exists `workshop_objects`;
-create table `workshop_objects`  {
+create table `workshop_objects`  (
     `id` int(11) NOT NULL AUTO_INCREMENT,
 
     `workshop_id` int(11) NOT NULL,
@@ -46,4 +46,4 @@ create table `workshop_objects`  {
     PRIMARY KEY (`id`),
     FOREIGN KEY (`workshop_id`) REFERENCES `workshops` (`id`)
     FOREIGN KEY (`type_id`) REFERENCES `workshop_object_types` (`id`)
-};
+);

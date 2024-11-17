@@ -26,3 +26,8 @@ type IPurchasedComponentRepo interface {
 
 	Edit(purchased_component *models.PurchasedComponent) error
 }
+
+type IProductRepo interface {
+	GetAll() ([]models.Product, error)
+	GetByID(id int) (*models.Product, error)
+}
