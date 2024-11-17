@@ -15,19 +15,20 @@ import (
 
 func main() {
 	main_cfg := configs.Config{}
-	config_loader.MustLoad("./configs/default_config.yaml", main_cfg)
+	config_loader.MustLoad("./configs/default_config.yaml", &main_cfg)
 
 	cfg := main_cfg.DBConfig
 
+	fmt.Println(cfg)
 	var dsn string
 
 	switch cfg.DBType {
 	case "mysql":
 		dsn = fmt.Sprintf(
-			"%v:%v@tcp(%v:%v)/%v?multiStatements=true",
+			"%v:%v@tcp(localhost:%v)/%v?multiStatements=true",
 			cfg.AdminName,
 			cfg.DBPassword,
-			cfg.Host,
+			// cfg.Host,
 			cfg.Port,
 			cfg.DBName,
 		)

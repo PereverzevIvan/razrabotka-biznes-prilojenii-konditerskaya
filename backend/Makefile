@@ -1,7 +1,6 @@
 # SERVICES := gateway hello tools components orders
 SERVICES := gateway tools components productsorders
 
-
 up:
 	@for service in $(SERVICES); do \
 		(cd $$service && make up); \
