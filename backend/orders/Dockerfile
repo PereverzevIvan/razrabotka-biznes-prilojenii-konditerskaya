@@ -4,11 +4,15 @@ FROM golang:1.22.6-alpine
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Копируем файлы в контейнер
-COPY . .
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
 
 # Загружаем зависимости
-RUN go mod tidy
+# RUN go mod tidy
+
+# Копируем файлы в контейнер
+COPY . .
 
 # Собираем приложение
 # RUN go build -o ./cmd/main/main.out ./cmd/main/main.go

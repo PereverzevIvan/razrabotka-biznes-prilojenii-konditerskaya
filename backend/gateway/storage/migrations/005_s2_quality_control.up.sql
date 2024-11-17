@@ -1,7 +1,7 @@
 -- Контроль качества
 
 drop table `quality_control`;
-create table `quality_control`  {
+create table `quality_control`  (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     
     `order_id` int(11) NOT NULL,
@@ -17,4 +17,4 @@ create table `quality_control`  {
     PRIMARY KEY (`id`),
     FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
     FOREIGN KEY (`master_id`) REFERENCES `users` (`id`)
-};
+);

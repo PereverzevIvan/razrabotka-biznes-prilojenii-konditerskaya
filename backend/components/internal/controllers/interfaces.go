@@ -31,3 +31,8 @@ type IPurchasedComponentService interface {
 	Create(purchased_component *models.PurchasedComponent) error
 	Edit(purchased_component *models.PurchasedComponent) error
 }
+
+type IProductService interface {
+	GetAll() ([]models.Product, error)
+	GetByID(id int) (*models.Product, error)
+}
