@@ -54,7 +54,7 @@ func (service *productService) GetByIDWithRecipe(id int) (*models.Product, error
 		// если полуфабрикат ранее был получен, и не образует цикл, то подставляем его
 		for _, recipe_semiproduct := range cur_product.RecipeSemiProducts {
 
-			semiproduct_id := recipe_semiproduct.ProductID
+			semiproduct_id := recipe_semiproduct.SemiproductID
 			// Проверка на цикл
 			if _, ok := path_product_set[semiproduct_id]; ok {
 				return ErrCycleDetectedInProductRecipe

@@ -19,6 +19,7 @@ create table `recipe_semiproducts`  (
     `count` int(11) NOT NULL,
 
     PRIMARY KEY (`product_id`, `semiproduct_id`),
+    FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
     FOREIGN KEY (`semiproduct_id`) REFERENCES `products` (`id`)
 );
 
