@@ -32,8 +32,8 @@ INSERT INTO `tool_failures` (
     `id`, `tool_id`, `master_id`, 
     `failure_reason_id`, `failure_at`, `fixed_at`) 
 VALUES
-    (1, 1, 11, 1, '2024-11-13 10:39:41', '2024-11-13 00:00:00'),
-    (2, 1, 11, 2, '2024-11-13 10:42:32', NULL);
+    (1, 1, 7, 1, '2024-11-13 10:39:41', '2024-11-13 00:00:00'),
+    (2, 1, 7, 2, '2024-11-13 10:42:32', NULL);
 
 INSERT INTO `component_types` VALUES
     (1, 1, "Премиксы для выпечки"),
