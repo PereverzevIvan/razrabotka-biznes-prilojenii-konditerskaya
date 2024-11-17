@@ -21,9 +21,9 @@ dev:
 
 # Применить миграции к базе данных
 local-migrate:
-	go run ./cmd/migrator/migrator.go --config=./config/config_dev.json
+	go run ./cmd/migrator/migrator.go
 migrate: start
-	docker run --rm --network auth_database -v ./:/code -w /code golang:latest go run ./cmd/migrator/migrator.go --config=./config/config_docker_dev.json
+	docker run --rm --network gateway_database -v ./:/code -w /code golang:latest go run ./cmd/migrator/migrator.go 
 
 #
 init-test-venv:
