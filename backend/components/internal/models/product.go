@@ -7,8 +7,8 @@ type Product struct {
 	IsSemiproduct bool   `json:"is_semiproduct" gorm:"Column:is_semiproduct"`
 	Sizes         string `json:"sizes" gorm:"Column:sizes"`
 
-	// RecipeSemiProducts []RecipeSemiproduct `json:"semiproducts"`
-	RecipeComponents []RecipeComponents `json:"recipe_components" gorm:"many2many:recipe_components;"`
+	RecipeSemiProducts []*RecipeSemiproduct `json:"semiproducts"`
+	RecipeComponents   []*RecipeComponents  `json:"recipe_components"`
 }
 
 func (Product) TableName() string {

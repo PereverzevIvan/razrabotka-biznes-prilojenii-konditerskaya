@@ -12,7 +12,7 @@ func (controller *productController) GetByID(ctx fiber.Ctx) error {
 		return ctx.Status(fiber.StatusBadRequest).SendString("invalid product id")
 	}
 
-	product, err := controller.productService.GetByID(product_id)
+	product, err := controller.productService.GetByIDWithRecipe(product_id)
 	if err != nil {
 		log.Error(err)
 		return ctx.SendStatus(fiber.StatusInternalServerError)

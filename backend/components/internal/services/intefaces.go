@@ -14,6 +14,11 @@ type IComponentCategoryRepo interface {
 	GetByName(name string) (*models.ComponentCategory, error)
 }
 
+type IComponentRepo interface {
+	// GetAll(component_category_id int) ([]models.Component, error)
+	GetByID(id int) (*models.Component, error)
+}
+
 type IPurchasedComponentRepo interface {
 	GetAll(component_category_id int, params *params_purchased_component.GetAllParams) ([]models.PurchasedComponent, error)
 	GetAllTotalRows(component_category_id int, params *params_purchased_component.GetAllParams) (int64, error)
