@@ -3,6 +3,7 @@ package app
 import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/configs"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/controllers"
+	repos_mysql_component "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/component"
 	repos_mysql_component_category "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/component_category"
 	repos_mysql_component_type "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/component_type"
 	repos_mysql_product "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/product"
@@ -28,6 +29,8 @@ type ServiceProvider struct {
 
 	componentTypeService controllers.IComponentTypeService
 	componentTypeRepo    services.IComponentTypeRepo
+
+	componentRepo services.IComponentRepo
 
 	purchasedComponentService controllers.IPurchasedComponentService
 	purchasedComponentRepo    services.IPurchasedComponentRepo
@@ -81,6 +84,13 @@ func (s *ServiceProvider) ComponentTypeRepo() services.IComponentTypeRepo {
 	return s.componentTypeRepo
 }
 
+func (s *ServiceProvider) ComponentRepo() services.IComponentRepo {
+	if s.componentRepo == nil {
+		s.componentRepo = repos_mysql_component.NewComponentRepo(s.db)
+	}
+	return s.componentRepo
+}
+
 func (s *ServiceProvider) PurchasedComponentService() controllers.IPurchasedComponentService {
 	if s.purchasedComponentService == nil {
 		s.purchasedComponentService = services_purchased_component.NewPurchasedComponentService(s.PurchasedComponentRepo())
@@ -97,7 +107,7 @@ func (s *ServiceProvider) PurchasedComponentRepo() services.IPurchasedComponentR
 
 func (s *ServiceProvider) ProductService() controllers.IProductService {
 	if s.productService == nil {
-		s.productService = services_product.NewProductService(s.ProductRepo())
+		s.productService = services_product.NewProductService(s.ProductRepo(), s.ComponentRepo())
 	}
 	return s.productService
 }

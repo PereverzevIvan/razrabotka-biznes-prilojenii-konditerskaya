@@ -34,5 +34,6 @@ type IPurchasedComponentService interface {
 
 type IProductService interface {
 	GetAll() ([]models.Product, error)
-	GetByID(id int) (*models.Product, error)
+	// GetByID(id int) (*models.Product, error)
+	GetByIDWithRecipe(id int) (*models.Product, error)
 }
