@@ -1,4 +1,4 @@
-import { routePaths, roles } from "../../configs";
+import { routePaths } from "../../configs";
 
 export const links = [
   routePaths.main,

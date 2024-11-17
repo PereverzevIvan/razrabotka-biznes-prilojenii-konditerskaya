@@ -1,4 +1,5 @@
 export const roles = {
+  guest: "Гость",
   director: "Директор",
   master: "Мастер",
   supplier: "Заказчик",

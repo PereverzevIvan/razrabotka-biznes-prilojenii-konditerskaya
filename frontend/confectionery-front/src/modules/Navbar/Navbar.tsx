@@ -1,10 +1,11 @@
 import "./Navbar.scss";
 import { useLocation } from "react-router-dom";
 import { links } from "./routes";
+import { useAuthContext } from "../../contexts";
 
 /** Компонент для отображения панели управления */
 export function Navbar() {
-  const role = "Директор";
+  const { role } = useAuthContext();
   const location = useLocation();
 
   return (
@@ -12,7 +13,10 @@ export function Navbar() {
       <nav className="nav container">
         <ul className="h-flex nav__list">
           {links.map((link, key) => {
-            if (link.allowedRoles.length && !link.allowedRoles.includes(role)) {
+            if (
+              link.allowedRoles.length &&
+              !link.allowedRoles.includes(role ? role : "")
+            ) {
               return null;
             }
 
