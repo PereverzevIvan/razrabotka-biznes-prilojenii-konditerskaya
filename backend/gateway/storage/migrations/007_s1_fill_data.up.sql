@@ -23,6 +23,18 @@ INSERT INTO `tools` (`id`, `type_id`, `supplier_id`, `name`, `description`, `deg
 VALUES
     (1, 1, 1, 'Форма 1', '', 1, '2024-11-14 12:33:06');
 
+INSERT INTO `tool_failure_reasons` (`id`, `name`) VALUES
+    (1, 'Custom reason'),
+    (2, 'test_reason');
+
+
+INSERT INTO `tool_failures` (
+    `id`, `tool_id`, `master_id`, 
+    `failure_reason_id`, `failure_at`, `fixed_at`) 
+VALUES
+    (1, 1, 11, 1, '2024-11-13 10:39:41', '2024-11-13 00:00:00'),
+    (2, 1, 11, 2, '2024-11-13 10:42:32', NULL);
+
 INSERT INTO `component_types` VALUES
     (1, 1, "Премиксы для выпечки"),
     (2, 1, "Сливки"),
@@ -83,16 +95,3 @@ INSERT INTO `purchased_components` (`id`, `component_id`, `supplier_id`, `quanti
 
 INSERT INTO `products` (`id`, `name`, `sizes`, `is_semiproduct`) VALUES
 (1, 'Торт \"Шоколадный\"', '50x30', 0);
-
-
-INSERT INTO `tool_failure_reasons` (`id`, `name`) VALUES
-    (1, 'Custom reason'),
-    (2, 'test_reason');
-
-
-INSERT INTO `tool_failures` (
-    `id`, `tool_id`, `master_id`, 
-    `failure_reason_id`, `failure_at`, `fixed_at`) 
-VALUES
-    (1, 7, 11, 1, '2024-11-13 10:39:41', '2024-11-13 00:00:00'),
-    (2, 7, 11, 2, '2024-11-13 10:42:32', NULL);
