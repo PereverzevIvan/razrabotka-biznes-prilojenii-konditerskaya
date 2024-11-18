@@ -38,4 +38,6 @@ type IProductService interface {
 	Create(params *params_product.CreateParams) (*models.Product, error)
 	// GetByID(id int) (*models.Product, error)
 	GetByIDWithRecipe(id int) (*models.Product, error)
+
+	CountNeededRecipeComponents(id int) (map[int]int, error)
 }

@@ -46,6 +46,11 @@ microservices:
         methods:
           - GET
 
+      - product-make:
+        path: /products/:product_id/make
+        methods:
+          - POST
+
   - tools:
     url: http://golang_tools:3000
     name: tools

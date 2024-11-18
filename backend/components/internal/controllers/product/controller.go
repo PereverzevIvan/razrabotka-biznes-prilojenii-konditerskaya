@@ -19,5 +19,5 @@ func AddProductControllerRoutes(
 
 	api.Get("/products", controller.GetAll)
 	api.Get("/products/:product_id", controller.GetByID)
-	api.Post("/products", controller.Create)
+	api.Post("/products/:product_id/make", controller.MakeProduct)
 }
