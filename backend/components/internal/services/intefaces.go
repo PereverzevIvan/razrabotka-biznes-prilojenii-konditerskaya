@@ -38,5 +38,6 @@ type IToolTypeRepo interface {
 
 type IProductRepo interface {
 	GetAll() ([]models.Product, error)
+	Create(product *models.Product) (*models.Product, error)
 	GetByID(id int) (*models.Product, error)
 }

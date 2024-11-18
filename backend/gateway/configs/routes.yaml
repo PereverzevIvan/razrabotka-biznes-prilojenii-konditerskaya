@@ -39,6 +39,7 @@ microservices:
         path: /products
         methods:
           - GET
+          - POST
 
       - product-by-id:
         path: /products/:product_id
