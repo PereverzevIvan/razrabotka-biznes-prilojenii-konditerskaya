@@ -120,6 +120,7 @@ func (s *ServiceProvider) ProductService() controllers.IProductService {
 		s.productService = services_product.NewProductService(
 			s.ProductRepo(),
 			s.ComponentRepo(),
+			s.PurchasedComponentRepo(),
 			s.ToolTypeRepo(),
 		)
 	}

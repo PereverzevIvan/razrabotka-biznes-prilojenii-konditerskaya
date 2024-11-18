@@ -3,20 +3,23 @@ package services_product
 import "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/services"
 
 type productService struct {
-	productRepo   services.IProductRepo
-	componentRepo services.IComponentRepo
-	toolTypeRepo  services.IToolTypeRepo
+	productRepo            services.IProductRepo
+	componentRepo          services.IComponentRepo
+	purchasedComponentRepo services.IPurchasedComponentRepo
+	toolTypeRepo           services.IToolTypeRepo
 }
 
 func NewProductService(
 	productRepo services.IProductRepo,
 	componentRepo services.IComponentRepo,
+	purchasesdComponentRepo services.IPurchasedComponentRepo,
 	toolTypeRepo services.IToolTypeRepo,
 ) *productService {
 	service := &productService{
-		productRepo:   productRepo,
-		componentRepo: componentRepo,
-		toolTypeRepo:  toolTypeRepo,
+		productRepo:            productRepo,
+		componentRepo:          componentRepo,
+		purchasedComponentRepo: purchasesdComponentRepo,
+		toolTypeRepo:           toolTypeRepo,
 	}
 	return service
 }
