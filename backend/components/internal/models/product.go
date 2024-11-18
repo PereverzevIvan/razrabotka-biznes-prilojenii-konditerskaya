@@ -9,6 +9,7 @@ type Product struct {
 
 	RecipeSemiProducts []*RecipeSemiproduct `json:"semiproducts"`
 	RecipeComponents   []*RecipeComponents  `json:"recipe_components"`
+	RecipeOperations   []*RecipeOperation   `json:"recipe_operations"`
 }
 
 func (Product) TableName() string {

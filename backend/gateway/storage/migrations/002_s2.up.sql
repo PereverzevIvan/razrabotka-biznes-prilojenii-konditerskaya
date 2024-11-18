@@ -41,7 +41,7 @@ create table `recipe_operations`  (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     
     `product_id` int(11) NOT NULL,
-    `tool_id` int(11) DEFAULT NULL,
+    `tool_type_id` int(11) DEFAULT NULL,
 
 
     `description` varchar(255) NOT NULL,
@@ -51,5 +51,5 @@ create table `recipe_operations`  (
     PRIMARY KEY (`id`),
     UNIQUE (`product_id`, `order_idx`),
     FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-    FOREIGN KEY (`tool_id`) REFERENCES `tools` (`id`)
+    FOREIGN KEY (`tool_type_id`) REFERENCES `tool_types` (`id`)
 );
