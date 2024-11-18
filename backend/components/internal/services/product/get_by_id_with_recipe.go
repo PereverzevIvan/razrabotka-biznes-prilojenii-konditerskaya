@@ -56,7 +56,10 @@ func (service *productService) GetByIDWithRecipe(id int) (*models.Product, error
 		// если прибор ранее был получен, то подставляем его
 		for _, recipe_operation := range cur_product.RecipeOperations {
 
-			tool_type_id := recipe_operation.ToolTypeID
+			if recipe_operation.ToolType == nil {
+				continue
+			}
+			tool_type_id := *recipe_operation.ToolTypeID
 
 			// Если ранее получали этот инструмент, то используем его
 			if tool_type, ok := obtained_tool_types_map[tool_type_id]; ok {

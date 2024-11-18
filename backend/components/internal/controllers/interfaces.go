@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models"
+	params_product "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models/params/product"
 	params_purchased_component "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models/params/purchased_component"
 	results_purchased_component "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models/results/purchased_component"
 	"github.com/gofiber/fiber/v3"
@@ -34,6 +35,7 @@ type IPurchasedComponentService interface {
 
 type IProductService interface {
 	GetAll() ([]models.Product, error)
+	Create(params *params_product.CreateParams) (*models.Product, error)
 	// GetByID(id int) (*models.Product, error)
 	GetByIDWithRecipe(id int) (*models.Product, error)
 }
