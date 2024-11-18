@@ -1,7 +1,8 @@
 package logic_errors
 
-import "fmt"
+import "errors"
 
 var (
-	ErrDeleteNonEmptyQuantity = fmt.Errorf("cannot delete non-empty quantity")
+	ErrDeleteNonEmptyQuantity               = errors.New("cannot delete non-empty quantity")
+	ErrNotEnoughPurchasedComponentsToDeduct = errors.New("not enough purchased components to deduct")
 )

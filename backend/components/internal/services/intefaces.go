@@ -30,6 +30,9 @@ type IPurchasedComponentRepo interface {
 	Create(purchased_component *models.PurchasedComponent) error
 
 	Edit(purchased_component *models.PurchasedComponent) error
+
+	CountRemainingComponents(component_id int) (int64, error)
+	DeductComponents(component_id int, deduct_count int) error
 }
 
 type IToolTypeRepo interface {

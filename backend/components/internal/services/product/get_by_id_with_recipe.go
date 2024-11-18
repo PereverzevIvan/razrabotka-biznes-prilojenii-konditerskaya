@@ -2,6 +2,7 @@ package services_product
 
 import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models/logic_errors"
 )
 
 func (service *productService) GetByIDWithRecipe(id int) (*models.Product, error) {
@@ -83,7 +84,7 @@ func (service *productService) GetByIDWithRecipe(id int) (*models.Product, error
 			semiproduct_id := recipe_semiproduct.SemiproductID
 			// Проверка на цикл
 			if _, ok := path_product_set[semiproduct_id]; ok {
-				return ErrCycleDetectedInProductRecipe
+				return logic_errors.ErrCycleDetectedInProductRecipe
 			}
 
 			// Если ранее получали этот полуфабрикат, то используем его
@@ -114,8 +115,8 @@ func (service *productService) GetByIDWithRecipe(id int) (*models.Product, error
 	err = dfsProductRecipe(main_product)
 	if err != nil {
 		switch err {
-		case ErrCycleDetectedInProductRecipe:
-			return main_product, ErrCycleDetectedInProductRecipe
+		case logic_errors.ErrCycleDetectedInProductRecipe:
+			return main_product, logic_errors.ErrCycleDetectedInProductRecipe
 		}
 
 		return nil, err

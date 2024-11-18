@@ -40,4 +40,5 @@ type IProductService interface {
 	GetByIDWithRecipe(id int) (*models.Product, error)
 
 	CountNeededRecipeComponents(id int) (map[int]int, error)
+	MakeProduct(id int) error
 }

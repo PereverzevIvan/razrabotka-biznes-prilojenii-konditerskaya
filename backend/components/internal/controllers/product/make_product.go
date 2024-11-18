@@ -1,6 +1,9 @@
 package controllers_product
 
 import (
+	"errors"
+
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models/logic_errors"
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/log"
 )
@@ -15,6 +18,17 @@ func (controller *productController) MakeProduct(ctx fiber.Ctx) error {
 	res, err := controller.productService.CountNeededRecipeComponents(product_id)
 	if err != nil {
 		log.Error(err)
+		return ctx.SendStatus(fiber.StatusInternalServerError)
+	}
+
+	err = controller.productService.MakeProduct(product_id)
+	if err != nil {
+		log.Error(err)
+		// log.Info("check: ", errors.As(err, &logic_errors.ErrCycleDetectedInProductRecipe))
+		switch {
+		case errors.Is(err, logic_errors.ErrNotEnoughComponentsToMakeProduct):
+			return ctx.Status(fiber.StatusBadRequest).SendString(err.Error())
+		}
 		return ctx.SendStatus(fiber.StatusInternalServerError)
 	}
 
