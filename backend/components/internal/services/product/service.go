@@ -5,15 +5,18 @@ import "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/bac
 type productService struct {
 	productRepo   services.IProductRepo
 	componentRepo services.IComponentRepo
+	toolTypeRepo  services.IToolTypeRepo
 }
 
 func NewProductService(
 	productRepo services.IProductRepo,
 	componentRepo services.IComponentRepo,
+	toolTypeRepo services.IToolTypeRepo,
 ) *productService {
 	service := &productService{
 		productRepo:   productRepo,
 		componentRepo: componentRepo,
+		toolTypeRepo:  toolTypeRepo,
 	}
 	return service
 }

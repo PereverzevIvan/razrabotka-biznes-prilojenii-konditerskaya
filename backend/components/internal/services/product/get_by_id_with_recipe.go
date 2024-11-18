@@ -16,6 +16,8 @@ func (service *productService) GetByIDWithRecipe(id int) (*models.Product, error
 	}
 	obtained_components_map := map[int]*models.Component{}
 
+	obtained_tool_types_map := map[int]*models.ToolType{}
+
 	// Проверка на цикл в графе рецепте
 	// Если в графе рецепта есть цикл, то возвращаем ошибку
 	// Привмер:
@@ -47,6 +49,27 @@ func (service *productService) GetByIDWithRecipe(id int) (*models.Product, error
 
 				obtained_components_map[component_id] = component
 				recipe_component.Component = component
+			}
+		}
+
+		// Получаем типы приборов для производства этого полуфабриката,
+		// если прибор ранее был получен, то подставляем его
+		for _, recipe_operation := range cur_product.RecipeOperations {
+
+			tool_type_id := recipe_operation.ToolTypeID
+
+			// Если ранее получали этот инструмент, то используем его
+			if tool_type, ok := obtained_tool_types_map[tool_type_id]; ok {
+				recipe_operation.ToolType = tool_type
+			} else {
+				// Иначе получаем из БД
+				tool_type, err = service.toolTypeRepo.GetByID(tool_type_id)
+				if err != nil {
+					return err
+				}
+
+				obtained_tool_types_map[tool_type_id] = tool_type
+				recipe_operation.ToolType = tool_type
 			}
 		}
 

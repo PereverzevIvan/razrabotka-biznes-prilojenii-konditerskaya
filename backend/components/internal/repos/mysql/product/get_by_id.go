@@ -15,6 +15,8 @@ func (repo *productRepo) GetByID(id int) (*models.Product, error) {
 		Model(&models.Product{}).
 		Preload("RecipeComponents").
 		Preload("RecipeSemiProducts").
+		Preload("RecipeOperations").
+		Preload("RecipeOperations.ToolType").
 		Where("id = ?", id).
 		First(&product).
 		Error
