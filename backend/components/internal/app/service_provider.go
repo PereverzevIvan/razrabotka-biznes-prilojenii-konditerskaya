@@ -8,6 +8,7 @@ import (
 	repos_mysql_component_type "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/component_type"
 	repos_mysql_product "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/product"
 	repos_mysql_purchased_component "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/purchased_component"
+	repos_mysql_supplier_component "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/supplier_component"
 	repos_mysql_tool_type "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/tool_type"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/services"
 	services_component_category "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/services/component_category"
@@ -35,6 +36,8 @@ type ServiceProvider struct {
 
 	purchasedComponentService controllers.IPurchasedComponentService
 	purchasedComponentRepo    services.IPurchasedComponentRepo
+
+	supplierComponentRepo services.ISupplierComponentRepo
 
 	toolTypeRepo services.IToolTypeRepo
 
@@ -108,6 +111,13 @@ func (s *ServiceProvider) PurchasedComponentRepo() services.IPurchasedComponentR
 	return s.purchasedComponentRepo
 }
 
+func (s *ServiceProvider) SupplierComponentRepo() services.ISupplierComponentRepo {
+	if s.supplierComponentRepo == nil {
+		s.supplierComponentRepo = repos_mysql_supplier_component.NewSupplierComponentRepo(s.db)
+	}
+	return s.supplierComponentRepo
+}
+
 func (s *ServiceProvider) ToolTypeRepo() services.IToolTypeRepo {
 	if s.toolTypeRepo == nil {
 		s.toolTypeRepo = repos_mysql_tool_type.NewToolTypeRepo(s.db)
@@ -121,6 +131,7 @@ func (s *ServiceProvider) ProductService() controllers.IProductService {
 			s.ProductRepo(),
 			s.ComponentRepo(),
 			s.PurchasedComponentRepo(),
+			s.SupplierComponentRepo(),
 			s.ToolTypeRepo(),
 		)
 	}

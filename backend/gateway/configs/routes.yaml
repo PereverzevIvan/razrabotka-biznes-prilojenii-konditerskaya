@@ -51,6 +51,11 @@ microservices:
         methods:
           - POST
 
+      - product-production-info:
+        path: /products/:product_id/production-info
+        methods:
+          - GET
+
   - tools:
     url: http://golang_tools:3000
     name: tools
