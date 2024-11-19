@@ -6,6 +6,7 @@ type productService struct {
 	productRepo            services.IProductRepo
 	componentRepo          services.IComponentRepo
 	purchasedComponentRepo services.IPurchasedComponentRepo
+	supplierComponentRepo  services.ISupplierComponentRepo
 	toolTypeRepo           services.IToolTypeRepo
 }
 
@@ -13,12 +14,14 @@ func NewProductService(
 	productRepo services.IProductRepo,
 	componentRepo services.IComponentRepo,
 	purchasesdComponentRepo services.IPurchasedComponentRepo,
+	supplierComponentRepo services.ISupplierComponentRepo,
 	toolTypeRepo services.IToolTypeRepo,
 ) *productService {
 	service := &productService{
 		productRepo:            productRepo,
 		componentRepo:          componentRepo,
 		purchasedComponentRepo: purchasesdComponentRepo,
+		supplierComponentRepo:  supplierComponentRepo,
 		toolTypeRepo:           toolTypeRepo,
 	}
 	return service

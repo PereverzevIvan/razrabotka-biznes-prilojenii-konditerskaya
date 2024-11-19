@@ -33,6 +33,11 @@ type IPurchasedComponentRepo interface {
 
 	CountRemainingComponents(component_id int) (int64, error)
 	DeductComponents(component_id int, deduct_count int) error
+	CalcPriceOfRequiredCount(component_id int, count int) (float64, error)
+}
+type ISupplierComponentRepo interface {
+	FastestDeliveryComponentPrice(component_id int) (float64, error)
+	FastestDeliveryComponentTime(component_id int) (int, error)
 }
 
 type IToolTypeRepo interface {

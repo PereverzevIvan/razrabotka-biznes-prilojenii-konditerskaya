@@ -41,4 +41,13 @@ type IProductService interface {
 
 	CountNeededRecipeComponents(id int) (map[int]int, error)
 	MakeProduct(id int) error
+
+	CalcProductionPrice(product_id int) (
+		total_price float64,
+		purchased_components_prices map[int]float64,
+		to_purchase_components_prices map[int]float64,
+		err error,
+	)
+
+	CalcComponentsMaxDeliveryTime(component_ids []int) (int, error)
 }
