@@ -11,7 +11,11 @@ export type TToast = {
 };
 
 export type TToastContext = {
-  addToast: (message: string, type?: string, seconds?: number) => void;
+  addToast: (
+    message: string,
+    type?: "success" | "error",
+    seconds?: number
+  ) => void;
   removeToast: (id: string) => void;
 };
 

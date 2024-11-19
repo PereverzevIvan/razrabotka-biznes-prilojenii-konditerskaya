@@ -6,6 +6,7 @@ import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/configs"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
 	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/cors"
 )
 
 type App struct {
@@ -19,6 +20,11 @@ func NewApp() (*App, error) {
 	app := &App{}
 
 	app.fiberApp = fiber.New()
+
+	app.fiberApp.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:5173"},
+		AllowCredentials: true,
+	}))
 
 	err := app.initDependencies()
 	if err != nil {

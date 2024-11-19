@@ -18,7 +18,11 @@ export const ToastContextProvider = ({ children }: { children: ReactNode }) => {
   const [toasts, setToasts] = useState<TToast[]>([]);
 
   const addToast = useCallback(
-    (message: string, type: string = "success", seconds: number = 5) => {
+    (
+      message: string,
+      type: "success" | "error" = "success",
+      seconds: number = 5
+    ) => {
       const id = Math.random().toString(36).substr(2, 9); // Генерируем уникальный ID для каждого тоста
       setToasts((prevToasts) => [...prevToasts, { id, message, type }]);
 

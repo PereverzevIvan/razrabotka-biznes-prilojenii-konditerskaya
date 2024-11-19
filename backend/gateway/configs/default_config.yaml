@@ -12,5 +12,5 @@ database:
 
 jwt:
   secret_key: "super-duper-secret-key-4-jwt-auth"
-  access_token_duration: "10m"
-  refresh_token_duration: "8h"
+  access_token_duration: "15m"
+  refresh_token_duration: "10m"

@@ -67,9 +67,6 @@ export function LoginForm() {
     <form className="form login-form" onSubmit={handleSubmit(onSubmit)}>
       {/* Сообщение для вывода ошибок от сервера */}
       {message && <div className="message message_error">{message}</div>}
-      {/* <div className="message message_error"> */}
-      {/*   <p>{message}</p> */}
-      {/* </div> */}
 
       {/* Таймер для отчета времени до следующей попытки входа */}
       <Timer seconds={5} isVisible={attempts === MAX_ATTEMPTS} />
