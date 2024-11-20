@@ -104,12 +104,12 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   function clearAuth() {
     setUserID(null);
     setRole(null);
+    setIsAuth(null);
     Cookies.remove("access-token");
     Cookies.remove("refresh-token");
-    setIsAuth("false");
-    sessionStorage.removeItem("isAuth");
-    sessionStorage.removeItem("userID");
-    sessionStorage.removeItem("role");
+    sessionStorage.removeItem(CStorageItems.isAuth);
+    sessionStorage.removeItem(CStorageItems.userID);
+    sessionStorage.removeItem(CStorageItems.role);
     console.log("Очистка данных авторизации успешна");
   }
 

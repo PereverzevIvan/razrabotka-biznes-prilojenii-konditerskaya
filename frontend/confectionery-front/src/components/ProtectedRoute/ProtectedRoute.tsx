@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { roles } from "../../configs";
 import { routePaths as rp } from "../../configs";
+import { useAuthContext } from "../../contexts";
 
 type TProtectedRouteProps = {
   children: React.ReactNode;
@@ -9,16 +10,16 @@ type TProtectedRouteProps = {
 
 /** Компонент для защиты маршрутов */
 export function ProtectedRoute(props: TProtectedRouteProps) {
-  const isAuth = true;
-  const role = roles.director;
+  const { isAuth, role } = useAuthContext();
+  const needAuth = props.requiredRoles.length > 0;
 
   // Если пользователь не авторизован
-  if (!isAuth) {
-    return <Navigate to={rp.login.path} />;
+  if (needAuth && isAuth === "false") {
+    return <Navigate to={rp.forbiden.path} />;
   }
 
   // Если список ролей не пустой и текущая роль не входит в список
-  if (props.requiredRoles.length && !props.requiredRoles.includes(role)) {
+  if (needAuth && role && !props.requiredRoles.includes(role)) {
     return <Navigate to={rp.forbiden.path} />;
   }
 
