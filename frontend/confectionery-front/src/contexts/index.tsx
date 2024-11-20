@@ -1,4 +1,3 @@
-export { useApiContext, ApiContextProvider } from "./AxiosContext/AxiosContext";
 export {
   useAuthContext,
   AuthContextProvider as AuthProvider,

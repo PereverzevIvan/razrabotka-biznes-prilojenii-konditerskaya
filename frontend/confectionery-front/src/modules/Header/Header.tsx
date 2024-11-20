@@ -5,6 +5,7 @@ import { LogoutButton } from "./components/LogoutButton";
 import { useAuthContext } from "../../contexts";
 import { Navbar } from "../Navbar";
 import { Link } from "react-router-dom";
+import { RegisterButton } from "./components/RegisterButton";
 
 export function Header() {
   const { isAuth } = useAuthContext();
@@ -23,7 +24,14 @@ export function Header() {
           </Link>
 
           <div className="h-flex link-box">
-            {!isAuth || isAuth === "false" ? <LoginButton /> : <LogoutButton />}
+            {!isAuth || isAuth === "false" ? (
+              <>
+                <RegisterButton />
+                <LoginButton />
+              </>
+            ) : (
+              <LogoutButton />
+            )}
           </div>
         </div>
         <Navbar />

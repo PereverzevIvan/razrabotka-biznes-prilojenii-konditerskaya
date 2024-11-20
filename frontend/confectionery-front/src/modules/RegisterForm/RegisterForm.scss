@@ -1,0 +1,14 @@
+.register-form {
+  max-width: 50%;
+  margin: 20px auto;
+}
+
+.password-input {
+  gap: 5px;
+  align-items: center;
+  margin-bottom: 10px;
+  input {
+    flex-grow: 1;
+    margin: 0;
+  }
+}

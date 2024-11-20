@@ -7,11 +7,10 @@ import {
 } from "react";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
-import { baseURL, routePaths as rp } from "../../configs";
-import axios from "axios";
+import { routePaths as rp } from "../../configs";
 import { useNavigate } from "react-router-dom";
 import { TAuthContext, TCredentialsForLogin } from "..";
-
+import { apiClient as api } from "../../configs";
 const CStorageItems = {
   userID: "userID",
   role: "role",
@@ -31,11 +30,6 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   );
 
   console.log("Auth context is ready", userID, role, isAuth);
-
-  const api = axios.create({
-    baseURL: baseURL,
-    withCredentials: true,
-  });
 
   const navigate = useNavigate();
 

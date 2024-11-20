@@ -11,13 +11,12 @@ $corners: 7px;
   cursor: pointer;
   transition: all 200ms;
 
-  &:hover:not(:disabled) {
-    transform: scale(1.05);
-  }
-
   &:focus {
     outline: 2px solid black;
-    transform: scale(1);
+  }
+
+  &:active {
+    transform: scale(0.96);
   }
 
   &_color-red {
@@ -26,6 +25,15 @@ $corners: 7px;
 
     &:hover {
       background-color: v.$dark-red-cl;
+    }
+  }
+
+  &_color-gray {
+    background-color: v.$blue-cl;
+    color: white;
+
+    &:hover {
+      background-color: v.$dark-blue-cl;
     }
   }
 
