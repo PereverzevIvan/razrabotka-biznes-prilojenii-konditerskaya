@@ -1,10 +1,12 @@
-import { DecorationsAccountingPage } from "../pages/DecorationsAccountingPage";
-import { ForbidenPage } from "../pages/ForbidenPage";
-import { IngredientsAccountingPage } from "../pages/IngredientsAccountingPage";
-import { LoginPage } from "../pages/LoginPage";
-import { MainPage } from "../pages/MainPage";
-import { RegisterPage } from "../pages/RegisterPage";
-import { ToolsAccountingPage } from "../pages/ToolsAccountingPage";
+import {
+  MainPage,
+  LoginPage,
+  RegisterPage,
+  ToolsAccountingPage,
+  IngredientsAccountingPage,
+  DecorationsAccountingPage,
+  ForbidenPage,
+} from "../pages";
 import { roles } from "./roles.config";
 
 type TPath = {

@@ -73,10 +73,10 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     try {
       const response = await api.post("/login", credentials); // Получаем токен
 
-      const accessToken = Cookies.get("access-token"); // Достаем токен из кук
+      const accessToken = Cookies.get("access_token"); // Достаем токен из кук
       if (typeof accessToken === "undefined") {
         // Проверяем наличие токена
-        throw new Error("Токен должен быть строкой");
+        throw new Error("Не удалось получить токен");
       }
 
       // Декодируем токен

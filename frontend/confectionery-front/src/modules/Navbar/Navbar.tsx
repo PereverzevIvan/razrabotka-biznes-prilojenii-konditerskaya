@@ -1,5 +1,5 @@
 import "./Navbar.scss";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { links } from "./routes";
 import { useAuthContext } from "../../contexts";
 
@@ -25,9 +25,9 @@ export function Navbar() {
 
             return (
               <li key={key} className="nav__item">
-                <a className={linkClass} href={link.path}>
+                <Link className={linkClass} to={link.path}>
                   {link.title}
-                </a>
+                </Link>
               </li>
             );
           })}

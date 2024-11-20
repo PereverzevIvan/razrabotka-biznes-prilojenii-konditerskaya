@@ -4,6 +4,7 @@ import { LoginButton } from "./components/LoginButton";
 import { LogoutButton } from "./components/LogoutButton";
 import { useAuthContext } from "../../contexts";
 import { Navbar } from "../Navbar";
+import { Link } from "react-router-dom";
 
 export function Header() {
   const { isAuth } = useAuthContext();
@@ -12,14 +13,14 @@ export function Header() {
     <>
       <header className="header v-flex">
         <div className="container header__container h-flex">
-          <a href="/" className="header__logo-container h-flex">
+          <Link to="/" className="header__logo-container h-flex">
             <img
               src={logo}
               alt="Логотип кондитерской"
               className="header__logo"
             />
             <h1 className="header__title">Кондитерская</h1>
-          </a>
+          </Link>
 
           <div className="h-flex link-box">
             {!isAuth || isAuth === "false" ? <LoginButton /> : <LogoutButton />}

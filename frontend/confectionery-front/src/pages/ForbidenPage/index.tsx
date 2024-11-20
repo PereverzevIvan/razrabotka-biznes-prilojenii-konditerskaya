@@ -1,1 +1,0 @@
-export { ForbidenPage } from "./ForbidenPage";

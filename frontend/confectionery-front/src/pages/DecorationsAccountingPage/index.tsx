@@ -1,1 +1,0 @@
-export { DecorationsAccountingPage } from "./DecorationsAccountingPage";

@@ -1,1 +1,0 @@
-export { IngredientsAccountingPage } from "./IngredientsAccountingPage";
