@@ -1,6 +1,7 @@
 import { TRegisterForm } from "../registerForm.types";
 import { apiClient, routePaths } from "../../../configs";
 
-export function register(data: TRegisterForm) {
-  return apiClient.post(routePaths.register.path, data);
+export async function postRegister(postData: TRegisterForm) {
+  const { data } = await apiClient.post(routePaths.register.path, postData);
+  return data;
 }

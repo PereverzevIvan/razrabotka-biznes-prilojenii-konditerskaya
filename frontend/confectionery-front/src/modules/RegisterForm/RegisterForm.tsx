@@ -3,12 +3,29 @@ import { Button } from "../../components/Button";
 import "./RegisterForm.scss";
 import { useState } from "react";
 import { TRegisterForm } from ".";
+import { useMutation } from "@tanstack/react-query";
+import { postRegister } from "./api/registerApi";
+import { useToastContext } from "../../contexts";
 
 export function RegisterForm() {
+  const { addToast } = useToastContext();
+
   const { register, handleSubmit, reset, formState, watch } =
     useForm<TRegisterForm>({
       mode: "onChange",
     });
+
+  const { mutate, isLoading, isError, error, data } = useMutation({
+    mutationFn: (data: TRegisterForm) => postRegister(data),
+    onSuccess: () => addToast("Регистрация прошла успешно"),
+    onError: () => {
+      console.log(">>", data);
+      if (typeof data === "string" && data != "") {
+        addToast(data, "error");
+      }
+      addToast("Произошла ошибка при регистрации", "error");
+    },
+  });
 
   const loginWatch = watch("login");
   const { errors } = formState;
@@ -16,12 +33,18 @@ export function RegisterForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   function onSubmit(data: TRegisterForm) {
-    console.log(data);
+    mutate(data);
   }
 
   return (
     <>
       <form className="form register-form" onSubmit={handleSubmit(onSubmit)}>
+        {isError &&
+          (typeof data === "string" && data != "" ? (
+            <div className="message message_error">{data}</div>
+          ) : (
+            <div className="message message_error">{error.message}</div>
+          ))}
         <fieldset className="form__fieldset">
           <legend className="form__legend">Регистрация</legend>
           <label className="form__label" htmlFor="login-input">
@@ -125,10 +148,19 @@ export function RegisterForm() {
           )}
 
           <div className="form__button-box">
-            <Button color="green" type="submit">
+            <Button
+              disabled={!formState.isValid || isLoading}
+              color="green"
+              type="submit"
+            >
               Отправить
             </Button>
-            <Button onClick={() => reset()} color="red" type="button">
+            <Button
+              disabled={!formState.isValid || isLoading}
+              onClick={() => reset()}
+              color="red"
+              type="button"
+            >
               Сбросить
             </Button>
           </div>
