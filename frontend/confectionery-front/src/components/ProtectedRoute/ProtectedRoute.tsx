@@ -1,5 +1,4 @@
 import { Navigate } from "react-router-dom";
-import { roles } from "../../configs";
 import { routePaths as rp } from "../../configs";
 import { useAuthContext } from "../../contexts";
 

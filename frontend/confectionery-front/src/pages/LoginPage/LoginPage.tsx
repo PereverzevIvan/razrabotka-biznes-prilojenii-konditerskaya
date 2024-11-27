@@ -9,7 +9,6 @@ export function LoginPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(isAuth === "false", isAuth);
     if (isAuth === "true") navigate(routePaths.main.path);
   }, [isAuth]);
 

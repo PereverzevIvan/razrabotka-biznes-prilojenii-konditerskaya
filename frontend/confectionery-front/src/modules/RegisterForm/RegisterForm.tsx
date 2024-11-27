@@ -15,15 +15,24 @@ export function RegisterForm() {
       mode: "onChange",
     });
 
-  const { mutate, isPending, isError, error, data } = useMutation({
+  const {
+    mutate,
+    isPending,
+    isError,
+    error: registerError,
+  } = useMutation({
     mutationFn: (data: TRegisterForm) => postRegister(data),
-    onSuccess: () => addToast("Регистрация прошла успешно"),
-    onError: (error) => {
-      console.log(">>", error);
-      if (typeof data === "string" && data != "") {
-        addToast(data, "error");
+    onSuccess: () => {
+      reset();
+      addToast("Регистрация прошла успешно");
+    },
+    onError: (error: any) => {
+      console.error(error);
+      if (error?.response?.data) {
+        addToast(error?.response?.data, "error");
+      } else {
+        addToast("Произошла ошибка при регистрации", "error");
       }
-      addToast("Произошла ошибка при регистрации", "error");
     },
   });
 
@@ -33,20 +42,27 @@ export function RegisterForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   function onSubmit(data: TRegisterForm) {
+    data = prepareData(data);
     mutate(data);
   }
 
   return (
     <>
       <form className="form register-form" onSubmit={handleSubmit(onSubmit)}>
+        {/* Отображение ошибок */}
         {isError &&
-          (typeof data === "string" && data != "" ? (
-            <div className="message message_error">{data}</div>
+          (typeof registerError?.response?.data === "string" &&
+          registerError?.response?.data != "" ? (
+            <div className="message message_error">
+              {registerError?.response?.data}
+            </div>
           ) : (
-            <div className="message message_error">{error.message}</div>
+            <div className="message message_error">{registerError.message}</div>
           ))}
         <fieldset className="form__fieldset">
           <legend className="form__legend">Регистрация</legend>
+
+          {/* Поле для ввода логина */}
           <label className="form__label" htmlFor="login-input">
             Логин
           </label>
@@ -63,14 +79,16 @@ export function RegisterForm() {
               },
             })}
           />
+
+          {/* Отображение ошибок для логина */}
           {errors.login && (
             <div className="form__field-error">{errors.login.message}</div>
           )}
 
+          {/* Поле для ввода пароля */}
           <label className="form__label" htmlFor="password-input">
             Пароль
           </label>
-
           <div className="h-flex password-input">
             <input
               id="password-input"
@@ -94,17 +112,19 @@ export function RegisterForm() {
                 },
               })}
             />
+            {/* Кнопка для отображения пароля */}
             <Button
               onClick={() => setPasswordVisible(!passwordVisible)}
               type="button"
             >
-              Показать
+              {passwordVisible ? "Скрыть" : "Показать"}
             </Button>
           </div>
           {errors.password && (
             <div className="form__field-error">{errors.password.message}</div>
           )}
 
+          {/* Поля для ввода имени, фамилии и отчества */}
           <label className="form__label" htmlFor="firstname-input">
             Имя
           </label>
@@ -113,7 +133,7 @@ export function RegisterForm() {
             type="text"
             className="form__input"
             placeholder="Введите имя"
-            {...register("first_name")}
+            {...register("first_name", { required: "Имя обязательно" })}
           />
           {errors.first_name && (
             <div className="form__field-error">{errors.first_name.message}</div>
@@ -127,26 +147,27 @@ export function RegisterForm() {
             type="text"
             className="form__input"
             placeholder="Введите фамилию"
-            {...register("last_name")}
+            {...register("last_name", { required: "Фамилия обязательна" })}
           />
           {errors.last_name && (
             <div className="form__field-error">{errors.last_name.message}</div>
           )}
 
           <label className="form__label" htmlFor="patronymic-input">
-            Отчество
+            Отчество (если есть)
           </label>
           <input
             id="patronymic-input"
             type="text"
             className="form__input"
-            placeholder="Введите отчество"
-            {...register("patronymic", { required: true })}
+            placeholder="Введите отчество (если есть)"
+            {...register("patronymic")}
           />
           {errors.patronymic && (
             <div className="form__field-error">{errors.patronymic.message}</div>
           )}
 
+          {/* Кнопки отправки и сброса формы */}
           <div className="form__button-box">
             <Button
               disabled={!formState.isValid || isPending}
@@ -170,6 +191,18 @@ export function RegisterForm() {
   );
 }
 
+/** Функция для подготовки данных перед отправкой. В пароле лишние пробелы на удаляются, так как они могут быть его частью. */
+function prepareData(data: TRegisterForm) {
+  return {
+    ...data,
+    login: data.login.trim(),
+    first_name: data.first_name.trim(),
+    last_name: data.last_name.trim(),
+    patronymic: data.patronymic?.trim(),
+  };
+}
+
+/** Функция для проверки наличия логина в пароле */
 function validateHasLogin(value: string, loginWatch: string) {
   const isLogin = !!loginWatch;
   const hasLogin = value.includes(loginWatch);
@@ -178,7 +211,7 @@ function validateHasLogin(value: string, loginWatch: string) {
   }
 }
 
-// Функция для проверки наличия хотя бы одной заглавной и одной строчной буквы
+/** Функция для проверки наличия хотя бы одной заглавной и одной строчной буквы */
 const validateCase = (value: string) => {
   const hasUpperCase = /[A-Z]/.test(value);
   const hasLowerCase = /[a-z]/.test(value);

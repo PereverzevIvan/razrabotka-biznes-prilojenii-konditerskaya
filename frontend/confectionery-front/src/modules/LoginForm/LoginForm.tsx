@@ -35,12 +35,17 @@ export function LoginForm() {
 
   // Обработчик сабмита
   const onSubmit = (data: TCredentialsForLogin) => {
+    data = prepareData(data);
     login(data)
       .then(() => {
         reset();
         addToast("Вы успешно вошли в систему", "success");
       })
       .catch((error) => {
+        if (error.response) {
+          setMessage("Ошибка в логине или пароле");
+          addToast("Ошибка в логине или пароле", "error");
+        }
         console.error(error);
         setAttempts(attempts + 1);
       });
@@ -129,4 +134,11 @@ export function LoginForm() {
       </fieldset>
     </form>
   );
+}
+
+function prepareData(data: TCredentialsForLogin) {
+  return {
+    ...data,
+    login: data.login.trim(),
+  };
 }
