@@ -36,6 +36,7 @@ type IPurchasedComponentService interface {
 type IProductService interface {
 	GetAll() ([]models.Product, error)
 	Create(params *params_product.CreateParams) (*models.Product, error)
+	Update(params *params_product.UpdateParams) (*models.Product, error)
 	// GetByID(id int) (*models.Product, error)
 	GetByIDWithRecipe(id int) (*models.Product, error)
 
