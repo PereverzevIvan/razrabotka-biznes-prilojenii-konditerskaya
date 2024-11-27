@@ -15,11 +15,11 @@ export function RegisterForm() {
       mode: "onChange",
     });
 
-  const { mutate, isLoading, isError, error, data } = useMutation({
+  const { mutate, isPending, isError, error, data } = useMutation({
     mutationFn: (data: TRegisterForm) => postRegister(data),
     onSuccess: () => addToast("Регистрация прошла успешно"),
-    onError: () => {
-      console.log(">>", data);
+    onError: (error) => {
+      console.log(">>", error);
       if (typeof data === "string" && data != "") {
         addToast(data, "error");
       }
@@ -149,14 +149,14 @@ export function RegisterForm() {
 
           <div className="form__button-box">
             <Button
-              disabled={!formState.isValid || isLoading}
+              disabled={!formState.isValid || isPending}
               color="green"
               type="submit"
             >
               Отправить
             </Button>
             <Button
-              disabled={!formState.isValid || isLoading}
+              disabled={!formState.isValid || isPending}
               onClick={() => reset()}
               color="red"
               type="button"
