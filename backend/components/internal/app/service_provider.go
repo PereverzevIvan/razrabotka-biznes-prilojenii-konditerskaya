@@ -9,6 +9,7 @@ import (
 	repos_mysql_product "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/product"
 	repos_mysql_purchased_component "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/purchased_component"
 	repos_mysql_supplier_component "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/supplier_component"
+	repos_mysql_tool "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/tool"
 	repos_mysql_tool_type "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/repos/mysql/tool_type"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/services"
 	services_component_category "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/services/component_category"
@@ -40,6 +41,7 @@ type ServiceProvider struct {
 	supplierComponentRepo services.ISupplierComponentRepo
 
 	toolTypeRepo services.IToolTypeRepo
+	toolRepo     services.IToolRepo
 
 	productService controllers.IProductService
 	productRepo    services.IProductRepo
@@ -125,6 +127,13 @@ func (s *ServiceProvider) ToolTypeRepo() services.IToolTypeRepo {
 	return s.toolTypeRepo
 }
 
+func (s *ServiceProvider) ToolRepo() services.IToolRepo {
+	if s.toolRepo == nil {
+		s.toolRepo = repos_mysql_tool.NewToolRepo(s.db)
+	}
+	return s.toolRepo
+}
+
 func (s *ServiceProvider) ProductService() controllers.IProductService {
 	if s.productService == nil {
 		s.productService = services_product.NewProductService(
@@ -133,6 +142,7 @@ func (s *ServiceProvider) ProductService() controllers.IProductService {
 			s.PurchasedComponentRepo(),
 			s.SupplierComponentRepo(),
 			s.ToolTypeRepo(),
+			s.ToolRepo(),
 		)
 	}
 	return s.productService

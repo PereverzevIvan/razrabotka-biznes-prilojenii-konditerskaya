@@ -50,4 +50,6 @@ type IProductService interface {
 	)
 
 	CalcComponentsMaxDeliveryTime(component_ids []int) (int, error)
+
+	CalcProductionMinTime(product *models.Product) (map[int][]models.ToolWorkInterval, error)
 }
