@@ -3,6 +3,7 @@ package services
 import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models"
 	params_purchased_component "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models/params/purchased_component"
+	params_tool "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models/params/tool"
 )
 
 type IComponentTypeRepo interface {
@@ -42,6 +43,10 @@ type ISupplierComponentRepo interface {
 
 type IToolTypeRepo interface {
 	GetByID(id int) (*models.ToolType, error)
+}
+
+type IToolRepo interface {
+	GetAll(params *params_tool.GetAllParams) ([]models.Tool, error)
 }
 
 type IProductRepo interface {

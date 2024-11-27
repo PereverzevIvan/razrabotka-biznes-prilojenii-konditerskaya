@@ -21,4 +21,5 @@ func AddProductControllerRoutes(
 	api.Get("/products/:product_id", controller.GetByID)
 	api.Get("/products/:product_id/production-info", controller.GetProductionInfo)
 	api.Post("/products/:product_id/make", controller.MakeProduct)
+	api.Get("/products/:product_id/production-min-time", controller.ProductionMinTime)
 }

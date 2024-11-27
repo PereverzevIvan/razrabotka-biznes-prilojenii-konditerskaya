@@ -56,6 +56,11 @@ microservices:
         methods:
           - GET
 
+      - production-min-time:
+        path: /products/:product_id/production-min-time
+        methods:
+          - GET
+
   - tools:
     url: http://golang_tools:3000
     name: tools
