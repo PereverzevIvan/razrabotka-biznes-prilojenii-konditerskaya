@@ -5,12 +5,18 @@ import (
 )
 
 type orderService struct {
+	userRepo  services.IUserRepo
 	orderRepo services.IOrderRepo
 }
 
-func NewOrderService(repo services.IOrderRepo) *orderService {
+func NewOrderService(
+	userRepo services.IUserRepo,
+	orderRepo services.IOrderRepo,
+) *orderService {
+
 	service := &orderService{
-		orderRepo: repo,
+		userRepo:  userRepo,
+		orderRepo: orderRepo,
 	}
 
 	return service

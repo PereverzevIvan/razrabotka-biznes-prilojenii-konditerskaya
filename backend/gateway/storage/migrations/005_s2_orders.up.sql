@@ -33,6 +33,7 @@ create table `orders`  (
 
     `number` varchar(255) NOT NULL,
     `name` varchar(255) NOT NULL,
+    `description` varchar(255) DEFAULT NULL,
     `cost` decimal(10, 2) DEFAULT NULL,
     
     `created_at` datetime DEFAULT NULL,

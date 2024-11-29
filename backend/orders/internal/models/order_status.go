@@ -12,13 +12,14 @@ func (o *OrderStatus) TableName() string {
 type EOrderStatus int
 
 const (
-	OrderStatusUndefined EOrderStatus = iota
-	OrderStatusNew
-	OrderStatusCanceled
-	OrderStatusAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	OrderStatusPurchase
-	OrderStatusProduction
-	OrderStatusControl
-	OrderStatusReady
-	OrderStatusCompleted
+	KOrderStatusUndefined EOrderStatus = iota
+	KOrderStatusNew
+	KOrderStatusCanceled
+	KOrderStatusCompilingRecipe
+	KOrderStatusConfirmation
+	KOrderStatusPurchase
+	KOrderStatusProduction
+	KOrderStatusControl
+	KOrderStatusReady
+	KOrderStatusCompleted
 )

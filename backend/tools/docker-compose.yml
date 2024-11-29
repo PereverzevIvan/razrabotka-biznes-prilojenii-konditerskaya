@@ -3,6 +3,8 @@ services:
     image: golang:1.22.7
     build: .
     container_name: golang_tools # Название контейнера
+    # ports:
+    #   - ":3000"  # Пробрасываем порт наружу
     volumes:
       - .:/app  # Примонтируем текущую директорию внутрь контейнера
     working_dir: /app
@@ -10,7 +12,6 @@ services:
     restart: on-failure
     stop_grace_period: 3s
     networks:
-      - gateway_gatework
       - gateway_database
 
 networks:

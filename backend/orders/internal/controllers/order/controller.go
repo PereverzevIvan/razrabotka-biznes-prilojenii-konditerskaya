@@ -6,16 +6,20 @@ import (
 )
 
 type orderController struct {
+	jwtService   controllers.IJWTService
 	orderService controllers.IOrderService
 }
 
 func AddOrderControllerRoutes(
 	api fiber.Router,
+	jwtService controllers.IJWTService,
 	orderService controllers.IOrderService,
 ) {
 	controller := orderController{
+		jwtService:   jwtService,
 		orderService: orderService,
 	}
 
 	api.Get("orders/", controller.GetAll)
+	api.Post("orders/", controller.Create)
 }
