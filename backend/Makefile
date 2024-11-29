@@ -1,5 +1,5 @@
 # SERVICES := gateway hello tools components orders
-SERVICES := gateway tools components productsorders
+SERVICES := gateway tools components products orders
 
 up:
 	@for service in $(SERVICES); do \

@@ -255,3 +255,17 @@ a {
     overflow-x: auto;
   }
 }
+
+.drop-down-list {
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 5px 5px 5px 7px;
+  &:focus,
+  &:hover {
+    outline: 2px solid black;
+  }
+  &:disabled {
+    background: lightgray;
+    cursor: not-allowed;
+  }
+}

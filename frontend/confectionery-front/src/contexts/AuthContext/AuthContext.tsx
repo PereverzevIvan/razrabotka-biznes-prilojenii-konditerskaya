@@ -143,24 +143,24 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
       });
   }
 
-  api.interceptors.response.use(
-    (response: any) => response,
-    async (error: any) => {
-      const originalRequest = error.config;
+  // api.interceptors.response.use(
+  //   (response: any) => response,
+  //   async (error: any) => {
+  //     const originalRequest = error.config;
 
-      if (
-        error.response &&
-        error.response.status == 401 &&
-        !originalRequest._retry
-      ) {
-        originalRequest._retry = true; // Это нужно для того, чтобы обработка ошибки не ушла в вечную рекурсию
-        const refreshResult = await refresh();
-        if (refreshResult) return await api(originalRequest);
-      }
-      clearAuth();
-      return Promise.reject(error);
-    }
-  );
+  //     if (
+  //       error.response &&
+  //       error.response.status == 401 &&
+  //       !originalRequest._retry
+  //     ) {
+  //       originalRequest._retry = true; // Это нужно для того, чтобы обработка ошибки не ушла в вечную рекурсию
+  //       const refreshResult = await refresh();
+  //       if (refreshResult) return await api(originalRequest);
+  //     }
+  //     clearAuth();
+  //     return Promise.reject(error);
+  //   }
+  // );
 
   return (
     <AuthContext.Provider

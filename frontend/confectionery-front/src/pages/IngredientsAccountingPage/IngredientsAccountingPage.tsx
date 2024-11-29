@@ -1,46 +1,95 @@
+import { useQuery } from "@tanstack/react-query";
+import { IngredientsTable } from "../../modules/IngredientsTable";
+import { getAllIngredientsFilters, TPurchasedComponent } from "../../entities";
+import { useState, useEffect } from "react";
+import { useToastContext } from "../../contexts";
+import { fetchAllIngredients } from "./api/ingredientsApi";
+import "./IngredientsAccountingPage.scss";
+
 export function IngredientsAccountingPage() {
+  const { addToast } = useToastContext();
+
+  const [filters, setFilters] = useState<getAllIngredientsFilters>({
+    component_category: "ingredients",
+  });
+
+  const [componentsData, setComponentsData] = useState<TPurchasedComponent[]>(
+    []
+  );
+  const {
+    data: GetAllComponentsResult,
+    isPending,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["purchased-components", filters],
+    queryFn: () => fetchAllIngredients(filters),
+  });
+
+  function handleChange(event: any) {
+    const { name, value } = event.target;
+    setFilters((prevData) => ({ ...prevData, [name]: value }));
+  }
+
+  useEffect(() => {
+    if (isError) {
+      addToast(error.message, "error");
+    }
+  }, [isError]);
+
   return (
     <section className="page">
       <h1 className="title">IngredientsAccountingPage</h1>
       <div className="info-block">
-        <p className="common-text">Общее кол-во выведенных позиций: [100]</p>
-        <p className="common-text">Общее кол-во ингредиентов: [100]</p>
-        <p className="common-text">Общее кол-во украшений: [100]</p>
-        <p className="common-text">Общая закупочная стоимость: [100]</p>
+        <p className="common-text">
+          Общее кол-во выведенных позиций: {GetAllComponentsResult?.total_rows}
+        </p>
+        <p className="common-text">
+          Общее кол-во компонентов: {GetAllComponentsResult?.total_count}
+        </p>
+        <p className="common-text">
+          Общая закупочная стоимость: {GetAllComponentsResult?.total_price}₽
+        </p>
       </div>
-      <select className="select">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-      <div className="table-container">
-        <div className="table-container">
-          <table className="table">
-            <thead className="table__head">
-              <tr className="table__row">
-                <th className="table__header">Артикул</th>
-                <th className="table__header">Наименование</th>
-                <th className="table__header">Кол-во</th>
-                <th className="table__header">Единица измерения</th>
-                <th className="table__header">Закупочная стоимость</th>
-                <th className="table__header">Основной поставщик</th>
-                <th className="table__header">Срок годности</th>
-              </tr>
-            </thead>
-            <tbody className="table__body">
-              <tr className="table__row">
-                <td className="table__data">1</td>
-                <td className="table__data">2</td>
-                <td className="table__data">3</td>
-                <td className="table__data">4</td>
-                <td className="table__data">5</td>
-                <td className="table__data">6</td>
-                <td className="table__data">7</td>
-              </tr>
-            </tbody>
-          </table>
+
+      <div className="h-flex filters">
+        <div className="h-flex filters__container">
+          <label htmlFor="select-component_category">Вид компонента:</label>
+          <select
+            id="select-component_category"
+            name="component_category"
+            className="drop-down-list"
+            onChange={handleChange}
+          >
+            <option value="ingredients" defaultChecked={true}>
+              Ингредиенты
+            </option>
+            <option value="decorations">Декорации для тортов</option>
+          </select>
+        </div>
+
+        <div className="h-flex filters__container">
+          <label htmlFor="select-sort">Вид компонента:</label>
+          <select
+            id="select-sort"
+            name="sort"
+            className="drop-down-list"
+            onChange={handleChange}
+          >
+            <option value="" defaultChecked={true}>
+              без сортировки
+            </option>
+            <option value="quantity">По количеству</option>
+            <option value="shelf_life">По сроку годности</option>
+          </select>
         </div>
       </div>
+
+      {isPending ? (
+        <p>Loading...</p>
+      ) : (
+        <IngredientsTable componentsDatas={GetAllComponentsResult?.Data} />
+      )}
     </section>
   );
 }
