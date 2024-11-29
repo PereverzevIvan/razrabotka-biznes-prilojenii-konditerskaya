@@ -17,13 +17,18 @@ type Order struct {
 	StatusID int          `json:"status_id" gorm:"Column:status_id"`
 	Status   *OrderStatus `json:"status" gorm:"foreignKey:StatusID"`
 
-	Number string   `json:"number" gorm:"Column:number"`
-	Name   string   `json:"name" gorm:"Column:name"`
-	Cost   *float64 `json:"cost" gorm:"Column:cost"`
+	Number      string   `json:"number" gorm:"Column:number"`
+	Name        string   `json:"name" gorm:"Column:name"`
+	Description *string  `json:"description" gorm:"Column:description"`
+	Cost        *float64 `json:"cost" gorm:"Column:cost"`
 
 	CreatedAt time.Time `json:"created_at" gorm:"Column:created_at"`
 	// UpdatedAt           time.Time  `json:"updated_at" gorm:"Column:updated_at"`
 	PlannedCompletionAt *time.Time `json:"planned_completion_at" gorm:"Column:planned_completion_at"`
 
 	// ExampleImages []string `json:"example_images" gorm:"Column:example_images"`
+}
+
+func (*Order) TableName() string {
+	return "orders"
 }

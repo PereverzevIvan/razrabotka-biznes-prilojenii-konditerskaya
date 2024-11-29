@@ -8,6 +8,7 @@ func (app *App) initControllers() error {
 
 	controllers_order.AddOrderControllerRoutes(
 		api,
+		app.serviceProvider.JWTService(),
 		app.serviceProvider.OrderService(),
 	)
 

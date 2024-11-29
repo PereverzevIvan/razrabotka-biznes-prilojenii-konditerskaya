@@ -4,6 +4,7 @@ import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/orders/configs"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/orders/internal/controllers"
 	repos_mysql_order "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/orders/internal/repos/mysql/order"
+	repos_mysql_user "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/orders/internal/repos/mysql/user"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/orders/internal/services"
 	services_jwt "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/orders/internal/services/jwt"
 	services_order "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/orders/internal/services/order"
@@ -16,6 +17,8 @@ type ServiceProvider struct {
 
 	jwtConfig  *configs.JWTConfig
 	jwtService controllers.IJWTService
+
+	userRepo services.IUserRepo
 
 	orderService controllers.IOrderService
 	orderRepo    services.IOrderRepo
@@ -39,9 +42,19 @@ func (s *ServiceProvider) JWTService() controllers.IJWTService {
 	return s.jwtService
 }
 
+func (s *ServiceProvider) UserRepo() services.IUserRepo {
+	if s.userRepo == nil {
+		s.userRepo = repos_mysql_user.NewUserRepo(s.db)
+	}
+	return s.userRepo
+}
+
 func (s *ServiceProvider) OrderService() controllers.IOrderService {
 	if s.orderService == nil {
-		s.orderService = services_order.NewOrderService(s.OrderRepo())
+		s.orderService = services_order.NewOrderService(
+			s.UserRepo(),
+			s.OrderRepo(),
+		)
 	}
 	return s.orderService
 }

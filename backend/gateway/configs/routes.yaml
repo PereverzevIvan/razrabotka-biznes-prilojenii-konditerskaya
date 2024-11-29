@@ -62,6 +62,19 @@ microservices:
         methods:
           - GET
 
+  - orders:
+    url: http://golang_orders:3000
+    name: orders
+
+    base_path: /api
+
+    routes:
+      - orders:
+        path: /orders
+        methods:
+          - GET
+          - POST
+
   - tools:
     url: http://golang_tools:3000
     name: tools
