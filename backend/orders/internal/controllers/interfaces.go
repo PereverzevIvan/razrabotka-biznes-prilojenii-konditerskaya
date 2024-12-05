@@ -12,7 +12,7 @@ type IJWTService interface {
 }
 
 type IOrderService interface {
-	GetAll() ([]models.Order, error)
+	GetAll(params *params_order.GetAllParams) ([]models.Order, error)
 	Create(params *params_order.CreateParams) (*models.Order, error)
 	// GetByName(name string) (*models.ComponentCategory, error)
 }
