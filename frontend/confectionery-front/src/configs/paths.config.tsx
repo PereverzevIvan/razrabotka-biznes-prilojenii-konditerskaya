@@ -3,8 +3,7 @@ import {
   LoginPage,
   RegisterPage,
   ToolsAccountingPage,
-  IngredientsAccountingPage,
-  DecorationsAccountingPage,
+  ComponentsAccountingPage,
   ForbidenPage,
 } from "../pages";
 import { roles } from "./roles.config";
@@ -47,27 +46,16 @@ export const routePaths: TRoutePaths = {
     title: "Учет инструментов",
     element: <ToolsAccountingPage />,
   },
-  ingredientsAccounting: {
-    path: "/ingredients/accounting",
+  componentsAccounting: {
+    path: "/components/accounting",
     allowedRoles: [
       roles.director,
       roles.master,
       roles.client_manager,
       roles.purchase_manager,
     ],
-    title: "Учет ингредиентов",
-    element: <IngredientsAccountingPage />,
-  },
-  decorationsAccounting: {
-    path: "/decorations/accounting",
-    allowedRoles: [
-      roles.director,
-      roles.master,
-      roles.client_manager,
-      roles.purchase_manager,
-    ],
-    title: "Учет декораций",
-    element: <DecorationsAccountingPage />,
+    title: "Учет ингредиентов и декораций",
+    element: <ComponentsAccountingPage />,
   },
   forbiden: {
     path: "/forbiden",

@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Button } from "../../components/Button";
 import { roles } from "../../configs";
 import { useAuthContext, useToastContext } from "../../contexts";
 import { TPurchasedComponent } from "../../entities";
+import { PurchasedComponentEditModal } from "../PurchasedComponentEditModal/PurchasedComponentEditModal";
 import "./IngredientsTable.scss";
 
 export function IngredientsTable({
@@ -18,9 +20,15 @@ export function IngredientsTable({
 
 function renderTable(componentsDatas: TPurchasedComponent[]) {
   const { role } = useAuthContext();
+  const [showEditModal, setShowEditModal] = useState(false);
 
   return (
     <>
+      {/* <PurchasedComponentEditModal */}
+      {/*   show={showEditModal} */}
+      {/*   handleClose={() => setShowEditModal(false)} */}
+      {/*   purComponent={editingPurComponent} */}
+      {/* ></PurchasedComponentEditModal> */}
       <div className="table-container">
         <div className="table-container">
           <table className="table">
@@ -53,7 +61,7 @@ function renderValues(componentsDatas: TPurchasedComponent[]) {
   const { addToast } = useToastContext();
 
   function handleEdit(component: TPurchasedComponent) {
-    addToast(`Вы хотите отредактировать элемент ${component.id}`);
+    setEditingPurComponent(component);
   }
 
   function handleDelete(purComponent: TPurchasedComponent) {

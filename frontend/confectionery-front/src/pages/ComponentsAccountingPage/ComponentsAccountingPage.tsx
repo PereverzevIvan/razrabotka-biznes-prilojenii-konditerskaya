@@ -3,19 +3,16 @@ import { IngredientsTable } from "../../modules/IngredientsTable";
 import { getAllIngredientsFilters, TPurchasedComponent } from "../../entities";
 import { useState, useEffect } from "react";
 import { useToastContext } from "../../contexts";
-import { fetchAllIngredients } from "./api/ingredientsApi";
-import "./IngredientsAccountingPage.scss";
+import "./ComponentsAccountingPage.scss";
+import { fetchAllPurchasedComponents } from "../../api";
 
-export function IngredientsAccountingPage() {
+export function ComponentsAccountingPage() {
   const { addToast } = useToastContext();
 
   const [filters, setFilters] = useState<getAllIngredientsFilters>({
     component_category: "ingredients",
   });
 
-  const [componentsData, setComponentsData] = useState<TPurchasedComponent[]>(
-    []
-  );
   const {
     data: GetAllComponentsResult,
     isPending,
@@ -23,7 +20,7 @@ export function IngredientsAccountingPage() {
     error,
   } = useQuery({
     queryKey: ["purchased-components", filters],
-    queryFn: () => fetchAllIngredients(filters),
+    queryFn: () => fetchAllPurchasedComponents(filters),
   });
 
   function handleChange(event: any) {

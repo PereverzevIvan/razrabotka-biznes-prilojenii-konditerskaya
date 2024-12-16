@@ -1,10 +1,10 @@
-import { apiClient } from "../../../configs";
 import {
   getAllIngredientsFilters,
   TGetAllComponentsResults,
-} from "../../../entities/component";
+} from "../entities";
+import { apiClient } from "./apiClient";
 
-export async function fetchAllIngredients(
+export async function fetchAllPurchasedComponents(
   filters: getAllIngredientsFilters
 ): Promise<TGetAllComponentsResults> {
   const { data } = await apiClient.get(

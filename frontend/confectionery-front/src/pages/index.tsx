@@ -1,6 +1,5 @@
-export { DecorationsAccountingPage } from "./DecorationsAccountingPage/DecorationsAccountingPage";
+export { ComponentsAccountingPage } from "./ComponentsAccountingPage/ComponentsAccountingPage";
 export { ForbidenPage } from "./ForbidenPage/ForbidenPage";
-export { IngredientsAccountingPage } from "./IngredientsAccountingPage/IngredientsAccountingPage";
 export { LoginPage } from "./LoginPage/LoginPage";
 export { MainPage } from "./MainPage/MainPage";
 export { RegisterPage } from "./RegisterPage/RegisterPage";

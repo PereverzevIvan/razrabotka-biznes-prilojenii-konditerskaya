@@ -4,8 +4,8 @@ import "./RegisterForm.scss";
 import { useState } from "react";
 import { TRegisterForm } from ".";
 import { useMutation } from "@tanstack/react-query";
-import { postRegister } from "./api/registerApi";
 import { useToastContext } from "../../contexts";
+import { postRegister } from "../../api";
 
 export function RegisterForm() {
   const { addToast } = useToastContext();

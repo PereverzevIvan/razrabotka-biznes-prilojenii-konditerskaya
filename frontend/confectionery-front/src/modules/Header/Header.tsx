@@ -24,7 +24,7 @@ export function Header() {
           </Link>
 
           <div className="h-flex link-box">
-            {!isAuth || isAuth === "false" ? (
+            {!isAuth ? (
               <>
                 <RegisterButton />
                 <LoginButton />

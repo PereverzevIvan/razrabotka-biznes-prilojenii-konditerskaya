@@ -10,7 +10,8 @@ import Cookies from "js-cookie";
 import { routePaths as rp } from "../../configs";
 import { useNavigate } from "react-router-dom";
 import { TAuthContext, TCredentialsForLogin } from "..";
-import { apiClient as api } from "../../configs";
+import { apiClient as api } from "../../api";
+
 const CStorageItems = {
   userID: "userID",
   role: "role",
@@ -21,15 +22,15 @@ const CStorageItems = {
 const AuthContext = createContext<TAuthContext | null>(null);
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
-  const [userID, setUserID] = useState(
-    sessionStorage.getItem(CStorageItems.userID)
+  const [userID, setUserID] = useState<string>(
+    sessionStorage.getItem(CStorageItems.userID) || ""
   );
-  const [role, setRole] = useState(sessionStorage.getItem(CStorageItems.role));
-  const [isAuth, setIsAuth] = useState(
-    sessionStorage.getItem(CStorageItems.isAuth)
+  const [role, setRole] = useState<string>(
+    sessionStorage.getItem(CStorageItems.role) || ""
   );
-
-  console.log("Auth context is ready", userID, role, isAuth);
+  const [isAuth, setIsAuth] = useState<string>(
+    sessionStorage.getItem(CStorageItems.isAuth) || ""
+  );
 
   const navigate = useNavigate();
 
@@ -96,9 +97,9 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
 
   // Функция для очистки данных авторизации
   function clearAuth() {
-    setUserID(null);
-    setRole(null);
-    setIsAuth(null);
+    setUserID("");
+    setRole("");
+    setIsAuth("");
     Cookies.remove("access-token");
     Cookies.remove("refresh-token");
     sessionStorage.removeItem(CStorageItems.isAuth);

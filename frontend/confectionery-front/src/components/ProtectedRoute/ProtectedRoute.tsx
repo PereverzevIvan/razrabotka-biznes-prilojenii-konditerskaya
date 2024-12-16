@@ -13,7 +13,7 @@ export function ProtectedRoute(props: TProtectedRouteProps) {
   const needAuth = props.requiredRoles.length > 0;
 
   // Если пользователь не авторизован
-  if (needAuth && isAuth === null) {
+  if (needAuth && !isAuth) {
     return <Navigate to={rp.forbiden.path} />;
   }
 
