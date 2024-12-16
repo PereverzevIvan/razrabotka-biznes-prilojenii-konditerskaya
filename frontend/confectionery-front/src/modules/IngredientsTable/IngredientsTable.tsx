@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Button } from "../../components/Button";
 import { roles } from "../../configs";
 import { useAuthContext, useToastContext } from "../../contexts";
 import { TPurchasedComponent } from "../../entities";
 import { PurchasedComponentEditModal } from "../PurchasedComponentEditModal/PurchasedComponentEditModal";
 import "./IngredientsTable.scss";
+import { Button } from "../../components/Button";
 
 export function IngredientsTable({
   componentsDatas,
@@ -60,9 +60,9 @@ function renderValues(componentsDatas: TPurchasedComponent[]) {
   const { role } = useAuthContext();
   const { addToast } = useToastContext();
 
-  function handleEdit(component: TPurchasedComponent) {
-    setEditingPurComponent(component);
-  }
+  // function handleEdit(component: TPurchasedComponent) {
+  //   setEditingPurComponent(component);
+  // }
 
   function handleDelete(purComponent: TPurchasedComponent) {
     if (purComponent.quantity != 0) {
@@ -90,7 +90,7 @@ function renderValues(componentsDatas: TPurchasedComponent[]) {
       </td>
       {(role == roles.director || role == roles.purchase_manager) && (
         <td className="table__data">
-          <Button onClick={() => handleEdit(purComponent)}>Изменить</Button>
+          {/* <Button onClick={() => handleEdit(purComponent)}>Изменить</Button> */}
           <Button onClick={() => handleDelete(purComponent)} color="red">
             Удалить
           </Button>
