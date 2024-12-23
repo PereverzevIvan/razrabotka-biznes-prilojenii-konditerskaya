@@ -1,4 +1,4 @@
-# Создать и запустить контейнеры со сборкой 
+# Создать и запустить контейнеры со сборкой
 DEFAULT_CONFIG_PATH = ./configs/default_config.yaml
 ROUTES_PATH = ./configs/routes.yaml
 
@@ -7,6 +7,12 @@ up:
 
 down:
 	docker compose down
+
+start:
+	docker compose start
+
+stop:
+	docker compose stop
 
 restart:
 	docker compose restart
@@ -23,7 +29,7 @@ dev:
 local-migrate:
 	go run ./cmd/migrator/migrator.go
 migrate: start
-	docker run --rm --network gateway_database -v ./:/code -w /code golang:latest go run ./cmd/migrator/migrator.go 
+	docker run --rm --network gateway_database -v ./:/code -w /code golang:latest go run ./cmd/migrator/migrator.go
 
 #
 init-test-venv:
