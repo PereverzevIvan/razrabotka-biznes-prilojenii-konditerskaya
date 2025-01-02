@@ -35,6 +35,8 @@ create table `orders`  (
     `name` varchar(255) NOT NULL,
     `description` varchar(255) DEFAULT NULL,
     `cost` decimal(10, 2) DEFAULT NULL,
+
+    `decline_reason` varchar(255) DEFAULT NULL,
     
     `created_at` datetime DEFAULT NULL,
     `planned_completion_at` datetime DEFAULT NULL,

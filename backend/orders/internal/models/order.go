@@ -22,6 +22,8 @@ type Order struct {
 	Description *string  `json:"description" gorm:"Column:description"`
 	Cost        *float64 `json:"cost" gorm:"Column:cost"`
 
+	DeclineReason *string `json:"decline_reason" gorm:"Column:decline_reason"`
+
 	CreatedAt time.Time `json:"created_at" gorm:"Column:created_at"`
 	// UpdatedAt           time.Time  `json:"updated_at" gorm:"Column:updated_at"`
 	PlannedCompletionAt *time.Time `json:"planned_completion_at" gorm:"Column:planned_completion_at"`

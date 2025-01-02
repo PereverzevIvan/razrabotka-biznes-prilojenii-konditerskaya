@@ -9,9 +9,10 @@ type Config struct {
 	// StoragePath string        `yaml:"storage_path" env-required:"true"`
 	// TokenTTL    time.Duration `yaml:"token_ttl" env-required:"true"`
 	// GRPC        ServerConfig  `yaml:"grpc" env-required:"true"`
-	ServerConfig ServerConfig `yaml:"server" env-required:"true"`
-	DBConfig     DBConfig     `yaml:"database" env-required:"true"`
-	JWTConfig    JWTConfig    `yaml:"jwt" env-required:"true"`
+	ServerConfig        ServerConfig        `yaml:"server" env-required:"true"`
+	DBConfig            DBConfig            `yaml:"database" env-required:"true"`
+	JWTConfig           JWTConfig           `yaml:"jwt" env-required:"true"`
+	ComponentsAPIConfig ComponentsAPIConfig `yaml:"components_api" env-required:"true"`
 }
 
 type ServerConfig struct {
@@ -32,4 +33,8 @@ type JWTConfig struct {
 	SecretKey            string        `yaml:"secret_key" env-required:"true"`
 	AccessTokenDuration  time.Duration `yaml:"access_token_duration" env-required:"true"`
 	RefreshTokenDuration time.Duration `yaml:"refresh_token_duration" env-required:"true"`
+}
+
+type ComponentsAPIConfig struct {
+	BaseUrl string `yaml:"base_url" env-required:"true"`
 }

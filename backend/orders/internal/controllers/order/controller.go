@@ -22,4 +22,5 @@ func AddOrderControllerRoutes(
 
 	api.Get("orders/", controller.GetAll)
 	api.Post("orders/", controller.Create)
+	api.Patch("orders/:order_id/status", controller.UpdateStatus)
 }

@@ -12,5 +12,8 @@ database:
 
 jwt:
   secret_key: "super-duper-secret-key-4-jwt-auth"
-  access_token_duration: "10m"
+  access_token_duration: "1h"
   refresh_token_duration: "8h"
+
+components_api:
+  base_url: "http://golang_components:3000"

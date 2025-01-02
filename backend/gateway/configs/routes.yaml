@@ -75,6 +75,22 @@ microservices:
           - GET
           - POST
 
+      - order-update-status:
+        path: /orders/:order_id/status
+        methods:
+          - PATCH
+
+      - quality-controls:
+        path: /quality-controls
+        methods:
+          - POST
+          - PATCH
+
+      - quality-controls-order-id:
+        path: /quality-controls/order/:order_id
+        methods:
+          - GET
+
   - tools:
     url: http://golang_tools:3000
     name: tools

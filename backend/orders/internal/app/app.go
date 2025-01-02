@@ -84,6 +84,7 @@ func (app *App) initServiceProvider() error {
 	app.serviceProvider = newServiceProvider(
 		app.Storage.Conn,
 		&app.config.JWTConfig,
+		&app.config.ComponentsAPIConfig,
 	)
 
 	return nil
