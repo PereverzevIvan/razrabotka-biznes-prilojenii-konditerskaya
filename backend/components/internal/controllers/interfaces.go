@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"mime/multipart"
+
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models"
 	params_product "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models/params/product"
 	params_purchased_component "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models/params/purchased_component"
@@ -53,4 +55,6 @@ type IProductService interface {
 	CalcComponentsMaxDeliveryTime(component_ids []int) (int, error)
 
 	CalcProductionMinTime(product *models.Product) (map[int][]models.ToolWorkInterval, error)
+
+	SaveImage(ctx fiber.Ctx, id int, image *multipart.FileHeader) (string, error)
 }

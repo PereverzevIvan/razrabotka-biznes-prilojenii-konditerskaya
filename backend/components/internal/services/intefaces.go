@@ -1,9 +1,12 @@
 package services
 
 import (
+	"mime/multipart"
+
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models"
 	params_purchased_component "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models/params/purchased_component"
 	params_tool "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models/params/tool"
+	"github.com/gofiber/fiber/v3"
 )
 
 type IComponentTypeRepo interface {
@@ -54,4 +57,5 @@ type IProductRepo interface {
 	Create(product *models.Product) (*models.Product, error)
 	Update(product *models.Product) error
 	GetByID(id int) (*models.Product, error)
+	SaveImage(ctx fiber.Ctx, id int, image *multipart.FileHeader) (string, error)
 }
