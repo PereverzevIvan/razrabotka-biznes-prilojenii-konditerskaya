@@ -28,4 +28,5 @@ func AddProductControllerRoutes(
 	api.Post("/products/:product_id/make", controller.MakeProduct)
 
 	api.Put("/products/:product_id/image", controller.SaveImage)
+	api.Get("/products/:product_id/image", controller.GetImage)
 }

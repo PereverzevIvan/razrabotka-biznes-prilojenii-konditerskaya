@@ -66,6 +66,7 @@ microservices:
         path: /products/:product_id/image
         methods:
           - PUT
+          - GET
 
   - orders:
     url: http://golang_orders:3000

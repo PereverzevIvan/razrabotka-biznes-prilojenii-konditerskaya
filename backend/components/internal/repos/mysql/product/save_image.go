@@ -8,12 +8,13 @@ import (
 	"github.com/gofiber/fiber/v3"
 )
 
+const base_path = "images/products"
+
 func (repo *productRepo) SaveImage(
 	ctx fiber.Ctx,
 	id int,
 	image *multipart.FileHeader,
 ) (string, error) {
-	base_path := "static/images/products"
 
 	image_extension := filepath.Ext(image.Filename)
 	image_save_name := fmt.Sprintf("%d%s", id, image_extension)

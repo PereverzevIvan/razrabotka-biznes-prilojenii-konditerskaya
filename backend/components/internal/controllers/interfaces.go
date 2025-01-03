@@ -57,4 +57,5 @@ type IProductService interface {
 	CalcProductionMinTime(product *models.Product) (map[int][]models.ToolWorkInterval, error)
 
 	SaveImage(ctx fiber.Ctx, id int, image *multipart.FileHeader) (string, error)
+	// GetImage(product_id int) (string, error)
 }
