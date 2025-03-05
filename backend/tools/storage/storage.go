@@ -1,4 +1,4 @@
-package app
+package storage
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 )
 
 type Storage struct {
-	Conn *gorm.DB
+	DB *gorm.DB
 }
 
 func NewStorage(cfg *configs.DBConfig) (*Storage, error) {
@@ -53,6 +53,6 @@ func NewStorage(cfg *configs.DBConfig) (*Storage, error) {
 	}
 
 	return &Storage{
-		Conn: db,
+		DB: db,
 	}, nil
 }

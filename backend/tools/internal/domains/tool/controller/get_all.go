@@ -1,19 +1,19 @@
-package controllers_tool
+package tool_controller
 
 import (
-	params_tool "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models/params/tool"
+	tool_params "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/domains/tool/params"
 	"github.com/gofiber/fiber/v3"
 )
 
 func (controller *toolController) GetAll(ctx fiber.Ctx) error {
-	params := &params_tool.GetAllParams{}
+	params := &tool_params.GetAllParams{}
 
 	err := ctx.Bind().Query(&params)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).SendString(err.Error())
 	}
 
-	tools, err := controller.toolService.GetAll(params)
+	tools, err := controller.toolUsecase.GetAll(params)
 	if err != nil {
 		return ctx.SendStatus(fiber.StatusInternalServerError)
 	}

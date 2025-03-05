@@ -5,13 +5,14 @@ import (
 
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/configs"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/storage"
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/log"
 )
 
 type App struct {
 	config          *configs.Config
-	Storage         *Storage
+	Storage         *storage.Storage
 	serviceProvider *ServiceProvider
 	fiberApp        *fiber.App
 }
@@ -43,7 +44,7 @@ func (app *App) initDependencies() error {
 		app.initConfigs,
 		app.initStorage,
 		app.initServiceProvider,
-		app.initControllers,
+		app.initRoutes,
 	}
 
 	for _, init := range inits {
@@ -72,7 +73,7 @@ func (app *App) initConfigs() error {
 }
 
 func (app *App) initStorage() error {
-	storage, err := NewStorage(&app.config.DBConfig)
+	storage, err := storage.NewStorage(&app.config.DBConfig)
 	if err != nil {
 		return err
 	}
@@ -82,7 +83,7 @@ func (app *App) initStorage() error {
 
 func (app *App) initServiceProvider() error {
 	app.serviceProvider = newServiceProvider(
-		app.Storage.Conn,
+		app.Storage.DB,
 		&app.config.JWTConfig,
 	)
 

@@ -1,4 +1,4 @@
-package params_tool
+package tool_params
 
 import "time"
 

@@ -1,4 +1,4 @@
-package controllers_tool
+package tool_controller
 
 import (
 	"github.com/gofiber/fiber/v3"
@@ -11,7 +11,7 @@ func (toolController *toolController) Delete(ctx fiber.Ctx) error {
 		return ctx.SendStatus(fiber.StatusBadRequest)
 	}
 
-	err := toolController.toolService.Delete(id)
+	err := toolController.toolUsecase.Delete(id)
 	if err != nil {
 		log.Error(err)
 		return ctx.SendStatus(fiber.StatusInternalServerError)

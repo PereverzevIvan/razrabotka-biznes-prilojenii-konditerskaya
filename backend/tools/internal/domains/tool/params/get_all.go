@@ -1,4 +1,4 @@
-package params_tool
+package tool_params
 
 import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"

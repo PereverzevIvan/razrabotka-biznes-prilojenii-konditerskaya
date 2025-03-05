@@ -1,18 +1,18 @@
-package repos_mysql_tool
+package tool_repo_mysql
 
 import (
+	tool_params "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/domains/tool/params"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
-	params_tool "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models/params/tool"
 	"gorm.io/gorm"
 )
 
-func (repo *toolRepo) GetAll(params *params_tool.GetAllParams) ([]models.Tool, error) {
+func (r *ToolRepo) GetAll(params *tool_params.GetAllParams) ([]models.Tool, error) {
 
 	var tools []models.Tool
 
-	err := repo.conn.
+	err := r.db.
 		Scopes(
-			repo.scopeGetAllParams(params),
+			r.scopeGetAllParams(params),
 		).
 		Joins("ToolType").
 		Joins("Supplier").
@@ -26,7 +26,7 @@ func (repo *toolRepo) GetAll(params *params_tool.GetAllParams) ([]models.Tool, e
 	return tools, nil
 }
 
-func (repo *toolRepo) scopeGetAllParams(params *params_tool.GetAllParams) func(db *gorm.DB) *gorm.DB {
+func (repo *ToolRepo) scopeGetAllParams(params *tool_params.GetAllParams) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
 
 		if params.Name != nil {
@@ -47,16 +47,16 @@ func (repo *toolRepo) scopeGetAllParams(params *params_tool.GetAllParams) func(d
 
 		if params.Sort != nil {
 			switch *params.Sort {
-			case params_tool.KSortByToolType:
-				db = db.Order(params_tool.KSortByToolType)
-			case params_tool.KSortByDegreeOfWear:
-				db = db.Order(params_tool.KSortByDegreeOfWear)
-			case params_tool.KSortByName:
-				db = db.Order(params_tool.KSortByName)
-			case params_tool.KSortByPurchaseDate:
-				db = db.Order(params_tool.KSortByPurchaseDate)
+			case tool_params.KSortByToolType:
+				db = db.Order(tool_params.KSortByToolType)
+			case tool_params.KSortByDegreeOfWear:
+				db = db.Order(tool_params.KSortByDegreeOfWear)
+			case tool_params.KSortByName:
+				db = db.Order(tool_params.KSortByName)
+			case tool_params.KSortByPurchaseDate:
+				db = db.Order(tool_params.KSortByPurchaseDate)
 			default:
-				db = db.Order(params_tool.KDefaultSort)
+				db = db.Order(tool_params.KDefaultSort)
 			}
 		}
 		return db

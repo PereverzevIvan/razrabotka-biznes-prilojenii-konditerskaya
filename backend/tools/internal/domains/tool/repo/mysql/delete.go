@@ -1,10 +1,10 @@
-package repos_mysql_tool
+package tool_repo_mysql
 
 import "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
 
-func (repo *toolRepo) Delete(tool_id int) error {
+func (r *ToolRepo) Delete(tool_id int) error {
 
-	err := repo.conn.
+	err := r.db.
 		Where("id = ?", tool_id).
 		Delete(&models.Tool{}).
 		Error

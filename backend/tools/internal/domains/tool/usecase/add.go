@@ -1,11 +1,11 @@
-package services_tool
+package tool_usecase
 
 import (
+	tool_params "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/domains/tool/params"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
-	params_tool "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models/params/tool"
 )
 
-func (service *toolService) Add(params *params_tool.ToolAddParams) (*models.Tool, error) {
+func (u *ToolUsecase) Add(params *tool_params.ToolAddParams) (*models.Tool, error) {
 
 	new_tool := &models.Tool{
 		ToolTypeID:     params.ToolType,
@@ -15,5 +15,5 @@ func (service *toolService) Add(params *params_tool.ToolAddParams) (*models.Tool
 		Description:    params.Description,
 	}
 
-	return service.toolRepo.Add(new_tool)
+	return u.toolRepo.Add(new_tool)
 }

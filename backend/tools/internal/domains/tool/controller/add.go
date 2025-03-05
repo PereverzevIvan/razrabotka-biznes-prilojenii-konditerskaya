@@ -1,13 +1,13 @@
-package controllers_tool
+package tool_controller
 
 import (
-	params_tool "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models/params/tool"
+	tool_params "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/domains/tool/params"
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/log"
 )
 
 func (controller *toolController) Add(ctx fiber.Ctx) error {
-	var params params_tool.ToolAddParams
+	var params tool_params.ToolAddParams
 	err := ctx.Bind().Body(&params)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).SendString(err.Error())
@@ -17,7 +17,7 @@ func (controller *toolController) Add(ctx fiber.Ctx) error {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{"errors": validate_errs})
 	}
 
-	tool, err := controller.toolService.Add(&params)
+	tool, err := controller.toolUsecase.Add(&params)
 	if err != nil {
 		log.Error(err)
 		return ctx.SendStatus(fiber.StatusInternalServerError)

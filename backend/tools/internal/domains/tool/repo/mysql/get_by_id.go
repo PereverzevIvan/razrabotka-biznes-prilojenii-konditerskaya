@@ -1,11 +1,11 @@
-package repos_mysql_tool
+package tool_repo_mysql
 
 import "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
 
-func (repo *toolRepo) GetByID(tool_id int) (*models.Tool, error) {
+func (r *ToolRepo) GetByID(tool_id int) (*models.Tool, error) {
 	var tool *models.Tool
 
-	err := repo.conn.
+	err := r.db.
 		Joins("ToolType").
 		Joins("Supplier").
 		Joins("DegreeOfWear").

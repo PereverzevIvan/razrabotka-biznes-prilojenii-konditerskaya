@@ -1,4 +1,4 @@
-package controllers_tool
+package tool_controller
 
 import (
 	"github.com/gofiber/fiber/v3"
@@ -11,7 +11,7 @@ func (controller *toolController) GetByID(ctx fiber.Ctx) error {
 		return ctx.Status(fiber.StatusBadRequest).SendString("invalid tool id")
 	}
 
-	tool, err := controller.toolService.GetByID(id)
+	tool, err := controller.toolUsecase.GetByID(id)
 	if err != nil {
 		log.Error(err)
 		return ctx.SendStatus(fiber.StatusInternalServerError)
