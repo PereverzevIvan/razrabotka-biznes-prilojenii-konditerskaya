@@ -1,7 +1,7 @@
-package controllers_tool_failure
+package tool_failure_controller
 
 import (
-	params_tool_failure "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models/params/tool_failure"
+	tool_failure_params "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/domains/tool_failure/params"
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/log"
 )
@@ -13,7 +13,7 @@ func (controller *toolFailureController) Create(ctx fiber.Ctx) error {
 		return ctx.Status(fiber.StatusUnauthorized).SendString(err.Error())
 	}
 
-	params := &params_tool_failure.CreateParams{
+	params := &tool_failure_params.CreateParams{
 		MasterID: master_id,
 	}
 
@@ -26,7 +26,7 @@ func (controller *toolFailureController) Create(ctx fiber.Ctx) error {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{"errors": validate_errs})
 	}
 
-	tool_failure, err := controller.toolFailureService.Create(params)
+	tool_failure, err := controller.toolFailureUsecase.Create(params)
 	if err != nil {
 		log.Error(err)
 		return ctx.SendStatus(fiber.StatusInternalServerError)

@@ -1,15 +1,15 @@
-package repos_mysql_tool_failure
+package tool_failure_repo_mysql
 
 import (
 	"fmt"
 	"time"
 
+	tool_failure_params "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/domains/tool_failure/params"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
-	params_tool_failure "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models/params/tool_failure"
 )
 
-func (repo *toolFailureRepo) Create(
-	params *params_tool_failure.CreateParams,
+func (repo *ToolFailureRepo) Create(
+	params *tool_failure_params.CreateParams,
 ) (*models.ToolFailure, error) {
 
 	var failure_reason_id int

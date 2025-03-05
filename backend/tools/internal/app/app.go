@@ -73,7 +73,7 @@ func (app *App) initConfigs() error {
 }
 
 func (app *App) initStorage() error {
-	storage, err := storage.NewStorage(&app.config.DBConfig)
+	storage, err := storage.NewStorage(&app.config.DBConfig, &app.config.JWTConfig)
 	if err != nil {
 		return err
 	}

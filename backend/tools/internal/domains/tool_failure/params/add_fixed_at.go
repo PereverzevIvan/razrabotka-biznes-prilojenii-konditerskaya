@@ -1,4 +1,4 @@
-package params_tool_failure
+package tool_failure_params
 
 import "time"
 

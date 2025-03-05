@@ -1,7 +1,7 @@
-package services_tool_failure
+package tool_failure_usecase
 
 import "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
 
-func (service *toolFailureService) GetAllReasons() ([]models.ToolFailureReason, error) {
+func (service *ToolFailureUsecase) GetAllReasons() ([]models.ToolFailureReason, error) {
 	return service.toolFailureRepo.GetAllReasons()
 }

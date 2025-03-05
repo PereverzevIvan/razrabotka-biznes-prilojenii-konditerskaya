@@ -1,4 +1,4 @@
-package controllers_tool_failure
+package tool_failure_controller
 
 import (
 	"github.com/gofiber/fiber/v3"
@@ -6,7 +6,7 @@ import (
 )
 
 func (controller *toolFailureController) GetAllReasons(ctx fiber.Ctx) error {
-	tool_failure_reasons, err := controller.toolFailureService.GetAllReasons()
+	tool_failure_reasons, err := controller.toolFailureUsecase.GetAllReasons()
 	if err != nil {
 		log.Error(err)
 		return ctx.SendStatus(fiber.StatusInternalServerError)

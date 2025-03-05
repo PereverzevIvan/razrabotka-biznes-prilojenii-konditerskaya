@@ -1,4 +1,4 @@
-package services_jwt
+package jwt_service
 
 import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/jwt_service"

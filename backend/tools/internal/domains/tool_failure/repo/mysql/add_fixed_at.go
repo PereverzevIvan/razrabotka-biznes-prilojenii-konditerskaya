@@ -1,11 +1,11 @@
-package repos_mysql_tool_failure
+package tool_failure_repo_mysql
 
 import (
+	tool_failure_params "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/domains/tool_failure/params"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
-	params_tool_failure "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models/params/tool_failure"
 )
 
-func (repo *toolFailureRepo) AddFixedAt(params *params_tool_failure.AddFixedAtParams) error {
+func (repo *ToolFailureRepo) AddFixedAt(params *tool_failure_params.AddFixedAtParams) error {
 
 	tool_failure := models.ToolFailure{
 		ID:      params.ToolFailureID,

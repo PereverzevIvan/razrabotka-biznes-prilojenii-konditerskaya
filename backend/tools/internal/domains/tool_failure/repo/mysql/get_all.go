@@ -1,8 +1,8 @@
-package repos_mysql_tool_failure
+package tool_failure_repo_mysql
 
 import "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
 
-func (repo *toolFailureRepo) GetAll() ([]models.ToolFailure, error) {
+func (repo *ToolFailureRepo) GetAll() ([]models.ToolFailure, error) {
 	var tool_failures []models.ToolFailure
 
 	err := repo.conn.

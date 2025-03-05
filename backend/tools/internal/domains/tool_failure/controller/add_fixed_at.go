@@ -1,13 +1,13 @@
-package controllers_tool_failure
+package tool_failure_controller
 
 import (
-	params_tool_failure "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models/params/tool_failure"
+	tool_failure_params "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/domains/tool_failure/params"
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/log"
 )
 
 func (controller *toolFailureController) AddFixedAt(ctx fiber.Ctx) error {
-	params := &params_tool_failure.AddFixedAtParams{}
+	params := &tool_failure_params.AddFixedAtParams{}
 
 	err := ctx.Bind().Body(&params)
 	if err != nil {
@@ -18,7 +18,7 @@ func (controller *toolFailureController) AddFixedAt(ctx fiber.Ctx) error {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{"errors": validate_errs})
 	}
 
-	err = controller.toolFailureService.AddFixedAt(params)
+	err = controller.toolFailureUsecase.AddFixedAt(params)
 	if err != nil {
 		log.Error(err)
 		return ctx.SendStatus(fiber.StatusInternalServerError)
