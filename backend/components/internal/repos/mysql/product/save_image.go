@@ -8,7 +8,7 @@ import (
 	"github.com/gofiber/fiber/v3"
 )
 
-const base_path = "images/products"
+const base_path = "static/images/products"
 
 func (repo *productRepo) SaveImage(
 	ctx fiber.Ctx,
