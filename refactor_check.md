@@ -55,6 +55,7 @@ internal
     - usecase.go: `exampleService` -> `ExampleUsecase`
     - get_by_id.go: `(service *ExampleUsecase)` -> `(u *ExampleUsecase)` 
 3. repo/mysql/
+    - repo.go: `exampleRepo` -> ``ExampleRepo`
     - get_by_id.go: `(repo *ExampleRepo)` -> `(r *ExampleRepo)`
 
 ## Удалить мьютекс из repo
