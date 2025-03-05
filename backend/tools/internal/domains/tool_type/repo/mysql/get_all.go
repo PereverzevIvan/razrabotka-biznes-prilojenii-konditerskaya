@@ -1,11 +1,11 @@
-package repos_mysql_tool_type
+package tool_type_repo_mysql
 
 import "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
 
-func (repo *toolTypeRepo) GetAll() ([]models.ToolType, error) {
+func (r *ToolTypeRepo) GetAll() ([]models.ToolType, error) {
 	var tool_types []models.ToolType
 
-	err := repo.conn.
+	err := r.db.
 		Find(&tool_types).
 		Error
 	if err != nil {

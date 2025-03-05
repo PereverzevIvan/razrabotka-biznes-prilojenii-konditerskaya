@@ -11,10 +11,6 @@ type IJWTService interface {
 	GetUserIDFromAccessTokenCookie(ctx fiber.Ctx) (int, error)
 }
 
-type IToolTypeService interface {
-	GetAll() ([]models.ToolType, error)
-}
-
 type IToolFailureReasonService interface {
 	GetAll() ([]models.ToolFailureReason, error)
 }

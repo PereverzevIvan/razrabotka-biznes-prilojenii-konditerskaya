@@ -20,7 +20,7 @@ type toolController struct {
 	toolUsecase IToolUsecase
 }
 
-func AddRoute(
+func AddRoutes(
 	api fiber.Router,
 	storage *storage.Storage,
 ) {

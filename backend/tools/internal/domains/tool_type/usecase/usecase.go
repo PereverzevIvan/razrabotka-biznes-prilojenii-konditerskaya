@@ -1,13 +1,13 @@
-package services_tool_type
+package tool_type_usecase
 
 import "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/services"
 
-type toolTypeService struct {
+type ToolTypeUsecase struct {
 	toolTypeRepo services.IToolTypeRepo
 }
 
-func NewToolTypeService(toolTypeRepo services.IToolTypeRepo) *toolTypeService {
-	return &toolTypeService{
+func NewToolTypeUsecase(toolTypeRepo services.IToolTypeRepo) *ToolTypeUsecase {
+	return &ToolTypeUsecase{
 		toolTypeRepo: toolTypeRepo,
 	}
 }
