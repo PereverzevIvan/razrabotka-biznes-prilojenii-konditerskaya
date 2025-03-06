@@ -1,12 +1,18 @@
 package tool_type_usecase
 
-import "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/services"
+import (
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
+)
 
-type ToolTypeUsecase struct {
-	toolTypeRepo services.IToolTypeRepo
+type IToolTypeRepo interface {
+	GetAll() ([]models.ToolType, error)
 }
 
-func NewToolTypeUsecase(toolTypeRepo services.IToolTypeRepo) *ToolTypeUsecase {
+type ToolTypeUsecase struct {
+	toolTypeRepo IToolTypeRepo
+}
+
+func NewToolTypeUsecase(toolTypeRepo IToolTypeRepo) *ToolTypeUsecase {
 	return &ToolTypeUsecase{
 		toolTypeRepo: toolTypeRepo,
 	}

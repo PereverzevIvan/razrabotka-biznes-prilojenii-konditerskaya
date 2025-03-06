@@ -11,10 +11,9 @@ import (
 )
 
 type App struct {
-	config          *configs.Config
-	Storage         *storage.Storage
-	serviceProvider *ServiceProvider
-	fiberApp        *fiber.App
+	config   *configs.Config
+	Storage  *storage.Storage
+	fiberApp *fiber.App
 }
 
 func NewApp() (*App, error) {
@@ -43,7 +42,6 @@ func (app *App) initDependencies() error {
 	inits := []func() error{
 		app.initConfigs,
 		app.initStorage,
-		app.initServiceProvider,
 		app.initRoutes,
 	}
 
@@ -78,14 +76,5 @@ func (app *App) initStorage() error {
 		return err
 	}
 	app.Storage = storage
-	return nil
-}
-
-func (app *App) initServiceProvider() error {
-	app.serviceProvider = newServiceProvider(
-		app.Storage.DB,
-		&app.config.JWTConfig,
-	)
-
 	return nil
 }
