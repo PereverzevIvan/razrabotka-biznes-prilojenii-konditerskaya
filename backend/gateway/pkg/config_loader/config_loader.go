@@ -24,7 +24,11 @@ func Load(path_to_cfg string, cfg interface{}) error {
 		return err
 	}
 
-	cleanenv.ReadConfig(path_to_cfg, cfg) // Парсим информацию из файла в структуру через специальную библиотеку
+	err := cleanenv.ReadConfig(path_to_cfg, cfg) // Парсим информацию из файла в структуру через специальную библиотеку
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 

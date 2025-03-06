@@ -30,10 +30,12 @@ microservices:
 
       - ingredients-purchased-delete-empty:
         path: /ingredients/purchased/:purchased_component_id
-        methods: DELETE
+        methods:
+          - DELETE
       - decorations-purchased-delete-empty:
         path: /decorations/purchased/:purchased_component_id
-        methods: DELETE
+        methods:
+          - DELETE
 
       - products:
         path: /products

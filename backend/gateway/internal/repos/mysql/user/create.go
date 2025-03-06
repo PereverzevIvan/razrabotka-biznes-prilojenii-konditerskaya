@@ -5,11 +5,9 @@ import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/models"
 )
 
-func (r *userRepo) Create(user *models.User) error {
-	r.m.Lock()
-	defer r.m.Unlock()
+func (r *UserRepo) Create(user *models.User) error {
 
-	err := r.Conn.
+	err := r.db.
 		Create(user).
 		Error
 

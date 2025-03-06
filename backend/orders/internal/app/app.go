@@ -5,15 +5,15 @@ import (
 
 	config_loader "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/orders/configs"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/orders/storage"
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/log"
 )
 
 type App struct {
-	config          *configs.Config
-	Storage         *Storage
-	serviceProvider *ServiceProvider
-	fiberApp        *fiber.App
+	config   *configs.Config
+	Storage  *storage.Storage
+	fiberApp *fiber.App
 }
 
 func NewApp() (*App, error) {
@@ -42,7 +42,6 @@ func (app *App) initDependencies() error {
 	inits := []func() error{
 		app.initConfigs,
 		app.initStorage,
-		app.initServiceProvider,
 		app.initControllers,
 	}
 
@@ -72,20 +71,10 @@ func (app *App) initConfigs() error {
 }
 
 func (app *App) initStorage() error {
-	storage, err := NewStorage(&app.config.DBConfig)
+	storage, err := storage.NewStorage(&app.config.DBConfig, &app.config.JWTConfig, &app.config.ComponentsAPIConfig)
 	if err != nil {
 		return err
 	}
 	app.Storage = storage
-	return nil
-}
-
-func (app *App) initServiceProvider() error {
-	app.serviceProvider = newServiceProvider(
-		app.Storage.Conn,
-		&app.config.JWTConfig,
-		&app.config.ComponentsAPIConfig,
-	)
-
 	return nil
 }
