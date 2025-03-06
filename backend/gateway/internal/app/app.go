@@ -60,10 +60,13 @@ func (app *App) initConfigs() error {
 		return err
 	}
 
-	err = config_loader.Load(configs.ConfigPath, &app.config)
+	cfg := configs.Config{}
+	err = config_loader.Load(configs.ConfigPath, &cfg)
 	if err != nil {
-		return err
+		return fmt.Errorf("initConfigs: %w", err)
 	}
+
+	app.config = &cfg
 
 	fmt.Println("server config: ", app.config)
 

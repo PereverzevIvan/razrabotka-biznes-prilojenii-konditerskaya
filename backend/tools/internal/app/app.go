@@ -43,6 +43,7 @@ func (app *App) initDependencies() error {
 		app.initConfigs,
 		app.initStorage,
 		app.initRoutes,
+		app.initHandlers,
 	}
 
 	for _, init := range inits {
@@ -60,10 +61,13 @@ func (app *App) initConfigs() error {
 		return err
 	}
 
-	err = config_loader.Load(configs.ConfigPath, &app.config)
+	cfg := configs.Config{}
+	err = config_loader.Load(configs.ConfigPath, &cfg)
 	if err != nil {
 		return err
 	}
+
+	app.config = &cfg
 
 	log.Info("server config: ", app.config)
 

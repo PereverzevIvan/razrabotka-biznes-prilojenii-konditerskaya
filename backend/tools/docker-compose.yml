@@ -1,9 +1,10 @@
 services:
   golang:
-    image: golang:1.22.7
+    image: golang:1.23.6
     build: .
     container_name: golang_tools # Название контейнера
-    # ports:
+    ports:
+      - "50041:50041"  # Пробрасываем порт наружу
     #   - ":3000"  # Пробрасываем порт наружу
     volumes:
       - .:/app  # Примонтируем текущую директорию внутрь контейнера
