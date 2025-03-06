@@ -8,7 +8,7 @@ import (
 )
 
 func GetComponentCategory(
-	componentCategoryService controllers.IComponentCategoryService,
+	componentCategoryService controllers.IComponentCategoryUsecase,
 	ctx fiber.Ctx,
 ) *models.ComponentCategory {
 	category_name := ctx.Params("category_name")
