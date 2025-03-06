@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package test;
+
+option go_package = "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/test;test";
+
+import "google/api/annotations.proto";
+
+
+// Example service for managing users
+service TestService {
+  rpc Get(TestGetRequest) returns (TestGetResponse) {
+    option (google.api.http) = {
+      get: "/api/test"
+    };
+  }
+}
+
+message TestGetRequest {}
+message TestGetResponse {
+  string ans = 1;
+}

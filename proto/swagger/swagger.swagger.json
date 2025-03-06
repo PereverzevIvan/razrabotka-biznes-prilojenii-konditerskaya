@@ -1,10 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "api/tool_type/models.proto",
+    "title": "api/test/service.proto",
     "version": "version not set"
   },
   "tags": [
+    {
+      "name": "TestService"
+    },
     {
       "name": "ToolTypeService"
     }
@@ -16,6 +19,28 @@
     "application/json"
   ],
   "paths": {
+    "/api/test": {
+      "get": {
+        "operationId": "TestService_Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/testTestGetResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "TestService"
+        ]
+      }
+    },
     "/api/tool-types": {
       "get": {
         "operationId": "ToolTypeService_GetAll",
@@ -65,6 +90,14 @@
             "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
+        }
+      }
+    },
+    "testTestGetResponse": {
+      "type": "object",
+      "properties": {
+        "ans": {
+          "type": "string"
         }
       }
     },
