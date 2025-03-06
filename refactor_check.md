@@ -41,7 +41,7 @@ internal
 2. services/example -> domain/example/usecase
     + необходимые **интерфейсы** из `services/interfaces.go`
 3. repos/mysql/example -> domain/example/repo/mysql
-4. models/params -> domain/
+4. models/params/example -> domain/example/params
 
 ## Нейминг
 
