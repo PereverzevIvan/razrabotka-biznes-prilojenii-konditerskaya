@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package tool_type;
+
+option go_package = "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool_type;tool_type";
+
+import "google/api/annotations.proto";
+import "api/tool_type/models.proto";
+
+// Example service for managing users
+service ToolTypeService {
+  rpc GetAll(ToolTypeGetAllRequest) returns (ToolTypeGetAllResponse) {
+    option (google.api.http) = {
+      get: "/api/tool-types"
+    };
+  }
+}
+
+message ToolTypeGetAllRequest {}
+message ToolTypeGetAllResponse {
+  repeated ToolType tool_type = 1;
+}

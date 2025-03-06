@@ -1,0 +1,11 @@
+
+services:
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: proto-swagger-ui
+    ports:
+      - "8084:8080"
+    volumes:
+      - ./swagger:/usr/share/nginx/html/swagger
+    environment:
+      API_URL: swagger/swagger.swagger.json

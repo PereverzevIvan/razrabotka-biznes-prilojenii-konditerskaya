@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package tool_type;
+
+option go_package = "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool_type;tool_type";
+
+message ToolType {
+	int32    id = 1;
+	string name = 2;
+}
