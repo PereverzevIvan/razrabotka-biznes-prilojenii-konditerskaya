@@ -8,6 +8,7 @@ services:
     #   - ":3000"  # Пробрасываем порт наружу
     volumes:
       - .:/app  # Примонтируем текущую директорию внутрь контейнера
+      - ../../proto:/proto
     working_dir: /app
     command: "make dev"
     restart: on-failure
