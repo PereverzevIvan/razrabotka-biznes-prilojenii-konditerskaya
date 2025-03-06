@@ -1,14 +1,17 @@
 package controllers_utils
 
 import (
-	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/controllers"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models"
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/log"
 )
 
+type IComponentCategoryUsecase interface {
+	GetByName(name string) (*models.ComponentCategory, error)
+}
+
 func GetComponentCategory(
-	componentCategoryService controllers.IComponentCategoryUsecase,
+	componentCategoryService IComponentCategoryUsecase,
 	ctx fiber.Ctx,
 ) *models.ComponentCategory {
 	category_name := ctx.Params("category_name")

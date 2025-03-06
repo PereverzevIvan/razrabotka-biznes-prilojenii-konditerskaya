@@ -3,7 +3,6 @@ package product_controller
 import (
 	"mime/multipart"
 
-	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/controllers"
 	product_deps "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/domains/product/deps"
 	product_params "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/domains/product/params"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models"
@@ -37,7 +36,7 @@ type IProductUsecase interface {
 }
 
 type productController struct {
-	productUsecase controllers.IProductUsecase
+	productUsecase IProductUsecase
 }
 
 func AddRoutes(

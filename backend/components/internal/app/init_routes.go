@@ -11,7 +11,6 @@ import (
 type AddRouteFn func(fiber.Router, *storage.Storage)
 
 func (app *App) initRoutes() error {
-	// api
 	api := app.fiberApp.Group("/api")
 
 	addRoutes := []AddRouteFn{
@@ -25,21 +24,5 @@ func (app *App) initRoutes() error {
 		addRoutesFn(api, app.Storage)
 	}
 
-	// controllers_component_type.AddComponentTypeControllerRoutes(
-	// 	api,
-	// 	app.serviceProvider.ComponentCategoryService(),
-	// 	app.serviceProvider.ComponentTypeService(),
-	// )
-
-	// controllers_purchased_component.AddPurchasedComponentControllerRoutes(
-	// 	api,
-	// 	app.serviceProvider.ComponentCategoryService(),
-	// 	app.serviceProvider.PurchasedComponentService(),
-	// )
-
-	// controllers_product.AddProductControllerRoutes(
-	// 	api,
-	// 	app.serviceProvider.ProductService(),
-	// )
 	return nil
 }
