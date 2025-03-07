@@ -11,6 +11,7 @@ import (
 
 type IToolTypeUsecase interface {
 	GetAll() ([]models.ToolType, error)
+	GetByID(id int) (*models.ToolType, error)
 }
 
 type ToolTypeHandler struct {

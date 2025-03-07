@@ -6,6 +6,7 @@ import (
 
 type IToolTypeRepo interface {
 	GetAll() ([]models.ToolType, error)
+	GetByID(id int) (*models.ToolType, error)
 }
 
 type ToolTypeUsecase struct {

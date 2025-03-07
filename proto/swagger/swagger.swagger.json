@@ -1,13 +1,10 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "api/aboba/service.proto",
+    "title": "api/tool_type/models.proto",
     "version": "version not set"
   },
   "tags": [
-    {
-      "name": "AbobaService"
-    },
     {
       "name": "ToolTypeService"
     }
@@ -19,28 +16,6 @@
     "application/json"
   ],
   "paths": {
-    "/api/aboba": {
-      "get": {
-        "operationId": "AbobaService_Get",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/abobaAbobaGetResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "AbobaService"
-        ]
-      }
-    },
     "/api/tool-types": {
       "get": {
         "operationId": "ToolTypeService_GetAll",
@@ -62,17 +37,40 @@
           "ToolTypeService"
         ]
       }
+    },
+    "/api/tool-types/{id}": {
+      "get": {
+        "operationId": "ToolTypeService_GetByID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tool_typeToolTypeGetByIDResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "ToolTypeService"
+        ]
+      }
     }
   },
   "definitions": {
-    "abobaAbobaGetResponse": {
-      "type": "object",
-      "properties": {
-        "ans": {
-          "type": "string"
-        }
-      }
-    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -122,6 +120,14 @@
             "type": "object",
             "$ref": "#/definitions/tool_typeToolType"
           }
+        }
+      }
+    },
+    "tool_typeToolTypeGetByIDResponse": {
+      "type": "object",
+      "properties": {
+        "toolType": {
+          "$ref": "#/definitions/tool_typeToolType"
         }
       }
     }
