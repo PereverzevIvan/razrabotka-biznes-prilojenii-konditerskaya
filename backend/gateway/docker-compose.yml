@@ -1,12 +1,15 @@
 services:
   golang:
-    image: golang:1.22.7
+    image: golang:1.23.6
     build: .
     # container_name: golang_gateway # Название контейнера
     ports:
       - "3000:3000"  # Пробрасываем порт наружу
+      - "8081:8081"  # Пробрасываем порт наружу
     volumes:
       - .:/app  # Примонтируем текущую директорию внутрь контейнера
+      - ../../proto:/proto
+      - $GOPATH/pkg/mod:/go/pkg/mod
     working_dir: /app
     command: "make dev"
     restart: on-failure

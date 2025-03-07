@@ -3,11 +3,13 @@ module github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/back
 go 1.23.6
 
 require (
-	github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto v1.0.0
+	github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto v0.0.0
 	github.com/gofiber/fiber/v3 v3.0.0-beta.3
 	google.golang.org/grpc v1.71.0
 	gorm.io/gorm v1.25.12
 )
+
+replace github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto => ../../proto
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect

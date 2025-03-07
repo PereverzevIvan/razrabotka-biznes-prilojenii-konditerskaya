@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ToolTypeService_GetAll_FullMethodName = "/tool_type.ToolTypeService/GetAll"
+	ToolTypeService_GetAll_FullMethodName  = "/tool_type.ToolTypeService/GetAll"
+	ToolTypeService_GetByID_FullMethodName = "/tool_type.ToolTypeService/GetByID"
 )
 
 // ToolTypeServiceClient is the client API for ToolTypeService service.
@@ -29,6 +30,7 @@ const (
 // Example service for managing users
 type ToolTypeServiceClient interface {
 	GetAll(ctx context.Context, in *ToolTypeGetAllRequest, opts ...grpc.CallOption) (*ToolTypeGetAllResponse, error)
+	GetByID(ctx context.Context, in *ToolTypeGetByIDRequest, opts ...grpc.CallOption) (*ToolTypeGetByIDResponse, error)
 }
 
 type toolTypeServiceClient struct {
@@ -49,6 +51,16 @@ func (c *toolTypeServiceClient) GetAll(ctx context.Context, in *ToolTypeGetAllRe
 	return out, nil
 }
 
+func (c *toolTypeServiceClient) GetByID(ctx context.Context, in *ToolTypeGetByIDRequest, opts ...grpc.CallOption) (*ToolTypeGetByIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ToolTypeGetByIDResponse)
+	err := c.cc.Invoke(ctx, ToolTypeService_GetByID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ToolTypeServiceServer is the server API for ToolTypeService service.
 // All implementations must embed UnimplementedToolTypeServiceServer
 // for forward compatibility.
@@ -56,6 +68,7 @@ func (c *toolTypeServiceClient) GetAll(ctx context.Context, in *ToolTypeGetAllRe
 // Example service for managing users
 type ToolTypeServiceServer interface {
 	GetAll(context.Context, *ToolTypeGetAllRequest) (*ToolTypeGetAllResponse, error)
+	GetByID(context.Context, *ToolTypeGetByIDRequest) (*ToolTypeGetByIDResponse, error)
 	mustEmbedUnimplementedToolTypeServiceServer()
 }
 
@@ -68,6 +81,9 @@ type UnimplementedToolTypeServiceServer struct{}
 
 func (UnimplementedToolTypeServiceServer) GetAll(context.Context, *ToolTypeGetAllRequest) (*ToolTypeGetAllResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
+}
+func (UnimplementedToolTypeServiceServer) GetByID(context.Context, *ToolTypeGetByIDRequest) (*ToolTypeGetByIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByID not implemented")
 }
 func (UnimplementedToolTypeServiceServer) mustEmbedUnimplementedToolTypeServiceServer() {}
 func (UnimplementedToolTypeServiceServer) testEmbeddedByValue()                         {}
@@ -108,6 +124,24 @@ func _ToolTypeService_GetAll_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ToolTypeService_GetByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ToolTypeGetByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ToolTypeServiceServer).GetByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ToolTypeService_GetByID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ToolTypeServiceServer).GetByID(ctx, req.(*ToolTypeGetByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ToolTypeService_ServiceDesc is the grpc.ServiceDesc for ToolTypeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -118,6 +152,10 @@ var ToolTypeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAll",
 			Handler:    _ToolTypeService_GetAll_Handler,
+		},
+		{
+			MethodName: "GetByID",
+			Handler:    _ToolTypeService_GetByID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

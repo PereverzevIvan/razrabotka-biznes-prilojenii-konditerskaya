@@ -1,6 +1,10 @@
 package tool_failure_params
 
-import "time"
+import (
+	"time"
+
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool_failure"
+)
 
 type AddFixedAtParams struct {
 	ToolFailureID int        `json:"tool_failure_id"`
@@ -19,4 +23,15 @@ func (p *AddFixedAtParams) Validate() []string {
 	}
 
 	return errs
+}
+
+func AddFixedAddParamsFromGRPC(req *tool_failure.ToolFailureAddFixedAtRequest) *AddFixedAtParams {
+	params := &AddFixedAtParams{
+		ToolFailureID: int(req.ToolFailureId),
+	}
+	if req.FixedAt != nil {
+		fixedAt := req.FixedAt.AsTime()
+		params.FixedAt = &fixedAt
+	}
+	return params
 }

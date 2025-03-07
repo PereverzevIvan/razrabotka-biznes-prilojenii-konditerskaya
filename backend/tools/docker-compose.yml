@@ -9,6 +9,7 @@ services:
     volumes:
       - .:/app  # Примонтируем текущую директорию внутрь контейнера
       - ../../proto:/proto
+      - $GOPATH/pkg/mod:/go/pkg/mod
     working_dir: /app
     command: "make dev"
     restart: on-failure

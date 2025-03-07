@@ -2,17 +2,16 @@ package tool_type_handler
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool_type"
+
 	"github.com/gofiber/fiber/v3/log"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
 func (h *ToolTypeHandler) GetAll(ctx context.Context, req *tool_type.ToolTypeGetAllRequest) (*tool_type.ToolTypeGetAllResponse, error) {
-	fmt.Println("aboba")
 
 	tool_types, err := h.toolTypeUsecase.GetAll()
 	if err != nil {

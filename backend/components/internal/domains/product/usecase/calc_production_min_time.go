@@ -2,6 +2,7 @@ package product_usecase
 
 import (
 	"container/heap"
+	"context"
 	"fmt"
 
 	tool_params "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/domains/tool/params"
@@ -119,7 +120,7 @@ maxHeap по времени создания полуфабриката
 Для задачи на создание полуфабрикатов нужно:
 -
 */
-func (u *ProductUsecase) CalcProductionMinTime(product *models.Product) (
+func (u *ProductUsecase) CalcProductionMinTime(ctx context.Context, product *models.Product) (
 	work_intervals_by_tool map[int][]models.ToolWorkInterval,
 	err error,
 ) {
@@ -128,7 +129,7 @@ func (u *ProductUsecase) CalcProductionMinTime(product *models.Product) (
 	required_tool_types := initRequiredToolTypes(product)
 
 	// ключ - tool_type_id, значение - все исправные инструменты
-	tools_by_tool_type, err := u.initToolsByToolType(required_tool_types)
+	tools_by_tool_type, err := u.initToolsByToolType(ctx, required_tool_types)
 	if err != nil {
 		return nil, err
 	}
@@ -312,13 +313,14 @@ func initRequiredToolTypes(main_product *models.Product) map[int]bool {
 	return required_tool_types
 }
 
-func (service *ProductUsecase) initToolsByToolType(required_tool_types map[int]bool) (map[int][]models.Tool, error) {
+func (service *ProductUsecase) initToolsByToolType(ctx context.Context, required_tool_types map[int]bool) (map[int][]models.Tool, error) {
 
 	tool_type_tools_map := make(map[int][]models.Tool)
 
 	for tool_type_id := range required_tool_types {
 
 		tools, err := service.toolRepo.GetAll(
+			ctx,
 			&tool_params.GetAllParams{
 				ToolTypeID:      tool_type_id,
 				OnlyServiceable: true,

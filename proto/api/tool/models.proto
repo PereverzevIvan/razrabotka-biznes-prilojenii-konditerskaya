@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package tool;
+
+option go_package = "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool;tool";
+
+import "api/tool_type/models.proto";
+import "google/protobuf/timestamp.proto";
+
+message Tool {
+    int32 id = 1;
+
+    int32 tool_type_id = 2;
+    tool_type.ToolType tool_type = 3;
+
+    int32 supplier_id = 4;
+    reserved 5;
+
+    int32 degree_of_wear_id = 6;
+    optional DegreeOfWear degree_of_wear = 7;
+
+    string  name = 8;
+    optional string description = 9;
+
+    google.protobuf.Timestamp purchase_date = 10;
+}
+
+
+message DegreeOfWear {
+	int32 id = 1;
+	string name = 2;
+}

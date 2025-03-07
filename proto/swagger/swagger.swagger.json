@@ -1,12 +1,15 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "api/test/service.proto",
+    "title": "api/tool/models.proto",
     "version": "version not set"
   },
   "tags": [
     {
-      "name": "TestService"
+      "name": "ToolService"
+    },
+    {
+      "name": "ToolFailureService"
     },
     {
       "name": "ToolTypeService"
@@ -19,14 +22,139 @@
     "application/json"
   ],
   "paths": {
-    "/api/test": {
+    "/api/tool": {
       "get": {
-        "operationId": "TestService_Get",
+        "operationId": "ToolService_GetAll",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/testTestGetResponse"
+              "$ref": "#/definitions/toolToolGetAllResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "toolType",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "degreeOfWear",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "supplierId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "onlyServiceable",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ToolService"
+        ]
+      },
+      "post": {
+        "operationId": "ToolService_Add",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/toolToolAddResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "toolType",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "degreeOfWear",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "supplierId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "purchaseDate",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "ToolService"
+        ]
+      }
+    },
+    "/api/tool-faillures": {
+      "get": {
+        "operationId": "ToolFailureService_GetAll",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tool_failureToolFailureGetAllResponse"
             }
           },
           "default": {
@@ -37,7 +165,123 @@
           }
         },
         "tags": [
-          "TestService"
+          "ToolFailureService"
+        ]
+      },
+      "post": {
+        "operationId": "ToolFailureService_Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tool_failureToolFailureCreateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "toolId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "masterId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "reason",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "reasonId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "failureAt",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "ToolFailureService"
+        ]
+      }
+    },
+    "/api/tool-faillures/add-fixed-at": {
+      "post": {
+        "operationId": "ToolFailureService_AddFixedAt",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tool_failureToolFailureAddFixedAtResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "toolFailureId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "fixedAt",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "ToolFailureService"
+        ]
+      }
+    },
+    "/api/tool-faillures/reasons": {
+      "get": {
+        "operationId": "ToolFailureService_GetAllReasons",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tool_failureToolFailureGetAllReasonsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "ToolFailureService"
         ]
       }
     },
@@ -60,6 +304,166 @@
         },
         "tags": [
           "ToolTypeService"
+        ]
+      }
+    },
+    "/api/tool-types/{id}": {
+      "get": {
+        "operationId": "ToolTypeService_GetByID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tool_typeToolTypeGetByIDResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "ToolTypeService"
+        ]
+      }
+    },
+    "/api/tool/{id}": {
+      "get": {
+        "operationId": "ToolService_GetByID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/toolToolGetByIDResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "ToolService"
+        ]
+      },
+      "delete": {
+        "operationId": "ToolService_Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/toolToolDeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "ToolService"
+        ]
+      },
+      "patch": {
+        "operationId": "ToolService_Edit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/toolToolEditResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "toolType",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "degreeOfWear",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "supplierId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "purchaseDate",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "ToolService"
         ]
       }
     }
@@ -93,10 +497,169 @@
         }
       }
     },
-    "testTestGetResponse": {
+    "toolDegreeOfWear": {
       "type": "object",
       "properties": {
-        "ans": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "toolTool": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "toolTypeId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "toolType": {
+          "$ref": "#/definitions/tool_typeToolType"
+        },
+        "supplierId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "degreeOfWearId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "degreeOfWear": {
+          "$ref": "#/definitions/toolDegreeOfWear"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "purchaseDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "toolToolAddResponse": {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "$ref": "#/definitions/toolTool"
+        }
+      }
+    },
+    "toolToolDeleteResponse": {
+      "type": "object"
+    },
+    "toolToolEditResponse": {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "$ref": "#/definitions/toolTool"
+        }
+      }
+    },
+    "toolToolGetAllResponse": {
+      "type": "object",
+      "properties": {
+        "tools": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/toolTool"
+          }
+        }
+      }
+    },
+    "toolToolGetByIDResponse": {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "$ref": "#/definitions/toolTool"
+        }
+      }
+    },
+    "tool_failureToolFailure": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "toolId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "masterId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "failureReasonId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "failureReason": {
+          "$ref": "#/definitions/tool_failureToolFailureReason"
+        },
+        "failureAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fixedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "tool_failureToolFailureAddFixedAtResponse": {
+      "type": "object"
+    },
+    "tool_failureToolFailureCreateResponse": {
+      "type": "object",
+      "properties": {
+        "toolFailure": {
+          "$ref": "#/definitions/tool_failureToolFailure"
+        }
+      }
+    },
+    "tool_failureToolFailureGetAllReasonsResponse": {
+      "type": "object",
+      "properties": {
+        "toolFailureReasons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/tool_failureToolFailureReason"
+          }
+        }
+      }
+    },
+    "tool_failureToolFailureGetAllResponse": {
+      "type": "object",
+      "properties": {
+        "toolFailures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/tool_failureToolFailure"
+          }
+        }
+      }
+    },
+    "tool_failureToolFailureReason": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
           "type": "string"
         }
       }
@@ -122,6 +685,14 @@
             "type": "object",
             "$ref": "#/definitions/tool_typeToolType"
           }
+        }
+      }
+    },
+    "tool_typeToolTypeGetByIDResponse": {
+      "type": "object",
+      "properties": {
+        "toolType": {
+          "$ref": "#/definitions/tool_typeToolType"
         }
       }
     }

@@ -13,7 +13,7 @@ func (c *productController) GetByID(ctx fiber.Ctx) error {
 		return ctx.Status(fiber.StatusBadRequest).SendString("invalid product id")
 	}
 
-	product, err := c.productUsecase.GetByIDWithRecipe(product_id)
+	product, err := c.productUsecase.GetByIDWithRecipe(ctx.Context(), product_id)
 	if err != nil {
 		switch err {
 		case logic_errors.ErrCycleDetectedInProductRecipe:

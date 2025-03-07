@@ -6,27 +6,39 @@ import (
 	product_usecase "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/domains/product/usecase"
 	purchased_component_repo_mysql "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/domains/purchased_component/repo/mysql"
 	supplier_component_repo_mysql "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/domains/supplier_component/repo/mysql"
-	tool_repo_mysql "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/domains/tool/repo/mysql"
-	tool_type_repo_mysql "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/domains/tool_type/repo/mysql"
+	tool_repo_grpc "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/domains/tool/repo/grpc"
+	tool_type_repo_grpc "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/domains/tool_type/repo/grpc"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool_type"
 	"gorm.io/gorm"
 )
 
 type Deps struct {
 	db *gorm.DB
 
+	toolClient     tool.ToolServiceClient
+	toolTypeClient tool_type.ToolTypeServiceClient
+
 	componentRepo          *component_repo_mysql.ComponentRepo
 	purchasedComponentRepo *purchased_component_repo_mysql.PurchasedComponentRepo
 	supplierComponentRepo  *supplier_component_repo_mysql.SupplierComponentRepo
-	toolTypeRepo           *tool_type_repo_mysql.ToolTypeRepo
-	toolRepo               *tool_repo_mysql.ToolRepo
+	toolTypeRepo           *tool_type_repo_grpc.ToolTypeRepo
+	toolRepo               *tool_repo_grpc.ToolRepo
 
 	productRepo    *product_repo_mysql.ProductRepo
 	productUsecase *product_usecase.ProductUsecase
 }
 
-func NewDeps(db *gorm.DB) *Deps {
+func NewDeps(
+	db *gorm.DB,
+	toolClient tool.ToolServiceClient,
+	toolTypeClient tool_type.ToolTypeServiceClient,
+) *Deps {
 	return &Deps{
 		db: db,
+
+		toolClient:     toolClient,
+		toolTypeClient: toolTypeClient,
 	}
 }
 
@@ -48,15 +60,15 @@ func (d *Deps) SupplierComponentRepo() *supplier_component_repo_mysql.SupplierCo
 	}
 	return d.supplierComponentRepo
 }
-func (d *Deps) ToolTypeRepo() *tool_type_repo_mysql.ToolTypeRepo {
+func (d *Deps) ToolTypeRepo() *tool_type_repo_grpc.ToolTypeRepo {
 	if d.toolTypeRepo == nil {
-		d.toolTypeRepo = tool_type_repo_mysql.NewToolTypeRepo(d.db)
+		d.toolTypeRepo = tool_type_repo_grpc.NewToolTypeRepo(d.toolTypeClient)
 	}
 	return d.toolTypeRepo
 }
-func (d *Deps) ToolRepo() *tool_repo_mysql.ToolRepo {
+func (d *Deps) ToolRepo() *tool_repo_grpc.ToolRepo {
 	if d.toolRepo == nil {
-		d.toolRepo = tool_repo_mysql.NewToolRepo(d.db)
+		d.toolRepo = tool_repo_grpc.NewToolRepo(d.toolClient)
 	}
 	return d.toolRepo
 }

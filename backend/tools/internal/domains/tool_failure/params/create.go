@@ -1,6 +1,10 @@
 package tool_failure_params
 
-import "time"
+import (
+	"time"
+
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool_failure"
+)
 
 type CreateParams struct {
 	ToolID   int `json:"tool_id"`
@@ -10,6 +14,26 @@ type CreateParams struct {
 	FailureReasonID *int   `json:"reason_id"`
 
 	FailureAt *time.Time `json:"failure_at"`
+}
+
+func CreateParamsFromGRPC(req *tool_failure.ToolFailureCreateRequest) *CreateParams {
+	params := &CreateParams{
+		ToolID: int(req.ToolId),
+
+		FailureReason: req.Reason,
+	}
+
+	if req.ReasonId != nil {
+		reasonId := int(*req.ReasonId)
+		params.FailureReasonID = &reasonId
+	}
+
+	if req.FailureAt != nil {
+		failureAt := req.FailureAt.AsTime()
+		params.FailureAt = &failureAt
+	}
+
+	return params
 }
 
 func (params *CreateParams) Validate() []string {

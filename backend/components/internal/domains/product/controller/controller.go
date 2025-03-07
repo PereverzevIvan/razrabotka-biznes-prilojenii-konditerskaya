@@ -1,6 +1,7 @@
 package product_controller
 
 import (
+	"context"
 	"mime/multipart"
 
 	product_deps "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/domains/product/deps"
@@ -15,7 +16,7 @@ type IProductUsecase interface {
 	Create(params *product_params.CreateParams) (*models.Product, error)
 	Update(params *product_params.UpdateParams) (*models.Product, error)
 	// GetByID(id int) (*models.Product, error)
-	GetByIDWithRecipe(id int) (*models.Product, error)
+	GetByIDWithRecipe(ctx context.Context, id int) (*models.Product, error)
 
 	CountNeededRecipeComponents(id int) (map[int]int, error)
 	MakeProduct(id int) error
@@ -29,7 +30,7 @@ type IProductUsecase interface {
 
 	CalcComponentsMaxDeliveryTime(component_ids []int) (int, error)
 
-	CalcProductionMinTime(product *models.Product) (map[int][]models.ToolWorkInterval, error)
+	CalcProductionMinTime(ctx context.Context, product *models.Product) (map[int][]models.ToolWorkInterval, error)
 
 	SaveImage(ctx fiber.Ctx, id int, image *multipart.FileHeader) (string, error)
 	// GetImage(product_id int) (string, error)
@@ -43,7 +44,7 @@ func AddRoutes(
 	api fiber.Router,
 	storage *storage.Storage,
 ) {
-	deps := product_deps.NewDeps(storage.DB)
+	deps := product_deps.NewDeps(storage.DB, storage.ToolClient, storage.ToolTypeClient)
 
 	controller := productController{
 		productUsecase: deps.ProductUsecase(),

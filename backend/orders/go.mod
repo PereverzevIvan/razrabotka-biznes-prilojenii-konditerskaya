@@ -1,13 +1,16 @@
 module github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/orders
 
-go 1.22.7
+go 1.23.6
 
 require (
 	github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader v0.0.0-20241112163550-b21cd8c22af6
+	github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto v0.0.0
 	github.com/go-sql-driver/mysql v1.8.1
 	github.com/gofiber/fiber/v3 v3.0.0-beta.3
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 )
+
+replace github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto => ../../proto
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect

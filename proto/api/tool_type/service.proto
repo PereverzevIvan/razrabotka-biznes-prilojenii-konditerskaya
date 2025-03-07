@@ -14,9 +14,21 @@ service ToolTypeService {
       get: "/api/tool-types"
     };
   }
+  rpc GetByID(ToolTypeGetByIDRequest) returns (ToolTypeGetByIDResponse) {
+    option (google.api.http) = {
+      get: "/api/tool-types/{id}"
+    };
+  }
 }
 
 message ToolTypeGetAllRequest {}
 message ToolTypeGetAllResponse {
   repeated ToolType tool_type = 1;
+}
+
+message ToolTypeGetByIDRequest {
+  int32 id = 1;
+}
+message ToolTypeGetByIDResponse {
+  ToolType tool_type = 1;
 }

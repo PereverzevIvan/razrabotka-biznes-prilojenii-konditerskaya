@@ -14,7 +14,7 @@ func (c *productController) ProductionMinTime(ctx fiber.Ctx) error {
 		return ctx.Status(fiber.StatusBadRequest).SendString("invalid product id")
 	}
 
-	product, err := c.productUsecase.GetByIDWithRecipe(product_id)
+	product, err := c.productUsecase.GetByIDWithRecipe(ctx.Context(), product_id)
 	if err != nil {
 		log.Error(err)
 		switch err {
@@ -27,7 +27,7 @@ func (c *productController) ProductionMinTime(ctx fiber.Ctx) error {
 		return ctx.SendStatus(fiber.StatusInternalServerError)
 	}
 
-	result, err := c.productUsecase.CalcProductionMinTime(product)
+	result, err := c.productUsecase.CalcProductionMinTime(ctx.Context(), product)
 	if err != nil {
 		log.Error(err)
 		switch {

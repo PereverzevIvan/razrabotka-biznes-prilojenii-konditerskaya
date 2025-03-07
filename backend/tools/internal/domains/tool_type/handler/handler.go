@@ -5,13 +5,13 @@ import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/storage"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool_type"
+
 	"google.golang.org/grpc"
 )
 
-// import
-
 type IToolTypeUsecase interface {
 	GetAll() ([]models.ToolType, error)
+	GetByID(id int) (*models.ToolType, error)
 }
 
 type ToolTypeHandler struct {
@@ -20,7 +20,7 @@ type ToolTypeHandler struct {
 	toolTypeUsecase IToolTypeUsecase
 }
 
-func NewHandler(
+func RegisterHandler(
 	s grpc.ServiceRegistrar,
 	storage *storage.Storage,
 ) {
