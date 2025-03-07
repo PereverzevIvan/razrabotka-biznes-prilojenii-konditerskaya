@@ -1,6 +1,7 @@
 package product_usecase
 
 import (
+	"context"
 	"mime/multipart"
 
 	purchased_component_params "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/domains/purchased_component/params"
@@ -44,11 +45,11 @@ type ISupplierComponentRepo interface {
 }
 
 type IToolTypeRepo interface {
-	GetByID(id int) (*models.ToolType, error)
+	GetByID(ctx context.Context, id int) (*models.ToolType, error)
 }
 
 type IToolRepo interface {
-	GetAll(params *tool_params.GetAllParams) ([]models.Tool, error)
+	GetAll(ctx context.Context, params *tool_params.GetAllParams) ([]models.Tool, error)
 }
 
 type ProductUsecase struct {

@@ -1,11 +1,13 @@
 package product_usecase
 
 import (
+	"context"
+
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/models/logic_errors"
 )
 
-func (u *ProductUsecase) GetByIDWithRecipe(id int) (*models.Product, error) {
+func (u *ProductUsecase) GetByIDWithRecipe(ctx context.Context, id int) (*models.Product, error) {
 	main_product, err := u.productRepo.GetByID(id)
 	if err != nil {
 		return nil, err
@@ -67,7 +69,7 @@ func (u *ProductUsecase) GetByIDWithRecipe(id int) (*models.Product, error) {
 				recipe_operation.ToolType = tool_type
 			} else {
 				// Иначе получаем из БД
-				tool_type, err = u.toolTypeRepo.GetByID(tool_type_id)
+				tool_type, err = u.toolTypeRepo.GetByID(ctx, tool_type_id)
 				if err != nil {
 					return err
 				}

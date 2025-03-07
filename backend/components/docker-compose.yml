@@ -1,6 +1,6 @@
 services:
   golang:
-    image: golang:1.22.7
+    image: golang:1.23.6
     build: .
     container_name: golang_components # Название контейнера
     # ports:

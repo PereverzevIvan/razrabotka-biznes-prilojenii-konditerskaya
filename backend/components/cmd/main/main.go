@@ -4,6 +4,8 @@ import (
 	"log"
 
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components/internal/app"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 // @title Разработка бизнес-приложений - лаба 3
@@ -17,7 +19,13 @@ import (
 // @in cookie
 // @name access_token
 func main() {
-	App, err := app.NewApp()
+	toolConn, err := grpc.NewClient("golang_tools:50041", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer toolConn.Close()
+
+	App, err := app.NewApp(toolConn)
 	if err != nil {
 		log.Fatalln(err)
 		return

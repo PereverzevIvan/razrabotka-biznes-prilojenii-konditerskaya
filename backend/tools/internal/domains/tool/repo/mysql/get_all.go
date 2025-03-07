@@ -44,7 +44,7 @@ func (repo *ToolRepo) scopeGetAllParams(params *tool_params.GetAllParams) func(d
 		}
 
 		if params.ToolType != nil {
-			db = db.Where("tool_type_id = ?", *params.ToolType)
+			db = db.Where("type_id = ?", *params.ToolType)
 		}
 
 		if params.DegreeOfWear != nil {

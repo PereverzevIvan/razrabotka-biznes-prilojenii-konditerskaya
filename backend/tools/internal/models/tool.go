@@ -10,7 +10,7 @@ import (
 type Tool struct {
 	ID int `json:"id" gorm:"Column:id"`
 
-	ToolTypeID int       `json:"tool_type_id" gorm:"Column:tool_type_id"`
+	ToolTypeID int       `json:"tool_type_id" gorm:"Column:type_id"`
 	ToolType   *ToolType `json:"tool_type" gorm:"foreignKey:ToolTypeID"`
 
 	SupplierID int   `json:"supplier_id" gorm:"Column:supplier_id"`

@@ -8,16 +8,21 @@ import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/log"
+	"google.golang.org/grpc"
 )
 
 type App struct {
 	config   *configs.Config
 	Storage  *storage.Storage
 	fiberApp *fiber.App
+
+	toolConn *grpc.ClientConn
 }
 
-func NewApp() (*App, error) {
-	app := &App{}
+func NewApp(toolConn *grpc.ClientConn) (*App, error) {
+	app := &App{
+		toolConn: toolConn,
+	}
 
 	app.fiberApp = fiber.New()
 
@@ -71,7 +76,7 @@ func (app *App) initConfigs() error {
 }
 
 func (app *App) initStorage() error {
-	storage, err := storage.NewStorage(&app.config.DBConfig, &app.config.JWTConfig)
+	storage, err := storage.NewStorage(&app.config.DBConfig, &app.config.JWTConfig, app.toolConn)
 	if err != nil {
 		return err
 	}
