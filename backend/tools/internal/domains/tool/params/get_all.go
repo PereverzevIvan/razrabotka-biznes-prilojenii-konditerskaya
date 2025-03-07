@@ -2,6 +2,7 @@ package tool_params
 
 import (
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool"
 )
 
 type GetAllParams struct {
@@ -13,6 +14,29 @@ type GetAllParams struct {
 	Name         *string               `json:"name"`
 	// PurchaseDateFrom *time.Time            `json:"purchase_date"`
 	// PurchaseDateTo   *time.Time            `json:"purchase_date_to"`
+}
+
+func GetAllParamsFromGRPC(req *tool.ToolGetAllRequest) *GetAllParams {
+	params := &GetAllParams{
+		Sort: (*EGetAllSort)(req.Sort),
+
+		Name: (*string)(req.Name),
+	}
+
+	if req.ToolType != nil {
+		toolType := int(*req.ToolType)
+		params.ToolType = &toolType
+	}
+	if req.DegreeOfWear != nil {
+		degreeOfWear := models.EDegreeOfWear(*req.DegreeOfWear)
+		params.DegreeOfWear = &degreeOfWear
+	}
+	if req.SupplierId != nil {
+		supplierID := int(*req.SupplierId)
+		params.SupplierID = &supplierID
+	}
+
+	return params
 }
 
 type EGetAllSort string

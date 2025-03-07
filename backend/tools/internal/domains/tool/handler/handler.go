@@ -1,11 +1,12 @@
-package tool_controller
+package tool_handler
 
 import (
 	tool_deps "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/domains/tool/deps"
 	tool_params "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/domains/tool/params"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/models"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/storage"
-	"github.com/gofiber/fiber/v3"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool"
+	"google.golang.org/grpc"
 )
 
 type IToolUsecase interface {
@@ -16,25 +17,21 @@ type IToolUsecase interface {
 	Delete(tool_id int) error
 }
 
-type toolController struct {
+type ToolHandler struct {
+	tool.UnimplementedToolServiceServer
 	toolUsecase IToolUsecase
 }
 
-func AddRoutes(
-	api fiber.Router,
+func RegisterHandler(
+	s grpc.ServiceRegistrar,
 	storage *storage.Storage,
 ) {
+
 	deps := tool_deps.NewDeps(storage.DB)
 
-	controller := &toolController{
+	handler := &ToolHandler{
 		toolUsecase: deps.ToolUsecase(),
 	}
 
-	apiTools := api.Group("/tools")
-
-	apiTools.Get("/", controller.GetAll)
-	apiTools.Post("/", controller.Add)
-	apiTools.Get("/:id", controller.GetByID)
-	apiTools.Patch("/:id", controller.Edit)
-	apiTools.Delete("/:id", controller.Delete)
+	tool.RegisterToolServiceServer(s, handler)
 }

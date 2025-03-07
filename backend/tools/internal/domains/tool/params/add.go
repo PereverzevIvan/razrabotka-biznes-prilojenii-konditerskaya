@@ -1,6 +1,10 @@
 package tool_params
 
-import "time"
+import (
+	"time"
+
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool"
+)
 
 type ToolAddParams struct {
 	ToolType       int       `json:"tool_type"`
@@ -29,4 +33,15 @@ func (params *ToolAddParams) Validate() []string {
 		errors = append(errors, "purchase_date is required")
 	}
 	return errors
+}
+
+func ToolAddParamsFromGRPC(req *tool.ToolAddRequest) *ToolAddParams {
+	return &ToolAddParams{
+		ToolType:       int(req.ToolType),
+		DegreeOfWearID: int(req.DegreeOfWear),
+		SupplierID:     int(req.SupplierId),
+		Name:           req.Name,
+		Description:    req.Description,
+		PurchaseDate:   req.PurchaseDate.AsTime(),
+	}
 }

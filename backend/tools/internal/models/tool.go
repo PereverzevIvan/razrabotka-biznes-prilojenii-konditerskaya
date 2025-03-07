@@ -1,6 +1,11 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool"
+	"google.golang.org/protobuf/types/known/timestamppb"
+)
 
 type Tool struct {
 	ID int `json:"id" gorm:"Column:id"`
@@ -22,4 +27,19 @@ type Tool struct {
 
 func (Tool) TableName() string {
 	return "tools"
+}
+
+func ToolToGRPC(model *Tool) *tool.Tool {
+	return &tool.Tool{
+		Id:         int32(model.ID),
+		ToolTypeId: int32(model.ToolTypeID),
+		// ToolType:       ToolTypeToGRPC(tool.ToolType),
+		SupplierId: int32(model.SupplierID),
+		// Supplier:       UserToGRPC(tool.Supplier),
+		DegreeOfWearId: int32(model.DegreeOfWearID),
+		// DegreeOfWear:   DegreeOfWearToGRPC(tool.DegreeOfWear),
+		Name:         model.Name,
+		Description:  model.Description,
+		PurchaseDate: timestamppb.New(model.PurchaseDate),
+	}
 }

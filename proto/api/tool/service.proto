@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package tool;
+
+option go_package = "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool;tool";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "api/tool/models.proto";
+
+service ToolService {
+    rpc GetAll(ToolGetAllRequest) returns (ToolGetAllResponse) {
+        option (google.api.http) = {
+            get: "/api/tool"
+        };
+    }
+    rpc GetByID(ToolGetByIDRequest) returns (ToolGetByIDResponse) {
+        option (google.api.http) = {
+            get: "/api/tool/{id}"
+        };
+    }
+    rpc Add(ToolAddRequest) returns (ToolAddResponse) {
+        option (google.api.http) = {
+            post: "/api/tool"
+        };
+    }
+    rpc Edit(ToolEditRequest) returns (ToolEditResponse) {
+        option (google.api.http) = {
+            patch: "/api/tool/{id}"
+        };
+    }
+    rpc Delete(ToolDeleteRequest) returns (ToolDeleteResponse) {
+        option (google.api.http) = {
+            delete: "/api/tool/{id}"
+        };
+    }
+}
+
+message ToolGetAllRequest {
+    optional string sort = 1;
+    optional int32 tool_type = 2;
+    optional int32 degree_of_wear = 3;
+    optional int32 supplier_id = 4;
+    optional string name = 5;
+}
+message ToolGetAllResponse {
+    repeated Tool tools = 1; 
+}
+
+message ToolGetByIDRequest {
+    int32 id = 1;
+}
+message ToolGetByIDResponse {
+    Tool tool = 1;
+}
+
+message ToolAddRequest {
+    int32 tool_type = 1;
+    int32 degree_of_wear = 2;
+    int32 supplier_id = 3;
+    string name = 4;
+    optional string description = 5;
+    google.protobuf.Timestamp purchase_date = 6;
+}
+message ToolAddResponse {
+    Tool tool = 1;
+}
+
+message ToolEditRequest {
+    int32 id = 1;
+    optional int32 tool_type = 2;
+    optional int32 degree_of_wear = 3;
+    optional int32 supplier_id = 4;
+    optional string name = 5;
+    optional string description = 6;
+    optional google.protobuf.Timestamp purchase_date = 7;
+}
+message ToolEditResponse {
+    Tool tool = 1;
+}
+
+message ToolDeleteRequest {
+    int32 id = 1;
+}
+message ToolDeleteResponse {}
