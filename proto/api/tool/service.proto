@@ -42,6 +42,7 @@ message ToolGetAllRequest {
     optional int32 degree_of_wear = 3;
     optional int32 supplier_id = 4;
     optional string name = 5;
+    optional bool only_serviceable = 6;
 }
 message ToolGetAllResponse {
     repeated Tool tools = 1; 

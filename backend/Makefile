@@ -1,4 +1,3 @@
-# SERVICES := gateway hello tools components orders
 SERVICES := gateway tools components orders
 
 up:
@@ -16,5 +15,3 @@ down:
 		(cd $$service && make down); \
 	done
 
-test:
-	echo "hello"

@@ -8,10 +8,11 @@ import (
 type GetAllParams struct {
 	Sort *EGetAllSort `json:"sort"`
 
-	ToolType     *int                  `json:"tool_type"`
-	DegreeOfWear *models.EDegreeOfWear `json:"degree_of_wear"`
-	SupplierID   *int                  `json:"supplier_id"`
-	Name         *string               `json:"name"`
+	ToolType        *int                  `json:"tool_type"`
+	DegreeOfWear    *models.EDegreeOfWear `json:"degree_of_wear"`
+	SupplierID      *int                  `json:"supplier_id"`
+	Name            *string               `json:"name"`
+	OnlyServiceable bool                  `json:"only_serviceable"`
 	// PurchaseDateFrom *time.Time            `json:"purchase_date"`
 	// PurchaseDateTo   *time.Time            `json:"purchase_date_to"`
 }
@@ -34,6 +35,9 @@ func GetAllParamsFromGRPC(req *tool.ToolGetAllRequest) *GetAllParams {
 	if req.SupplierId != nil {
 		supplierID := int(*req.SupplierId)
 		params.SupplierID = &supplierID
+	}
+	if req.OnlyServiceable != nil {
+		params.OnlyServiceable = *req.OnlyServiceable
 	}
 
 	return params

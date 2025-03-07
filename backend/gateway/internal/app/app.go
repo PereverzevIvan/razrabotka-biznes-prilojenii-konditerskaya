@@ -1,22 +1,29 @@
 package app
 
 import (
+	"context"
 	"fmt"
+	"net/http"
 
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/configs"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/pkg/config_loader"
 	"github.com/gofiber/fiber/v3"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 )
 
 type App struct {
+	ctx             context.Context
 	config          *configs.Config
 	Storage         *Storage
 	serviceProvider *ServiceProvider
 	fiberApp        *fiber.App
+	mux             *runtime.ServeMux
 }
 
-func NewApp() (*App, error) {
-	app := &App{}
+func NewApp(ctx context.Context) (*App, error) {
+	app := &App{
+		ctx: ctx,
+	}
 
 	app.fiberApp = fiber.New()
 
@@ -29,9 +36,22 @@ func NewApp() (*App, error) {
 }
 
 func (app *App) Run() error {
-	err := app.fiberApp.Listen(fmt.Sprintf(":%d", app.config.ServerConfig.Port))
-	if err != nil {
-		return err
+
+	wg := make(chan error, 2)
+	go func() {
+		// Start HTTP server (and proxy calls to gRPC server endpoint)
+		wg <- http.ListenAndServe(":8081", app.mux)
+	}()
+	go func() {
+		// Start HTTP fiber gateway
+		wg <- app.fiberApp.Listen(fmt.Sprintf(":%d", app.config.ServerConfig.Port))
+	}()
+
+	for i := 0; i < 2; i++ {
+		err := <-wg
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -43,6 +63,7 @@ func (app *App) initDependencies() error {
 		app.initStorage,
 		app.initServiceProvider,
 		app.initControllers,
+		app.initGrpcGateway,
 	}
 
 	for _, init := range inits {

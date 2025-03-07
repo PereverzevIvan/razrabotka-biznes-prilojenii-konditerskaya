@@ -26,6 +26,16 @@ func (r *ToolRepo) GetAll(params *tool_params.GetAllParams) ([]models.Tool, erro
 	return tools, nil
 }
 
+func scopeGetAllParams(params *tool_params.GetAllParams) func(db *gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		if params == nil {
+			return db
+		}
+
+		return db
+	}
+}
+
 func (repo *ToolRepo) scopeGetAllParams(params *tool_params.GetAllParams) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
 
@@ -43,6 +53,14 @@ func (repo *ToolRepo) scopeGetAllParams(params *tool_params.GetAllParams) func(d
 
 		if params.SupplierID != nil {
 			db = db.Where("supplier_id = ?", *params.SupplierID)
+		}
+
+		if params.OnlyServiceable {
+			db = db.Where(
+				"degree_of_wear_id = ? OR degree_of_wear_id = ?",
+				models.KDegreeOfWearNew,
+				models.KDegreeOfWearWornOut,
+			)
 		}
 
 		if params.Sort != nil {

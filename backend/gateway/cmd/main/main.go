@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/gateway/internal/app"
@@ -18,7 +19,11 @@ import (
 // @in cookie
 // @name access_token
 func main() {
-	App, err := app.NewApp()
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	App, err := app.NewApp(ctx)
 	if err != nil {
 		log.Fatalln(err)
 		return
