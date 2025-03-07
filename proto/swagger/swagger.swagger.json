@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "api/test/service.proto",
+    "title": "api/aboba/service.proto",
     "version": "version not set"
   },
   "tags": [
     {
-      "name": "TestService"
+      "name": "AbobaService"
     },
     {
       "name": "ToolTypeService"
@@ -19,14 +19,14 @@
     "application/json"
   ],
   "paths": {
-    "/api/test": {
+    "/api/aboba": {
       "get": {
-        "operationId": "TestService_Get",
+        "operationId": "AbobaService_Get",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/testTestGetResponse"
+              "$ref": "#/definitions/abobaAbobaGetResponse"
             }
           },
           "default": {
@@ -37,7 +37,7 @@
           }
         },
         "tags": [
-          "TestService"
+          "AbobaService"
         ]
       }
     },
@@ -65,6 +65,14 @@
     }
   },
   "definitions": {
+    "abobaAbobaGetResponse": {
+      "type": "object",
+      "properties": {
+        "ans": {
+          "type": "string"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -90,14 +98,6 @@
             "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
-        }
-      }
-    },
-    "testTestGetResponse": {
-      "type": "object",
-      "properties": {
-        "ans": {
-          "type": "string"
         }
       }
     },

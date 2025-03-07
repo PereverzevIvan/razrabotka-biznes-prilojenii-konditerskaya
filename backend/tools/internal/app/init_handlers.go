@@ -5,8 +5,11 @@ import (
 	"net"
 
 	tool_type_handler "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/domains/tool_type/handler"
+	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/storage"
 	"google.golang.org/grpc"
 )
+
+type RegisterHandlerFn func(grpc.ServiceRegistrar, *storage.Storage)
 
 func (app *App) initHandlers() error {
 	lis, err := net.Listen("tcp", "0.0.0.0:50041")
@@ -16,8 +19,15 @@ func (app *App) initHandlers() error {
 
 	srv := grpc.NewServer()
 
-	tool_type_handler.NewHandler(srv, app.Storage)
+	registerHandlerFns := []RegisterHandlerFn{
+		tool_type_handler.RegisterHandler,
+	}
 
+	for _, fn := range registerHandlerFns {
+		fn(srv, app.Storage)
+	}
+
+	// TODO: вынести в runApp и запускать в goroutine
 	if err := srv.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	} else {

@@ -1,8 +1,13 @@
 module github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/components
 
-go 1.22.7
+go 1.23.6
 
-require github.com/gofiber/fiber/v3 v3.0.0-beta.3
+require (
+	github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto v0.0.0
+	github.com/gofiber/fiber/v3 v3.0.0-beta.3
+)
+
+replace github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto => ../../proto
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
