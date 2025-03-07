@@ -146,31 +146,14 @@
     │   ├── app
     │   ├── controllers
     │   ├── domains
-    │   │   ├── jwt
-    │   │   │   └── service
-    │   │   ├── tool
-    │   │   │   ├── controller
-    │   │   │   ├── deps
-    │   │   │   ├── params
-    │   │   │   ├── repo
-    │   │   │   │   └── mysql
-    │   │   │   └── usecase
-    │   │   ├── tool_failure
-    │   │   │   ├── controller
-    │   │   │   ├── deps
-    │   │   │   ├── params
-    │   │   │   ├── repo
-    │   │   │   │   └── mysql
-    │   │   │   └── usecase
-    │   │   └── tool_type
-    │   │       ├── controller
-    │   │       ├── deps
-    │   │       ├── repo
-    │   │       │   └── mysql
-    │   │       └── usecase
-    │   ├── models
-    │   └── services
-    │       └── jwt_service
+    │   │   └── tool
+    │   │       ├── controller
+    │   │       ├── deps
+    │   │       ├── params
+    │   │       ├── repo
+    │   │       │   └── mysql
+    │   │       └── usecase
+    │   └── models
     └── storage
 
 ./proto
