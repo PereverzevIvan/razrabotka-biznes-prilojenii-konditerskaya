@@ -1,10 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "api/tool_type/models.proto",
+    "title": "api/tool_failure/models.proto",
     "version": "version not set"
   },
   "tags": [
+    {
+      "name": "ToolFailureService"
+    },
     {
       "name": "ToolTypeService"
     }
@@ -16,6 +19,144 @@
     "application/json"
   ],
   "paths": {
+    "/api/tool-faillures": {
+      "get": {
+        "operationId": "ToolFailureService_GetAll",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tool_failureToolFailureGetAllResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "ToolFailureService"
+        ]
+      },
+      "post": {
+        "operationId": "ToolFailureService_Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tool_failureToolFailureCreateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "toolId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "masterId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "reason",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "reasonId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "failureAt",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "ToolFailureService"
+        ]
+      }
+    },
+    "/api/tool-faillures/add-fixed-at": {
+      "post": {
+        "operationId": "ToolFailureService_AddFixedAt",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tool_failureToolFailureAddFixedAtResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "toolFailureId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "fixedAt",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "ToolFailureService"
+        ]
+      }
+    },
+    "/api/tool-faillures/reasons": {
+      "get": {
+        "operationId": "ToolFailureService_GetAllReasons",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tool_failureToolFailureGetAllReasonsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "ToolFailureService"
+        ]
+      }
+    },
     "/api/tool-types": {
       "get": {
         "operationId": "ToolTypeService_GetAll",
@@ -96,6 +237,85 @@
             "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
+        }
+      }
+    },
+    "tool_failureToolFailure": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "toolId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "masterId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "failureReasonId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "failureReason": {
+          "$ref": "#/definitions/tool_failureToolFailureReason"
+        },
+        "failureAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fixedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "tool_failureToolFailureAddFixedAtResponse": {
+      "type": "object"
+    },
+    "tool_failureToolFailureCreateResponse": {
+      "type": "object",
+      "properties": {
+        "toolFailure": {
+          "$ref": "#/definitions/tool_failureToolFailure"
+        }
+      }
+    },
+    "tool_failureToolFailureGetAllReasonsResponse": {
+      "type": "object",
+      "properties": {
+        "toolFailureReasons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/tool_failureToolFailureReason"
+          }
+        }
+      }
+    },
+    "tool_failureToolFailureGetAllResponse": {
+      "type": "object",
+      "properties": {
+        "toolFailures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/tool_failureToolFailure"
+          }
+        }
+      }
+    },
+    "tool_failureToolFailureReason": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
         }
       }
     },

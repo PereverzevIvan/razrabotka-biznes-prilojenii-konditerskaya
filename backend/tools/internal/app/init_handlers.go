@@ -4,6 +4,7 @@ import (
 	"log"
 	"net"
 
+	tool_failure_handler "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/domains/tool_failure/handler"
 	tool_type_handler "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/internal/domains/tool_type/handler"
 	"github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/backend/tools/storage"
 	"google.golang.org/grpc"
@@ -21,6 +22,7 @@ func (app *App) initHandlers() error {
 
 	registerHandlerFns := []RegisterHandlerFn{
 		tool_type_handler.RegisterHandler,
+		tool_failure_handler.RegisterHandler,
 	}
 
 	for _, fn := range registerHandlerFns {

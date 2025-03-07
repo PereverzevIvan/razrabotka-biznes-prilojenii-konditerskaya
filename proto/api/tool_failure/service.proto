@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package tool_failure;
+
+option go_package = "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool_failure;tool_failure";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "api/tool_failure/models.proto";
+
+service ToolFailureService {
+    rpc Create(ToolFailureCreateRequest) returns (ToolFailureCreateResponse) {
+        option (google.api.http) = {
+            post: "/api/tool-faillures"
+        };
+    }
+    rpc AddFixedAt(ToolFailureAddFixedAtRequest) returns (ToolFailureAddFixedAtResponse) {
+        option (google.api.http) = {
+            post: "/api/tool-faillures/add-fixed-at"
+        };
+    }
+    rpc GetAll(ToolFailureGetAllRequest) returns (ToolFailureGetAllResponse) {
+        option (google.api.http) = {
+            get: "/api/tool-faillures"
+        };
+    }
+    rpc GetAllReasons(ToolFailureGetAllReasonsRequest) returns (ToolFailureGetAllReasonsResponse) {
+        option (google.api.http) = {
+            get: "/api/tool-faillures/reasons"
+        };
+    }
+}
+
+message ToolFailureCreateRequest {
+    int32 tool_id = 1;
+	int32 master_id = 2;
+
+	string reason = 3;
+	optional int32 reason_id = 4;
+
+	optional google.protobuf.Timestamp failure_at = 5;
+}
+message ToolFailureCreateResponse {
+    ToolFailure tool_failure = 1;
+}
+
+message ToolFailureAddFixedAtRequest {
+    int32 tool_failure_id = 1;
+	optional google.protobuf.Timestamp fixed_at = 2;
+}
+message ToolFailureAddFixedAtResponse {}
+
+message ToolFailureGetAllRequest {}
+message ToolFailureGetAllResponse {
+    repeated ToolFailure tool_failures = 1;
+}
+
+message ToolFailureGetAllReasonsRequest {}
+message ToolFailureGetAllReasonsResponse {
+    repeated ToolFailureReason tool_failure_reasons = 1;
+}
+

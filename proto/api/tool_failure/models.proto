@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package tool_failure;
+
+option go_package = "github.com/PereverzevIvan/razrabotka-biznes-prilojenii-konditerskaya/proto/pkg/api/tool_failure;tool_failure";
+
+import "google/protobuf/timestamp.proto";
+
+message ToolFailure {
+	int32 id = 1;
+
+    int32 tool_id = 2;
+    reserved 3;
+
+    int32 master_id = 4;
+    reserved 5;
+
+    int32 failure_reason_id = 6;
+    optional ToolFailureReason failure_reason = 7;
+
+    google.protobuf.Timestamp failure_at = 8;
+    optional google.protobuf.Timestamp fixed_at = 9;
+}
+
+message ToolFailureReason {
+	int32 id = 1;
+	string name = 2;
+}
